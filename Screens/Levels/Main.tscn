@@ -1,0 +1,193 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Screens/World.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Screens/Levels/Main.gd" type="Script" id=2]
+[ext_resource path="res://Images/Fonts/BRLNSR.TTF" type="DynamicFontData" id=3]
+[ext_resource path="res://Images/Fonts/BebasNeue-Regular.ttf" type="DynamicFontData" id=4]
+[ext_resource path="res://Images/Top bar/Level_shower.png" type="Texture" id=5]
+
+[sub_resource type="DynamicFont" id=1]
+
+size = 50
+use_mipmaps = false
+use_filter = true
+font_data = ExtResource( 3 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[sub_resource type="DynamicFont" id=2]
+
+size = 300
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 4 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[node name="World" instance=ExtResource( 1 )]
+
+script = ExtResource( 2 )
+
+[node name="Label" type="Label" parent="Header" index="0"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 5.0
+margin_top = 139.0
+margin_right = 215.0
+margin_bottom = 250.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "test"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_constants", "custom_fonts" ]
+
+[node name="Label2" type="Label" parent="Header" index="1"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 6.0
+margin_top = 194.0
+margin_right = 216.0
+margin_bottom = 305.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+text = "test"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_fonts" ]
+
+[node name="Infinity" parent="Header" index="2"]
+
+modulate = Color( 0.778309, 0.266667, 0.921569, 1 )
+margin_left = 12.0
+margin_right = 612.0
+
+[node name="Label" parent="Header/Infinity" index="0"]
+
+margin_left = 28.0
+margin_top = 72.0
+margin_right = 711.0
+margin_bottom = 396.0
+rect_scale = Vector2( 0.8, 0.8 )
+_sections_unfolded = [ "Rect", "custom_colors", "custom_fonts", "custom_styles" ]
+
+[node name="Reset" parent="Header" index="3"]
+
+margin_left = 325.0
+margin_top = 7.0
+margin_right = 925.0
+margin_bottom = 407.0
+
+[node name="Label" parent="Header/Reset" index="1"]
+
+margin_left = 22.0
+margin_top = 14.0
+margin_right = 582.0
+margin_bottom = 374.0
+custom_fonts/font = SubResource( 2 )
+text = "Reset"
+align = 0
+valign = 0
+_sections_unfolded = [ "Anchor", "Margin", "Rect", "custom_colors", "custom_fonts" ]
+
+[node name="Level_select" parent="Header" index="5"]
+
+texture_normal = ExtResource( 5 )
+
+[node name="Label" parent="Header/Level_select" index="0"]
+
+margin_top = 39.0
+margin_bottom = 427.0
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+
+[node name="LineEdit" parent="Header/Level_select" index="3"]
+
+anchor_left = 0.5
+anchor_right = 0.5
+margin_left = -203.0
+margin_right = 202.0
+_sections_unfolded = [ "Rect", "Visibility" ]
+
+[node name="TextureRect" parent="." index="3"]
+
+margin_top = -61.0
+margin_bottom = 899.0
+_sections_unfolded = [ "Material", "Rect", "Visibility", "Z Index" ]
+
+[node name="Dialog_box" type="TextureRect" parent="." index="4"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 1.0
+margin_top = -3.0
+margin_right = 543.0
+margin_bottom = 917.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+stretch_mode = 0
+_sections_unfolded = [ "Mouse", "Visibility" ]
+
+[node name="HintTimer" type="Timer" parent="." index="5"]
+
+process_mode = 1
+wait_time = 4.0
+one_shot = true
+autostart = false
+
+[node name="Tween" type="Tween" parent="." index="6"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="Label" type="Label" parent="." index="7"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_right = 40.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[connection signal="pressed" from="Header/Infinity" to="." method="_on_Infinity_pressed"]
+
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
+
+

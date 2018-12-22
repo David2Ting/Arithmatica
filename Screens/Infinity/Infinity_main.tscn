@@ -1,0 +1,61 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://Screens/World.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Screens/Infinity/Infinity_main.gd" type="Script" id=2]
+[ext_resource path="res://Screens/Infinity/Infinity.tscn" type="PackedScene" id=3]
+
+[node name="World" index="0" instance=ExtResource( 1 )]
+
+script = ExtResource( 2 )
+
+[node name="Level" parent="." index="0" instance=ExtResource( 3 )]
+
+position = Vector2( 275.133, 385.542 )
+scale = Vector2( 1.2, 1.2 )
+z_as_relative = false
+
+[node name="Infinity" parent="Header" index="0"]
+
+modulate = Color( 0.349838, 0.484058, 0.886719, 1 )
+
+[node name="Label" parent="Header/Infinity" index="0"]
+
+margin_top = 2.0
+margin_right = 614.0
+margin_bottom = 402.0
+text = "Levels"
+
+[node name="Level_select" parent="Header" index="3"]
+
+modulate = Color( 0.811765, 0.0431373, 0.898039, 1 )
+
+[node name="Label" parent="Header/Level_select" index="0"]
+
+text = "^"
+
+[node name="Left" parent="Header/Level_select" index="1"]
+
+visible = false
+
+[node name="Right" parent="Header/Level_select" index="2"]
+
+visible = false
+
+[node name="LineEdit" parent="Header/Level_select" index="3"]
+
+text = "√"
+
+[node name="Tween" type="Tween" parent="." index="5"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[connection signal="pressed" from="Header/Infinity" to="." method="_on_Infinity_pressed"]
+
+[connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
+
+

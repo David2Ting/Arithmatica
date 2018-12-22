@@ -1,0 +1,192 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://Screens/World.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Screens/Editor/Editor.gd" type="Script" id=2]
+[ext_resource path="res://Screens/Editor/Editor_button.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Images/Level_select.png" type="Texture" id=4]
+[ext_resource path="res://Images/Level_select_pressed.png" type="Texture" id=5]
+
+[node name="World" index="0" instance=ExtResource( 1 )]
+
+script = ExtResource( 2 )
+
+[node name="Infinity" parent="Header" index="0"]
+
+margin_left = -99.0
+margin_top = 41.0
+margin_right = 301.0
+margin_bottom = 441.0
+
+[node name="Label" parent="Header/Infinity" index="0"]
+
+visible = false
+margin_right = 667.0
+margin_bottom = 372.0
+
+[node name="Test" parent="Header" index="1" instance=ExtResource( 3 )]
+
+margin_left = 439.0
+margin_top = 57.0
+margin_right = 1039.0
+margin_bottom = 457.0
+rect_scale = Vector2( 0.15, 0.15 )
+_sections_unfolded = [ "Rect", "Textures" ]
+value = "Test"
+
+[node name="Test2" parent="Header" index="2" instance=ExtResource( 3 )]
+
+margin_left = -6.0
+margin_top = 59.0
+margin_right = 594.0
+margin_bottom = 459.0
+rect_scale = Vector2( 0.15, 0.15 )
+_sections_unfolded = [ "Rect", "Textures" ]
+value = "Hint"
+
+[node name="Save" parent="Header" index="3" instance=ExtResource( 3 )]
+
+margin_left = -4.0
+margin_top = -3.0
+margin_right = 596.0
+margin_bottom = 397.0
+rect_scale = Vector2( 0.15, 0.15 )
+_sections_unfolded = [ "Grow Direction", "Rect", "Textures" ]
+value = "Save"
+
+[node name="Levels" type="TextureButton" parent="Header" index="4"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 552.0
+margin_top = 51.0
+margin_right = 952.0
+margin_bottom = 451.0
+rect_scale = Vector2( 0.15, 0.15 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 4 )
+texture_pressed = ExtResource( 5 )
+_sections_unfolded = [ "Anchor", "Rect", "Textures" ]
+
+[node name="Reset" parent="Header" index="5"]
+
+margin_left = 441.0
+margin_right = 977.0
+rect_scale = Vector2( 0.15, 0.15 )
+
+[node name="Label" parent="Header/Reset" index="1"]
+
+_sections_unfolded = [ "Anchor", "Margin", "Rect", "custom_colors", "custom_fonts" ]
+
+[node name="Goal" parent="Header" index="6"]
+
+visible = true
+margin_left = 238.0
+margin_top = -27.0
+margin_right = 838.0
+margin_bottom = 406.0
+
+[node name="LineEdit" type="LineEdit" parent="Header/Goal" index="1"]
+
+modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_top = -10.0
+margin_right = 598.0
+margin_bottom = 381.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 1
+size_flags_horizontal = 1
+size_flags_vertical = 1
+focus_mode = 2
+context_menu_enabled = true
+placeholder_alpha = 0.6
+caret_blink = false
+caret_blink_speed = 0.65
+caret_position = 0
+_sections_unfolded = [ "Visibility" ]
+
+[node name="Level_select" parent="Header" index="7"]
+
+margin_left = 40.0
+margin_top = -11.0
+margin_right = 440.0
+margin_bottom = 389.0
+
+[node name="Remove" type="Button" parent="Header" index="8"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 358.0
+margin_top = 791.0
+margin_right = 422.0
+margin_bottom = 811.0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Remove"
+flat = false
+align = 1
+
+[node name="Add" type="Button" parent="Header" index="9"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 39.0
+margin_top = 796.0
+margin_right = 76.0
+margin_bottom = 816.0
+rect_scale = Vector2( 2, 2 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+text = "Add"
+flat = false
+align = 1
+
+[connection signal="pressed" from="Header/Levels" to="." method="_on_Levels_pressed"]
+
+[connection signal="text_entered" from="Header/Goal/LineEdit" to="." method="_on_GoalEdit_text_entered"]
+
+[connection signal="pressed" from="Header/Remove" to="." method="_on_Remove_pressed"]
+
+[connection signal="pressed" from="Header/Add" to="." method="_on_Add_pressed"]
+
+

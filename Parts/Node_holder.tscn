@@ -1,0 +1,9 @@
+[gd_scene format=2]
+
+[node name="Node_holder" type="Node2D"]
+
+z_index = -4
+z_as_relative = false
+_sections_unfolded = [ "Z Index" ]
+
+
