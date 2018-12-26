@@ -15,6 +15,8 @@ onready var node_holder = get_node('Node_holder')
 onready var screen = get_node('Screen')
 onready var screen_size = screen.get_texture().get_size()
 
+var tip_box
+var tip_box_label
 var behind_cell= preload("res://Screens/Behind_cell.tscn")
 
 var prev_node_holder = null
@@ -36,6 +38,8 @@ var level_spot_size = Vector2()
 var level_size = Vector2()
 func start():
 	level_size = screen_size/1.2
+	tip_box_label = get_node('TipBox/Label')
+	tip_box = get_node('TipBox')
 	pass
 
 func change_value(new_value):
@@ -162,8 +166,6 @@ func reset():
 			var given_vector = Vector2(x,y)
 			var node_in_position = node_positions[y][x]
 			if str(map[y][x]) !=  '.' and (!node_in_position or str(node_in_position.value)!=str(map[y][x])):
-				if node_in_position:
-					print(node_in_position.value)
 				reset_group_nodes[rand].append(given_vector)
 	for i in range(4):
 		var group = reset_group_nodes[i]
@@ -182,9 +184,7 @@ func reset():
 
 	
 func reset_level(reset_group_nodes,reset_group_operators):
-	print(reset_group_nodes)
 	for i in range(reset_group_nodes.size()):
-		print(i)
 		if reset_group_nodes[i].size()>0:
 			main.audio_player.stream = main.reset_sound
 			main.audio_player.play()

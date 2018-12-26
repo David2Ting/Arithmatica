@@ -6,6 +6,7 @@ extends Node2D
 onready var current_world= get_node('World')
 onready var globals = get_node('/root/globals')
 onready var top_bar = get_node('TextureRect')
+onready var shadow = get_node('Shadow')
 var prev_world = null
 var packed_main = preload("res://Screens/Levels/Main.tscn")
 var packed_infinity = preload("res://Screens/Infinity/Infinity_main.tscn")

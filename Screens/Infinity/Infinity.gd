@@ -10,7 +10,7 @@ signal move_complete
 func start():
 	level_size = screen_size/1.2
 	operator_select_holder.load_operators()
-
+	
 #	var operator_groups = algebra.calculate(operator_group,sum)
 #	builder.gravity()
 #	var map = builder.build(operator_groups)
@@ -38,8 +38,6 @@ func move(type):
 	if type == 'forwards':
 		tween.interpolate_property(node_holder,'position',normal_pos+x,normal_pos,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 		tween.interpolate_property(operator_select_holder,'position',normal_pos,normal_pos-x,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-		print(normal_pos)
-		print(x)
 		tween.start()
 		yield(get_tree().create_timer(.1), "timeout")
 		node_holder.show()

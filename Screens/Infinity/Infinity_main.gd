@@ -11,6 +11,8 @@ var selected_operators = []
 var values = {'+':2,'-':2,'*':3,'/':3,'1':2}
 var summation_values = {'+':1,'-':-1,'*':3,'/':-1,'1':2}
 
+
+
 var completed = false
 var selecting_menu = true setget change_selecting_menu
 func _ready():
@@ -23,7 +25,6 @@ func _ready():
 
 	var level_texture_size = current_level.background.get_texture().get_size()
 	var level_scale = min(level_size.x/level_texture_size.x,level_size.y/level_texture_size.y)
-	print(level_texture_size)
 	current_level.set_scale(Vector2(level_scale,level_scale))
 	pass
 
@@ -121,6 +122,7 @@ func finish_movement():
 	if selecting_menu and completed:
 		operator_select_holder.pop(selected_operators)
 		selected_operators.clear()
+		calculate_sum()
 	completed = false
 func _on_Tween_tween_completed(object, key):
 	if !active:

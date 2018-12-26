@@ -21,7 +21,6 @@ func change_value(new_value):
 		size = 1.2
 	else:
 		size = ((str(new_value).length()-1.0)/2.4+1)
-	print(size)
 	set('rect_scale',Vector2(1/size,1/size))
 	var rect_size = 400*size
 #	set('rect_size',Vector2(rect_size,rect_size))

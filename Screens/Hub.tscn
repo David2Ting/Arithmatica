@@ -1,14 +1,27 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Screens/Hub.gd" type="Script" id=1]
-[ext_resource path="res://Images/Top bar/Background.png" type="Texture" id=2]
-[ext_resource path="res://Screens/Levels/Main.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Images/Level/Background.png" type="Texture" id=2]
+[ext_resource path="res://Images/Top bar/Background.png" type="Texture" id=3]
+[ext_resource path="res://Screens/Levels/Main.tscn" type="PackedScene" id=4]
 
-[node name="Hub" type="Node2D"]
+[node name="Hub" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
+_sections_unfolded = [ "Transform" ]
 
-[node name="TextureRect" type="TextureRect" parent="." index="0"]
+[node name="Shadow" type="Sprite" parent="." index="0"]
+
+visible = false
+modulate = Color( 0, 0, 0, 1 )
+self_modulate = Color( 1, 1, 1, 0.624314 )
+position = Vector2( 268.717, 454.653 )
+scale = Vector2( 1.39261, 2.27875 )
+z_index = 4
+texture = ExtResource( 2 )
+_sections_unfolded = [ "Material", "Rect", "Region", "Transform", "Visibility", "Z Index" ]
+
+[node name="TextureRect" type="TextureRect" parent="." index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -24,11 +37,11 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Rect", "Visibility" ]
 
-[node name="World" parent="." index="1" instance=ExtResource( 3 )]
+[node name="World" parent="." index="2" instance=ExtResource( 4 )]
 
 

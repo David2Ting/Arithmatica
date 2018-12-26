@@ -10,7 +10,7 @@ config_version=3
 
 [application]
 
-config/name="Infinity 2.0"
+config/name="Infinity 2.0 GitHub"
 run/main_scene="res://Screens/Hub.tscn"
 config/icon="res://icon.png"
 

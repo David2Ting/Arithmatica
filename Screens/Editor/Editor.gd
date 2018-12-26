@@ -3,6 +3,7 @@ extends "res://Screens/World.gd"
 var mode = 'edit'
 var currently_editing = null setget change_currently_editing
 onready var goal_sign = get_node("Header/Goal")
+var progress_level = 100
 #onready var level = get_node('Level')
 
 func _ready():

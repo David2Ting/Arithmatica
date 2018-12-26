@@ -7,6 +7,13 @@ var operators_table = [['/','/','/'],['*','5+2','2'],['-','42','-',],['+','+','+
 var operator_positions = []
 var packed_operator = preload("res://Screens/Infinity/Operator_infinity_select.tscn")
 var pressed = false
+var special_count = 0
+
+var progress_file = File.new()
+var PROGRESS_PATH = "res://Screens/Progress.json"
+var infinity_progress = 0
+var infinity_operators = []
+var progress
 onready var  operators_holder = get_node('../Operators_holder')
 onready var main = get_node('../../')
 onready var selected_operators = main.selected_operators
@@ -23,6 +30,7 @@ func _ready():
 #	# Update game logic here.
 #	pass
 func load_operators():
+	load_progress()
 	operator_positions = []
 	for child in get_children():
 		child.queue_free()
@@ -30,18 +38,24 @@ func load_operators():
 		operator_positions.append([])
 		for x in range(0,operators_table[0].size()):
 			var operator_instance = packed_operator.instance()
-			print(operator_instance)
 			add_child(operator_instance)
 			operator_positions[y].append(operator_instance)
 			var pos = Vector2(((3-1)*-0.5+x),((11-1)*-0.5+y))*size_area
 			operator_instance.value = operators_table[y][x]
 			operator_instance.set_position(pos)
 			operator_instance.pos = Vector2(x,y)
+
+func load_progress():
+	progress_file.open(PROGRESS_PATH,File.READ)
+	progress = parse_json(progress_file.get_as_text())
+	progress_file.close()
+	operators_table = progress['infinity']
+	infinity_progress = progress['score']
+
 func pop(operators):
 	for operator in selected_operators:
 		operator_positions[operator.pos.y][operator.pos.x] = null
 		operator.pop()
-	print(operator_positions)
 
 func gravity():
 	for y in range(0,operator_positions.size()):
@@ -67,6 +81,23 @@ func gravity():
 				operator_instance.set_position(pos)
 				operator_instance.value = get_random()
 				operator_instance.pos = Vector2(x,y)
+	
+	#Calculate number of specials
+	special_count = 0
+	for y in range(operator_positions.size()):
+		for x in range(operator_positions[0].size()):
+			operators_table[y][x] = operator_positions[y][x].value
+			if int(operator_positions[y][x].value)>0:
+				special_count +=1
+	update_progress()
+	print('test'+str(special_count))
+
+func update_progress():
+	progress_file.open(PROGRESS_PATH, File.WRITE)
+	progress['infinity']=operators_table
+	progress['score'] = infinity_progress
+	progress_file.store_line(to_json(progress))
+	progress_file.close()
 
 func finish_pop():
 	if !finish_buffer:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://Screens/Levels/Main_level.gd" type="Script" id=1]
 [ext_resource path="res://Images/Level/Background.png" type="Texture" id=2]
@@ -10,6 +10,8 @@
 [ext_resource path="res://Images/node_spot_area.png" type="Texture" id=8]
 [ext_resource path="res://Screens/Operators_holder.gd" type="Script" id=9]
 [ext_resource path="res://Parts/Operator.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Images/Calculator 1.png" type="Texture" id=11]
+[ext_resource path="res://Images/Fonts/BebasNeue-Regular.ttf" type="DynamicFontData" id=12]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -27,7 +29,15 @@ use_filter = true
 font_data = ExtResource( 6 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="Level" type="Node2D"]
+[sub_resource type="DynamicFont" id=3]
+
+size = 100
+use_mipmaps = false
+use_filter = false
+font_data = ExtResource( 12 )
+_sections_unfolded = [ "Font", "Settings" ]
+
+[node name="Level" type="Node2D" index="0"]
 
 position = Vector2( 0, 2.74689 )
 script = ExtResource( 1 )
@@ -188,6 +198,46 @@ playback_speed = 1.0
 playback/active = false
 playback/repeat = false
 playback/speed = 1.0
+
+[node name="TipBox" type="Node2D" parent="." index="9"]
+
+visible = false
+position = Vector2( 0, -329.026 )
+scale = Vector2( 0.632363, 0.632363 )
+z_index = 10
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Sprite" type="Sprite" parent="TipBox" index="0"]
+
+position = Vector2( -7.92345, -135.547 )
+scale = Vector2( 1.93322, 1.40041 )
+texture = ExtResource( 11 )
+
+[node name="Label" type="Label" parent="TipBox" index="1"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -502.0
+margin_top = -310.0
+margin_right = 472.0
+margin_bottom = 36.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 1
+valign = 1
+autowrap = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
 

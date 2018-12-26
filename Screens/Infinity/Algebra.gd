@@ -10,7 +10,6 @@ func _ready():
 	
 func calculate(operator_groups,sum):
 	freeze_count = 0
-	print(operator_groups)
 	var random_order = random(operator_groups)
 	var running_sum = sum
 	var chain_group = []
@@ -39,7 +38,6 @@ func calculate(operator_groups,sum):
 			if freeze_count > 50:
 				print('freeze')
 				return 'freeze'
-		print(operator[0])
 		var non_zero_indexes = []
 		for i in range(chain.size()):
 			if chain[i] != 1 and chain[i] != 0:
@@ -67,9 +65,6 @@ func specials(operator,last_chain):
 	
 	var rand_starting = randi()%(chain.size()-1)
 	var rand_amount = randi()%(chain.size()-rand_starting-1)
-	print(chain)
-	print(rand_starting)
-	print(rand_amount)
 	for i in range(rand_starting,rand_starting+rand_amount+2):
 		if str(operator).length()>1:
 			sub_type = str(operator)[1]
@@ -84,11 +79,9 @@ func specials(operator,last_chain):
 			var num = ''
 			for i in range(2,str(operator).length()):
 				num += str(operator)[i]
-			print('testing'+str(num))
 			if sub_type == '+':
 				chain[i] = chain[i] - int(num)
 	
-	print(chain)
 	return [chain,last_chain[1]]
 
 func random(operator_groups):   #Randomize order of operators
@@ -108,8 +101,7 @@ func random(operator_groups):   #Randomize order of operators
 		var r = randi()%operator_groups.size()
 		random_order.append(operator_groups[r])
 		operator_groups.remove(r)
-		print(random_order)
-			
+
 	return random_order
 
 func distribute(aimed_num,normality,limit):
@@ -206,7 +198,6 @@ func factor_strat(chain):
 				factor_count+=1
 				full_factor_count+=1
 		possible_numbers.append([i,factor_count])
-	print(possible_numbers)
 	var rand = randi()%full_factor_count
 	full_factor_count = 0
 	for num in possible_numbers:

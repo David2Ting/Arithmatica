@@ -17,10 +17,8 @@ func _ready():
 func start():
 	var size = globals.y_size*120/900
 	var area_scale = globals.y_size/900
-	print('area:'+str(area_scale))
 	var margin = Vector2(10,10)*area_scale
 	infinity.set_scale(Vector2(0.2,0.2)*area_scale)
-	print(infinity.get_scale()*area_scale)
 	infinity.set_position(margin)
 	reset.set_scale(Vector2(0.2,0.2)*area_scale)
 	reset.set_position(Vector2(globals.x_size-reset.get('rect_size').x*reset.get_scale().x-margin.x,margin.y))

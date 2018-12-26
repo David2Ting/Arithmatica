@@ -34,11 +34,14 @@ var DATABASE_PATH = "res://Screens/Levels/Levels.json"
 var database = {}
 var neutral_level = [0,['+','+'],[['/','/','/','/'],['/','/','/','/'],['/','/','/','/'],['/','/','/','/'],['/','/','/','/']]]
 var goal = 0 setget change_goal
-var current_level
+onready var current_level = get_node('Level')
 var settled = true
 var running_sum = 0
 var hint = [null,null]
 var active = true
+
+var tips_mode = false
+
 func _ready():
 	randomize()
 #	setup_dimensions()
@@ -55,11 +58,18 @@ func setup_dimensions():
 	operator_size_area = window_size.x/4
 	operator_size = (operator_size_area/400)/1.1
 	level_size = Vector2(window_size.x/1.1,window_size.y/1.25)
-	
-#	var header_scale = window_size.x/540
-#	scale_headers(header_scale)
-	
+
 	header.start()
+
+	operators_holder = current_level.get_node('Operators_holder')
+	current_level.start()
+	current_level.set_global_position(Vector2(globals.x_size/2,globals.y_size/1.6))
+	var level_texture_size = current_level.background.get_texture().get_size()
+	var level_scale = min(level_size.x/level_texture_size.x,level_size.y/level_texture_size.y)
+	current_level.set_scale(Vector2(level_scale,level_scale))
+	node_positions = current_level.node_positions
+
+	
 
 func setup_level(new_level,forwards):
 	var map = new_level[2]
@@ -71,25 +81,11 @@ func setup_level(new_level,forwards):
 		hint = [null,null]
 	print(hint)
 	change_goal(new_level[0])
-	if current_level:
-		current_level.start()
-		current_level.load_level(map,level_operators,new_level[0],forwards,hint)
-		node_positions = current_level.node_positions
-		current_level.show()
-	else:
-		current_level = packed_level.instance()
-		add_child(current_level)
-		operators_holder = current_level.get_node('Operators_holder')
-		current_level.start()
-		current_level.set_global_position(Vector2(globals.x_size/2,globals.y_size/1.6))
-		var level_texture_size = current_level.background.get_texture().get_size()
-		var level_scale = min(level_size.x/level_texture_size.x,level_size.y/level_texture_size.y)
-		print(level_texture_size)
-		current_level.set_scale(Vector2(level_scale,level_scale))
-		current_level.load_level(map,level_operators,new_level[0],forwards,hint)
-		node_positions = current_level.node_positions
 
-
+	current_level.start()
+	current_level.load_level(map,level_operators,new_level[0],forwards,hint)
+	node_positions = current_level.node_positions
+	current_level.show()
 
 
 func add_node(obj):
@@ -111,7 +107,6 @@ func add_node(obj):
 			calculate_sum()
 
 func _input(INPUT):
-
 	if INPUT.is_action_released('left_click'):
 		if pressed and current_operator:
 			current_level.pop_buffer = false
@@ -121,6 +116,7 @@ func _input(INPUT):
 			else:
 				select_chain[0].select(false)
 				current_level.calculator.value = 0
+
 func operate_chain():
 	if int(current_operator) > 0:
 		operate_specials()
@@ -273,10 +269,8 @@ func change_level_number(new_level_number):
 	level_number = new_level_number
 	var new_level
 	if database.has(str(new_level_number)):
-#		level_select.value = new_level_number
 		new_level = database[str(new_level_number)]
 	else:
-#		level_select.value = '/'
 		new_level = neutral_level
 	setup_level(new_level,forwards)
 
@@ -284,21 +278,10 @@ func change_goal(new_goal):
 	goal = new_goal
 	goal_label.set_text(str(new_goal))
 
-func scale_headers(amount):
-	for node in $Header.get_children():
-		var scaled_amount
-		if node.get_name() == 'CalculatorContainers':
-			scaled_amount = node.get('scale').x*amount
-			node.set('scale',Vector2(scaled_amount,scaled_amount))
-		else:
-			scaled_amount = node.get('rect_scale').x*amount
-			node.set('rect_scale',Vector2(scaled_amount,scaled_amount))
-
 func _on_Left_pressed():
 	if settled:
 		change_level_number(level_number-1)
 	pass # replace with function body
-
 
 func _on_Right_pressed():
 	if settled:

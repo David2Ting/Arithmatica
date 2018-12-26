@@ -22,7 +22,6 @@ func add_operator(type='+'):
 	operators.append(operator_instance)
 	operator_instance.show()
 	position_operators()
-	print(operators)
 
 func position_operators():
 	var size = operators.size()-1
