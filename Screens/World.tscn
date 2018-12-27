@@ -1,28 +1,42 @@
-[gd_scene load_steps=21 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Screens/World.gd" type="Script" id=1]
 [ext_resource path="res://Sounds/Effects/Blop-Mark_DiAngelo-79054334.wav" type="AudioStream" id=2]
 [ext_resource path="res://Screens/Header.gd" type="Script" id=3]
-[ext_resource path="res://Images/Editor/Editor_button.png" type="Texture" id=4]
-[ext_resource path="res://Images/Editor/Editor_button_pressed.png" type="Texture" id=5]
-[ext_resource path="res://Images/Fonts/BebasNeue-Regular.ttf" type="DynamicFontData" id=6]
-[ext_resource path="res://Images/Top bar/Unpressed.png" type="Texture" id=7]
-[ext_resource path="res://Images/Top bar/Pressed.png" type="Texture" id=8]
+[ext_resource path="res://Images/Top bar/Calculator.png" type="Texture" id=4]
+[ext_resource path="res://Images/Fonts/Calculator.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://Screens/Calculator.gd" type="Script" id=6]
+[ext_resource path="res://Images/Top bar/Level unpressed.png" type="Texture" id=7]
+[ext_resource path="res://Images/Editor/Editor_button_pressed.png" type="Texture" id=8]
 [ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://Images/Fonts/KeepCalm-Medium.ttf" type="DynamicFontData" id=10]
-[ext_resource path="res://Images/Level_select.png" type="Texture" id=11]
-[ext_resource path="res://Images/Level_select_pressed.png" type="Texture" id=12]
-[ext_resource path="res://Screens/Level_select.gd" type="Script" id=13]
-[ext_resource path="res://Images/arrow_unpressed_left.png" type="Texture" id=14]
-[ext_resource path="res://Images/arrow_unpressed.png" type="Texture" id=15]
-[ext_resource path="res://Images/Border.png" type="Texture" id=16]
+[ext_resource path="res://Images/Top bar/Reset unpressed.png" type="Texture" id=10]
+[ext_resource path="res://Images/Top bar/Reset pressed.png" type="Texture" id=11]
+[ext_resource path="res://Images/Editor/Editor_button.png" type="Texture" id=12]
+[ext_resource path="res://Images/Fonts/KeepCalm-Medium.ttf" type="DynamicFontData" id=13]
+[ext_resource path="res://Images/Level_select.png" type="Texture" id=14]
+[ext_resource path="res://Images/Level_select_pressed.png" type="Texture" id=15]
+[ext_resource path="res://Screens/Level_select.gd" type="Script" id=16]
+[ext_resource path="res://Images/arrow_unpressed_left.png" type="Texture" id=17]
+[ext_resource path="res://Images/arrow_unpressed.png" type="Texture" id=18]
+[ext_resource path="res://Images/Border.png" type="Texture" id=19]
+[ext_resource path="res://Screens/Operators_holder.gd" type="Script" id=20]
+[ext_resource path="res://Images/Level/Operator_holder.png" type="Texture" id=21]
+[ext_resource path="res://Parts/Operator.tscn" type="PackedScene" id=22]
+
+[sub_resource type="DynamicFont" id=5]
+
+size = 450
+use_mipmaps = true
+use_filter = false
+font_data = ExtResource( 5 )
+_sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=1]
 
-size = 270
+size = 350
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 6 )
+font_data = ExtResource( 9 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=2]
@@ -38,7 +52,7 @@ _sections_unfolded = [ "Font", "Settings" ]
 size = 300
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 10 )
+font_data = ExtResource( 13 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=4]
@@ -46,10 +60,10 @@ _sections_unfolded = [ "Font", "Settings" ]
 size = 300
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 10 )
+font_data = ExtResource( 13 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="World" type="Node2D" index="0"]
+[node name="World" type="Node2D"]
 
 script = ExtResource( 1 )
 
@@ -69,73 +83,57 @@ area_mask = 1
 script = ExtResource( 3 )
 _sections_unfolded = [ "Material", "Transform", "Visibility" ]
 
-[node name="Infinity" type="TextureButton" parent="Header" index="0"]
+[node name="Calculator" type="Sprite" parent="Header" index="0"]
 
-modulate = Color( 0.733333, 0.733333, 0.733333, 1 )
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 9.0
-margin_top = 8.0
-margin_right = 609.0
-margin_bottom = 414.0
-rect_scale = Vector2( 0.2, 0.2 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-texture_normal = ExtResource( 4 )
-texture_pressed = ExtResource( 5 )
-_sections_unfolded = [ "Anchor", "Margin", "Rect", "Textures", "Visibility" ]
+position = Vector2( 260.436, 142.011 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform" ]
 
-[node name="Label" type="Label" parent="Header/Infinity" index="0"]
+[node name="Label" type="Label" parent="Header/Calculator" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -16.0
-margin_top = 48.0
-margin_right = 618.0
-margin_bottom = 348.0
+margin_left = -1022.0
+margin_top = -270.0
+margin_right = 993.0
+margin_bottom = 314.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Infinity"
-align = 1
-valign = 1
+custom_fonts/font = SubResource( 5 )
+custom_colors/font_color = Color( 0.351563, 0.351563, 0.351563, 1 )
+text = "0"
+align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts", "custom_styles" ]
+script = ExtResource( 6 )
+_sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="Reset" type="TextureButton" parent="Header" index="1"]
+[node name="Timer" type="Timer" parent="Header/Calculator/Label" index="0"]
 
-self_modulate = Color( 0.764706, 0.305882, 0.305882, 1 )
+process_mode = 1
+wait_time = 0.05
+one_shot = false
+autostart = false
+
+[node name="Infinity" type="TextureButton" parent="Header" index="1"]
+
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 1.0
+anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 335.0
-margin_top = 9.0
-margin_right = 1271.0
-margin_bottom = 409.0
-grow_horizontal = 0
-grow_vertical = 0
-rect_scale = Vector2( 0.2, 0.2 )
+margin_left = 9.0
+margin_top = 7.0
+margin_right = 929.0
+margin_bottom = 413.0
+rect_scale = Vector2( 0.18, 0.18 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -149,6 +147,60 @@ shortcut = null
 group = null
 texture_normal = ExtResource( 7 )
 texture_pressed = ExtResource( 8 )
+_sections_unfolded = [ "Anchor", "Margin", "Rect", "Textures", "Visibility" ]
+
+[node name="Label" type="Label" parent="Header/Infinity" index="0"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -42.0
+margin_top = 28.0
+margin_right = 997.0
+margin_bottom = 379.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 2
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 4
+custom_fonts/font = SubResource( 1 )
+custom_colors/font_color = Color( 1, 1, 1, 1 )
+text = "Infinity"
+align = 1
+valign = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+_sections_unfolded = [ "custom_colors", "custom_fonts", "custom_styles" ]
+
+[node name="Reset" type="TextureButton" parent="Header" index="2"]
+
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 0.0
+margin_left = 365.0
+margin_top = 6.0
+margin_right = 1301.0
+margin_bottom = 406.0
+grow_horizontal = 0
+grow_vertical = 0
+rect_scale = Vector2( 0.18, 0.18 )
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 10 )
+texture_pressed = ExtResource( 11 )
 _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "Textures", "Visibility" ]
 
 [node name="Label" type="Label" parent="Header/Reset" index="0"]
@@ -157,9 +209,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 5.0
+margin_left = -38.0
 margin_top = 2.0
-margin_right = 1002.0
+margin_right = 959.0
 margin_bottom = 401.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -169,7 +221,7 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
 custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "RESET"
+text = "Reset"
 align = 1
 valign = 1
 percent_visible = 1.0
@@ -177,7 +229,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Anchor", "Margin", "custom_colors", "custom_fonts" ]
 
-[node name="Goal" type="TextureButton" parent="Header" index="2"]
+[node name="Goal" type="TextureButton" parent="Header" index="3"]
 
 visible = false
 anchor_left = 0.5
@@ -200,7 +252,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 4 )
+texture_normal = ExtResource( 12 )
 _sections_unfolded = [ "Grow Direction", "Rect", "Textures", "Visibility" ]
 
 [node name="Label" type="Label" parent="Header/Goal" index="0"]
@@ -226,18 +278,18 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="Level_select" type="TextureButton" parent="Header" index="3"]
+[node name="Level_select" type="TextureButton" parent="Header" index="4"]
 
 modulate = Color( 0.734375, 0.734375, 0.734375, 1 )
 anchor_left = 1.0
 anchor_top = 0.0
 anchor_right = 1.0
 anchor_bottom = 0.0
-margin_left = 146.0
-margin_top = 8.0
-margin_right = 546.0
-margin_bottom = 408.0
-rect_scale = Vector2( 0.2, 0.2 )
+margin_left = 180.0
+margin_top = 10.0
+margin_right = 580.0
+margin_bottom = 410.0
+rect_scale = Vector2( 0.18, 0.18 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -249,9 +301,9 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 11 )
-texture_pressed = ExtResource( 12 )
-script = ExtResource( 13 )
+texture_normal = ExtResource( 14 )
+texture_pressed = ExtResource( 15 )
+script = ExtResource( 16 )
 _sections_unfolded = [ "Anchor", "Rect", "Textures", "Visibility" ]
 
 [node name="Label" type="Label" parent="Header/Level_select" index="0"]
@@ -300,7 +352,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 14 )
+texture_normal = ExtResource( 17 )
 _sections_unfolded = [ "Rect", "Textures" ]
 
 [node name="Right" type="TextureButton" parent="Header/Level_select" index="2"]
@@ -325,7 +377,7 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 15 )
+texture_normal = ExtResource( 18 )
 _sections_unfolded = [ "Rect", "Textures" ]
 
 [node name="LineEdit" type="LineEdit" parent="Header/Level_select" index="3"]
@@ -376,8 +428,41 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 16 )
+texture = ExtResource( 19 )
 stretch_mode = 0
+
+[node name="Operators_holder" type="Node2D" parent="." index="4"]
+
+position = Vector2( 270, 800.367 )
+scale = Vector2( 0.25, 0.25 )
+script = ExtResource( 20 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Sprite" type="Sprite" parent="Operators_holder" index="0"]
+
+position = Vector2( -1.73507, -11.8927 )
+scale = Vector2( 1.05946, 1.12616 )
+texture = ExtResource( 21 )
+
+[node name="Operator" parent="Operators_holder" index="1" instance=ExtResource( 22 )]
+
+position = Vector2( -570, 0 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Operator2" parent="Operators_holder" index="2" instance=ExtResource( 22 )]
+
+position = Vector2( -190, 0 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Operator3" parent="Operators_holder" index="3" instance=ExtResource( 22 )]
+
+position = Vector2( 190, 0 )
+scale = Vector2( 0.9, 0.9 )
+
+[node name="Operator4" parent="Operators_holder" index="4" instance=ExtResource( 22 )]
+
+position = Vector2( 570, 0 )
+scale = Vector2( 0.9, 0.9 )
 
 [connection signal="pressed" from="Header/Reset" to="." method="_on_TextureButton_pressed"]
 

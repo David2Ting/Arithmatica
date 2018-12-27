@@ -276,8 +276,6 @@ tracks/5/keys = {
 "nodes",
 ]]
 
-modulate = Color( 0.855418, 0.270081, 0.921875, 1 )
-scale = Vector2( 0.3, 0.3 )
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0

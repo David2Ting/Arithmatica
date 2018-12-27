@@ -5,7 +5,7 @@
 [ext_resource path="res://Images/Top bar/Background.png" type="Texture" id=3]
 [ext_resource path="res://Screens/Levels/Main.tscn" type="PackedScene" id=4]
 
-[node name="Hub" type="Node2D" index="0"]
+[node name="Hub" type="Node2D"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform" ]

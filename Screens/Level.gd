@@ -2,16 +2,16 @@ extends Node2D
 
 signal reset_finished
 
-onready var operators_holder = get_node('Operators_holder')
+onready var operators_holder = get_node('../Operators_holder')
 onready var main = get_node('../')
 onready var node_positions = main.node_positions
 onready var reset_timer = get_node('ResetTimer')
 onready var goal_label = main.goal_label
 onready var tween = get_node('Tween')
-onready var goal = get_node('Background/Goal')
 onready var background = get_node('Background')
-onready var calculator = get_node('Background/Calculator')
+
 onready var node_holder = get_node('Node_holder')
+onready var goal = get_node('Node_holder/Goal')
 onready var screen = get_node('Screen')
 onready var screen_size = screen.get_texture().get_size()
 
@@ -23,6 +23,8 @@ var prev_node_holder = null
 var node = preload('res://Parts/Node.tscn')
 var node_scale = 0
 var pop_buffer = false
+var falling_nodes = false
+var calculator
 
 var packed_node_holder = preload("res://Parts/Node_holder.tscn")
 var packed_level = [[[1,2,3],[4,5,6],[7,8,9]],['+','+','-','-']]
@@ -36,7 +38,11 @@ var node_area_position = Vector2(0,-120)
 var value = 1 setget change_value
 var level_spot_size = Vector2()
 var level_size = Vector2()
+
+
+
 func start():
+	calculator = get_parent().calculator
 	level_size = screen_size/1.2
 	tip_box_label = get_node('TipBox/Label')
 	tip_box = get_node('TipBox')
@@ -50,12 +56,14 @@ func tween_completed():
 	
 func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 	map = map_new
+	var node_centre = Vector2(0,220)
 	var node_number_x = map_new[0].size()
 	var node_number_y = map_new.size()
 #	operators_holder.set_position(Vector2(0,globals.y_size/1.15-(globals.y_size/2)))
+	var level_size = (screen_size - Vector2(0,480))/1.1
 	node_size_area = min(level_size.x/node_number_x,level_size.y/node_number_y)
 	var node_scale_area = node_size_area/400
-	node_scale = (node_size_area/400)/1.05
+	node_scale = node_scale_area/1.05
 	node_positions = []
 	level_positions = []
 	
@@ -80,7 +88,7 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 				level_positions[y].append(null)
 				node_positions[y].append(null)
 				var behind_instance = behind_cell.instance()
-				var pos = Vector2(((node_number_x-1)*-0.5+x),((node_number_y-1)*-0.5+y))*node_size_area
+				var pos = Vector2(((node_number_x-1)*-0.5+x),((node_number_y-1)*-0.5+y))*node_size_area+node_centre
 				behind_instance.set('scale',Vector2(node_scale,node_scale))
 				behind_instance.set_position(pos)
 				node_holder.add_child(behind_instance)
@@ -93,7 +101,7 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 			node_positions[y].append(node_instance)
 			node_instance.set('scale',Vector2(node_scale,node_scale))
 			behind_instance.set('scale',Vector2(node_scale,node_scale))
-			var pos = Vector2(((node_number_x-1)*-0.5+x),((node_number_y-1)*-0.5+y))*node_size_area
+			var pos = Vector2(((node_number_x-1)*-0.5+x),((node_number_y-1)*-0.5+y))*node_size_area+node_centre
 			level_positions[y].append(pos)
 			node_instance.value = map[y][x]
 			node_instance.pos = Vector2(x,y)
@@ -116,6 +124,7 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 			operator.on(false)
 	
 	#Setting up goal
+	goal = node_holder.get_node('Goal')
 	goal.value=int(goal_num)
 	goal.show()
 	main.goal = goal_num
@@ -142,19 +151,21 @@ func finish_pop():
 			if node.is_in_group('nodes'):
 				node.drop()
 
-
-
-
 func gravity():
-	for y in range(0,map.size()):
-		for x in range(0,map[0].size()):
-			var y_val = map.size()-y-1
+	falling_nodes = false
+	var empty = true
+	for y in range(0,node_positions.size()):
+		for x in range(0,node_positions[0].size()):
+			var y_val = node_positions.size()-y-1
 			if node_positions[y_val][x]!=null:
-				while(y_val!=map.size()-1) and node_positions[y_val+1][x]==null:
+				empty = false
+				while(y_val!=node_positions.size()-1) and node_positions[y_val+1][x]==null:
 					node_positions[y_val+1][x]=node_positions[y_val][x]
 					node_positions[y_val][x]=null
 					y_val+=1
+					falling_nodes = true
 				node_positions[y_val][x].pos=Vector2(x,y_val)
+	return empty
 
 func reset():
 	var reset_group_nodes = [[],[],[],[]]

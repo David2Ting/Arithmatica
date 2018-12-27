@@ -5,8 +5,10 @@ onready var sprite = get_node('Image_holder/Sprite')
 onready var symbol = get_node('Image_holder/Symbol')
 onready var colours = globals.colours
 onready var container = get_parent()
-onready var main = get_node('../../../')
+onready var main = get_node('../../')
 onready var label = get_node('Image_holder/Symbol/Label')
+onready var animation = get_node('AnimationPlayer')
+onready var tween = get_node('Tween')
 var operator_images = {'+':'res://Images/Arithmetic/+.png','-':"res://Images/Arithmetic/-.png",'*':"res://Images/Arithmetic/x.png",'/':"res://Images/Arithmetic/%.png"}
 var specials = {'1':'^','2':'√','3':['<','<<','>','>>'],'4':'%'}   
 var value = '+' setget change_value
@@ -62,6 +64,7 @@ func change_value(new_value):
 
 
 func pop():
+	container.add_operator()
 	queue_free()
 
 func big(boo):
@@ -111,6 +114,11 @@ func on(boo):
 	else:
 		active = false
 		sprite.set('self_modulate','5d5d5d') #b9c9c9c9
+
+func left(amount):
+	var current_position = get_position()
+	tween.interpolate_property(self,'position',current_position,current_position-Vector2(amount,0),0.25,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
+	tween.start()
 
 func reset():
 	if str(value) != '0':

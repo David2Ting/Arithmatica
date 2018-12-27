@@ -102,7 +102,7 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 func drop():
 	var current_position = get_position()
 	if drop_amount > 0:
-		drop_tween.interpolate_property(self,'position',current_position,current_position+Vector2(0,level.node_size_area*drop_amount),0.25,drop_tween.TRANS_LINEAR,drop_tween.EASE_IN_OUT)
+		drop_tween.interpolate_property(self,'position',current_position,current_position+Vector2(0,level.node_size_area.y*drop_amount),0.25,drop_tween.TRANS_LINEAR,drop_tween.EASE_IN_OUT)
 		drop_tween.start()
 		drop_amount = 0
 

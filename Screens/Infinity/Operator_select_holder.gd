@@ -90,7 +90,6 @@ func gravity():
 			if int(operator_positions[y][x].value)>0:
 				special_count +=1
 	update_progress()
-	print('test'+str(special_count))
 
 func update_progress():
 	progress_file.open(PROGRESS_PATH, File.WRITE)
@@ -103,7 +102,6 @@ func finish_pop():
 	if !finish_buffer:
 		finish_buffer = true
 		gravity()
-		print('finish')
 		yield(get_tree().create_timer(.4), "timeout")
 		finish_buffer = false
 

@@ -3,14 +3,14 @@ extends Node2D
 onready var globals = get_node('/root/globals')
 #onready var current_level = get_node('Level')
 onready var audio_player = get_node('Audio_Player')
-onready var operators_holder  #fix later for on start error
+onready var operators_holder = get_node('Operators_holder')
 onready var goal_label = get_node('Header/Goal/Label')
-onready var calculator_label = null
 onready var animation = get_node('AnimationPlayer')
 onready var level_select = get_node('Header/Level_select')
 onready var header = get_node('Header')
 onready var infinity_button = get_node('Header/Infinity')
 onready var infinity_button_label = infinity_button.get_node('Label')
+onready var calculator = get_node('Header/Calculator/Label')
 var pressed = false
 var select_chain = []
 var node_positions = []
@@ -57,17 +57,17 @@ func setup_dimensions():
 
 	operator_size_area = window_size.x/4
 	operator_size = (operator_size_area/400)/1.1
-	level_size = Vector2(window_size.x/1.1,window_size.y/1.25)
-
+	level_size = Vector2(window_size.x/1.2,window_size.y/1.8)
+	
 	header.start()
 
-	operators_holder = current_level.get_node('Operators_holder')
 	current_level.start()
-	current_level.set_global_position(Vector2(globals.x_size/2,globals.y_size/1.6))
-	var level_texture_size = current_level.background.get_texture().get_size()
+	current_level.set_global_position(Vector2(globals.x_size/2,globals.y_size/1.8))
+	var level_texture_size = current_level.screen.get_texture().get_size()
 	var level_scale = min(level_size.x/level_texture_size.x,level_size.y/level_texture_size.y)
 	current_level.set_scale(Vector2(level_scale,level_scale))
 	node_positions = current_level.node_positions
+	globals.actual_level_size = level_texture_size*level_scale
 
 	
 
@@ -115,7 +115,7 @@ func _input(INPUT):
 				operate_chain()
 			else:
 				select_chain[0].select(false)
-				current_level.calculator.value = 0
+				calculator.value = 0
 
 func operate_chain():
 	if int(current_operator) > 0:
@@ -130,7 +130,7 @@ func operate_chain():
 			current_level.pop_nodes(select_chain,false)
 			audio_player.stream = pop_sound
 			audio_player.play()
-			current_level.calculator.value = 0
+			calculator.value = 0
 		last_node.select(false)
 		operators_holder.off_operator()
 		select_chain = []
@@ -178,7 +178,7 @@ func operate_specials():
 
 func success(last_node):
 	last_node.animation.play('Success')
-	current_level.calculator.value = 'WIN'
+	calculator.value = 'WIN'
 	current_level.pop_nodes(select_chain,true)
 	audio_player.stream = success_sound
 	audio_player.play()
@@ -187,6 +187,7 @@ func success(last_node):
 func check_adjacency(first,second):
 	var original_pos = first.pos
 	var new_pos = second.pos
+	print(new_pos-original_pos)
 	if abs(original_pos.y-new_pos.y) + abs(original_pos.x-new_pos.x) == 1:
 		return true
 	else:
@@ -237,7 +238,7 @@ func calculate_sum():
 				elif current_operator == '/':
 					sum/=node.value
 					
-		current_level.calculator.value = sum
+		calculator.value = sum
 		running_sum = sum
 		return sum
 	else:

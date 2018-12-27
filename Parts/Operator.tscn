@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Parts/Operator.gd" type="Script" id=1]
 [ext_resource path="res://Images/Operator.png" type="Texture" id=2]
@@ -16,6 +16,39 @@ use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 3 )
 _sections_unfolded = [ "Font", "Settings" ]
+
+[sub_resource type="Animation" id=3]
+
+resource_name = "Pop"
+length = 0.27
+loop = false
+step = 0.01
+tracks/0/type = "value"
+tracks/0/path = NodePath("Image_holder:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.08, 0.26 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 1, 1 ), Vector2( 1.2, 1.2 ), Vector2( 1e-005, 1e-005 ) ]
+}
+tracks/1/type = "method"
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0.26 ),
+"transitions": PoolRealArray( 1 ),
+"values": [ {
+"args": [  ],
+"method": "pop"
+} ]
+}
 
 [node name="Operator" type="Area2D" groups=[
 "operators",
@@ -37,6 +70,8 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 shape = SubResource( 1 )
 
 [node name="Image_holder" type="Node2D" parent="." index="1"]
+
+_sections_unfolded = [ "Transform" ]
 
 [node name="Sprite" type="Sprite" parent="Image_holder" index="0"]
 
@@ -69,6 +104,25 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+
+[node name="Tween" type="Tween" parent="." index="2"]
+
+repeat = false
+playback_process_mode = 1
+playback_speed = 1.0
+playback/active = false
+playback/repeat = false
+playback/speed = 1.0
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="3"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/Pop = SubResource( 3 )
+blend_times = [  ]
 
 [connection signal="input_event" from="." to="." method="_on_Operator_input_event"]
 

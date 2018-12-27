@@ -4,7 +4,7 @@
 
 [node name="Sprite" type="Sprite"]
 
-modulate = Color( 0.375, 0.375, 0.375, 1 )
+modulate = Color( 0.498657, 0.742188, 0.739388, 1 )
 z_index = -1
 texture = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
