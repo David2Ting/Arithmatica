@@ -6,8 +6,8 @@ extends "res://Parts/Operator.gd"
 var pos = Vector2() setget change_pos
 var drop_amount = 0
 onready var holder = get_parent()
-onready var animation = get_node('AnimationPlayer')
-onready var tween = get_node('Tween')
+#onready var animation = get_node('AnimationPlayer')
+#onready var tween = get_node('Tween')
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here

@@ -4,11 +4,11 @@
 [ext_resource path="res://Images/Level/Background.png" type="Texture" id=2]
 [ext_resource path="res://Images/Level_spot.png" type="Texture" id=3]
 [ext_resource path="res://Parts/Node_holder.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Images/Level/Screen.png" type="Texture" id=5]
+[ext_resource path="res://Images/Stackup/Screen.png" type="Texture" id=5]
 [ext_resource path="res://Images/Calculator 1.png" type="Texture" id=6]
 [ext_resource path="res://Images/Fonts/BebasNeue-Regular.ttf" type="DynamicFontData" id=7]
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=1]
 
 size = 100
 use_mipmaps = false
@@ -69,7 +69,6 @@ _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 [node name="Node_holder" parent="." index="5" instance=ExtResource( 4 )]
 
 position = Vector2( 0, -2.86102e-006 )
-_sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Screen" type="Sprite" parent="." index="6"]
 
@@ -125,7 +124,7 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 align = 1
 valign = 1

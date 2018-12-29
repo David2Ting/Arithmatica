@@ -36,7 +36,7 @@ func test():
 	for node in level.node_holder.get_children():
 		if node.is_in_group('nodes'):
 			node.test(true)
-	for operator in level.get_node('Operators_holder').operators:
+	for operator in editor.get_node('Operators_holder').operators:
 			operator.test(true)
 func edit():
 	var level = editor.current_level
@@ -46,7 +46,7 @@ func edit():
 	for node in level.node_holder.get_children():
 		if node.is_in_group('nodes'):
 			node.test(false)
-	for operator in level.get_node('Operators_holder').operators:
+	for operator in editor.operators_holder.operators:
 			operator.test(false)
 		
 func _on_Editor_button_button_up():

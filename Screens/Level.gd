@@ -126,8 +126,8 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 	#Setting up goal
 	goal = node_holder.get_node('Goal')
 	goal.value=int(goal_num)
-	goal.show()
-	main.goal = goal_num
+#	goal.show()
+	main.change_goal(goal_num,forwards)
 	
 	#Hints
 func pop_nodes(select_chain,is_success):
@@ -142,7 +142,6 @@ func pop_nodes(select_chain,is_success):
 					check_node.drop_amount+=1
 		node.pop()
 	gravity()
-
 
 func finish_pop():
 	if !pop_buffer:
@@ -243,14 +242,18 @@ func reset_level(reset_group_nodes,reset_group_operators):
 func move(type):
 	main.settled = false
 	if type == 'forwards':
-		tween.interpolate_property(node_holder,'position',node_area_position+Vector2(level_size.x*1.5,0),node_area_position,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-		tween.interpolate_property(prev_node_holder,'position',node_area_position,node_area_position+Vector2(-level_size.x*1.5,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.interpolate_property(node_holder,'position',node_area_position+Vector2(level_size.x*1.5,0),node_area_position,1.3,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+#		tween.interpolate_property(node_holder,'scale',Vector2(0.7,0.7),Vector2(1,1),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+#		tween.interpolate_property(node_holder,'modulate',Color(1,1,1,0.5),Color(1,1,1,1),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.interpolate_property(prev_node_holder,'position',node_area_position,node_area_position+Vector2(-level_size.x*1.5,0),1.3,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+#		tween.interpolate_property(prev_node_holder,'scale',Vector2(1,1),Vector2(0.7,0.7),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+#		tween.interpolate_property(prev_node_holder,'modulate',Color(1,1,1,1),Color(1,1,1,0.5),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 		tween.start()
 		yield(get_tree().create_timer(.1), "timeout")
 		node_holder.show()
 	elif type == 'backwards':
-		tween.interpolate_property(node_holder,'position',node_area_position+Vector2(-level_size.x*1.5,0),node_area_position,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-		tween.interpolate_property(prev_node_holder,'position',node_area_position,node_area_position+Vector2(level_size.x*1.5,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.interpolate_property(node_holder,'position',node_area_position+Vector2(-level_size.x*1.5,0),node_area_position,1.3,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.interpolate_property(prev_node_holder,'position',node_area_position,node_area_position+Vector2(level_size.x*1.5,0),1.3,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 		tween.start()
 		yield(get_tree().create_timer(.1), "timeout")
 		node_holder.show()
@@ -273,5 +276,5 @@ func _on_Tween_tween_completed(object, key):
 		prev_node_holder = null
 	pop_buffer = false
 	main.settled = true
-	calculator.value = 0
+	main.calculator.value = 0
 	pass # replace with function body

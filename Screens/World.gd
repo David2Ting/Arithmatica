@@ -4,18 +4,24 @@ onready var globals = get_node('/root/globals')
 #onready var current_level = get_node('Level')
 onready var audio_player = get_node('Audio_Player')
 onready var operators_holder = get_node('Operators_holder')
-onready var goal_label = get_node('Header/Goal/Label')
+#onready var goal_label = get_node('Header/Goal/Label')
 onready var animation = get_node('AnimationPlayer')
 onready var level_select = get_node('Header/Level_select')
 onready var header = get_node('Header')
-onready var infinity_button = get_node('Header/Infinity')
-onready var infinity_button_label = infinity_button.get_node('Label')
+#onready var infinity_button = get_node('Header/Infinity')
+#onready var infinity_button_label = infinity_button.get_node('Label')
 onready var calculator = get_node('Header/Calculator/Label')
+onready var goal_container = get_node('GoalContainer')
+onready var modes = get_node('Header/Modes')
+onready var modes_timer = modes.get_node('ModesTimer')
+onready var modes_screen = get_node('Header/ModesScreen')
+var goals = preload("res://Screens/Levels/Goals.tscn")
 var pressed = false
 var select_chain = []
 var node_positions = []
 var operator = '+'
 var sum = 0
+var goal_label = null #moving label
 
 var level_size= Vector2()
 var operator_size_area = 0
@@ -40,6 +46,7 @@ var running_sum = 0
 var hint = [null,null]
 var active = true
 
+var mode_menu = false
 var tips_mode = false
 
 func _ready():
@@ -62,7 +69,7 @@ func setup_dimensions():
 	header.start()
 
 	current_level.start()
-	current_level.set_global_position(Vector2(globals.x_size/2,globals.y_size/1.8))
+	current_level.set_position(Vector2(globals.x_size/2,globals.y_size/1.8))
 	var level_texture_size = current_level.screen.get_texture().get_size()
 	var level_scale = min(level_size.x/level_texture_size.x,level_size.y/level_texture_size.y)
 	current_level.set_scale(Vector2(level_scale,level_scale))
@@ -80,7 +87,7 @@ func setup_level(new_level,forwards):
 	else:
 		hint = [null,null]
 	print(hint)
-	change_goal(new_level[0])
+#	change_goal(new_level[0])
 
 	current_level.start()
 	current_level.load_level(map,level_operators,new_level[0],forwards,hint)
@@ -107,6 +114,9 @@ func add_node(obj):
 			calculate_sum()
 
 func _input(INPUT):
+#	if INPUT.is_action_pressed('left_click'):
+#		if mode_menu:
+#			toggle_menu(false)
 	if INPUT.is_action_released('left_click'):
 		if pressed and current_operator:
 			current_level.pop_buffer = false
@@ -187,7 +197,6 @@ func success(last_node):
 func check_adjacency(first,second):
 	var original_pos = first.pos
 	var new_pos = second.pos
-	print(new_pos-original_pos)
 	if abs(original_pos.y-new_pos.y) + abs(original_pos.x-new_pos.x) == 1:
 		return true
 	else:
@@ -275,9 +284,18 @@ func change_level_number(new_level_number):
 		new_level = neutral_level
 	setup_level(new_level,forwards)
 
-func change_goal(new_goal):
+func change_goal(new_goal,forwards = true):
+	print('goal')
 	goal = new_goal
-	goal_label.set_text(str(new_goal))
+	var goal_instance = goals.instance()
+	if goal_label:
+		goal_label.leave(forwards)
+	goal_container.add_child(goal_instance)
+	goal_instance.value = new_goal
+	goal_instance.set_position(Vector2(globals.actual_level_size.x,0))
+#	goal_label.set_text(str(new_goal))
+	goal_instance.enter(forwards)
+	goal_label = goal_instance
 
 func _on_Left_pressed():
 	if settled:
@@ -289,5 +307,39 @@ func _on_Right_pressed():
 		change_level_number(level_number+1)
 	pass # replace with function body
 
+func toggle_menu(boo):
+	if boo:
+		if !mode_menu:
+			mode_menu = true
+			for i in range(1,3):
+				modes.get_children()[i].appear()
+				modes_timer.start()
+				yield(modes_timer,'timeout')
+			modes_screen.show()
+		else:
+			toggle_menu(false)
+		
+	else:
+		for i in range(2,0,-1):
+			modes.get_children()[i].disappear()
+			modes_timer.start()
+			yield(modes_timer,'timeout')
+		mode_menu = false
+		modes_screen.hide()
+		modes.get_children()[0].sprite.set_rotation(0)
 
+func _on_ModesScreen_pressed():
+	toggle_menu(false)
+	pass # replace with function body
 
+func move(type,forwards = true):
+	var tween=get_node('Tween')
+	var x_size = globals.x_size*1.5
+	if !forwards:
+		x_size = -x_size
+	if type == 'out':
+		tween.interpolate_property(self,'position',Vector2(0,0),Vector2(-x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.start()
+	if type == 'in':
+		tween.interpolate_property(self,'position',Vector2(-x_size,0),Vector2(0,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.start()

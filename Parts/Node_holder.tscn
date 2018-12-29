@@ -15,10 +15,11 @@ _sections_unfolded = [ "Font", "Settings" ]
 
 z_index = -4
 z_as_relative = false
-_sections_unfolded = [ "Z Index" ]
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Goal" type="Label" parent="." index="0"]
 
+visible = false
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0

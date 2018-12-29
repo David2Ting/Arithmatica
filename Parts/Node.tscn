@@ -303,7 +303,7 @@ _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Label_holder" type="Node2D" parent="Image_holder" index="1"]
 
-_sections_unfolded = [ "Transform" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Label" type="Label" parent="Image_holder/Label_holder" index="0"]
 
@@ -323,7 +323,7 @@ mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 2 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_colors/font_color = Color( 0.300781, 0.300781, 0.300781, 1 )
 text = "0"
 align = 1
 valign = 1
@@ -362,5 +362,7 @@ playback/speed = 1.0
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]
 
 [connection signal="tween_completed" from="DropTween" to="." method="_on_DropTween_tween_completed"]
+
+[connection signal="tween_started" from="DropTween" to="." method="_on_DropTween_tween_started"]
 
 

@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Screens/Stack Up!/Goals.gd" type="Script" id=1]
 [ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=2]
+[ext_resource path="res://Images/Stackup/Row.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -11,7 +12,7 @@ use_filter = false
 font_data = ExtResource( 2 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="Goal" type="Node2D"]
+[node name="Goal" type="Node2D" index="0"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Visibility", "custom_colors", "custom_fonts" ]
@@ -22,10 +23,10 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -42.0
-margin_top = -34.0
-margin_right = 40.0
-margin_bottom = 46.0
+margin_left = -56.0
+margin_top = -48.0
+margin_right = 54.0
+margin_bottom = 60.0
 rect_pivot_offset = Vector2( 42.3338, 33.8644 )
 rect_clip_content = false
 mouse_filter = 2
@@ -35,6 +36,8 @@ size_flags_vertical = 4
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0.266667, 0.266667, 0.266667, 1 )
 text = "17"
+align = 1
+valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
@@ -48,5 +51,12 @@ playback_speed = 1.0
 playback/active = false
 playback/repeat = false
 playback/speed = 1.0
+
+[node name="Reward" type="Sprite" parent="." index="2"]
+
+position = Vector2( -0.00154877, 46.4904 )
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform" ]
 
 

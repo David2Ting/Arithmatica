@@ -5,6 +5,7 @@ extends 'res://Screens/World.gd'
 # var b = "textvar"
 onready var hint_timer = get_node('HintTimer')
 onready var tween = get_node('Tween')
+var mode = 'Levels'
 var progress_file = File.new()
 var PROGRESS_PATH = "res://Screens/Progress.json"
 var progress = []
@@ -70,14 +71,6 @@ func load_progress():
 	progress_file.close()
 	progress_level = progress['level']
 
-func move(type):
-	var x_size = globals.x_size*1.5
-	if type == 'out':
-		tween.interpolate_property(self,'position',Vector2(0,0),Vector2(-x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-		tween.start()
-	if type == 'in':
-		tween.interpolate_property(self,'position',Vector2(-x_size,0),Vector2(0,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-		tween.start()
 
 func update_progress(new_level):
 	progress_level = new_level
@@ -106,3 +99,5 @@ func tips(type):
 	print(dialogue)
 	pass
 	
+
+

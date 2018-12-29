@@ -37,3 +37,4 @@ right_click=[ Object(InputEventMouseButton,"resource_local_to_scene":false,"reso
 
 environment/default_clear_color=Color( 1, 1, 1, 1 )
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=true

@@ -9,6 +9,9 @@ onready var animation = get_node('AnimationPlayer')
 onready var drop_tween = get_node('DropTween')
 onready var colours = globals.colours
 
+signal tween_finish
+signal pop_finish 
+
 var active = true
 var pos = Vector2()
 var drop_amount = 0
@@ -20,10 +23,11 @@ var pressed = load("res://Images/Operator_pressed.png")
 export var value = 0 setget change_value
 var selected = false
 var hint_operator = '+'
+var is_moving = false
+
 signal add_node(obj)
 
 func _ready():
-
 	pass
 
 func _on_Node_mouse_entered():
@@ -97,12 +101,13 @@ func pop():
 
 func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == 'Pop':
+		emit_signal('pop_finish')
 		main.current_level.finish_pop()
 
 func drop():
 	var current_position = get_position()
 	if drop_amount > 0:
-		drop_tween.interpolate_property(self,'position',current_position,current_position+Vector2(0,level.node_size_area.y*drop_amount),0.25,drop_tween.TRANS_LINEAR,drop_tween.EASE_IN_OUT)
+		drop_tween.interpolate_property(self,'position',current_position,current_position+Vector2(0,level.node_size_area*drop_amount),0.25,drop_tween.TRANS_LINEAR,drop_tween.EASE_IN_OUT)
 		drop_tween.start()
 		drop_amount = 0
 
@@ -117,6 +122,8 @@ func reset(type):
 		show()
 func _on_DropTween_tween_completed(object, key):
 	level.tween_completed()
+	is_moving = false
+	emit_signal('tween_finish')
 	pass # replace with function body
 
 func success():
@@ -143,3 +150,7 @@ func pressed(boo):
 		sprite.set_texture(un_pressed)
 		label_holder.set_position(Vector2(0,0))
 		selected = false
+
+func _on_DropTween_tween_started(object, key):
+	is_moving = true
+	pass # replace with function body

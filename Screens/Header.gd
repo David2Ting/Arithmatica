@@ -5,7 +5,7 @@ extends Node2D
 # var b = "textvar"
 onready var globals = get_node('/root/globals')
 
-onready var infinity = get_node('Infinity')
+onready var mode = get_node('Modes')
 onready var reset = get_node('Reset')
 onready var level_select = get_node('Level_select')
 
@@ -15,11 +15,12 @@ func _ready():
 	pass
 
 func start():
+	return
 	var size = globals.y_size*120/900
 	var area_scale = globals.y_size/900
 	var margin = Vector2(10,10)*area_scale
-	infinity.set_scale(Vector2(0.2,0.2)*area_scale)
-	infinity.set_position(margin)
+#	infinity.set_scale(Vector2(0.2,0.2)*area_scale)
+#	infinity.set_position(margin)
 	reset.set_scale(Vector2(0.2,0.2)*area_scale)
 	reset.set_position(Vector2(globals.x_size-reset.get('rect_size').x*reset.get_scale().x-margin.x,margin.y))
 	level_select.set_scale(Vector2(0.2,0.2)*area_scale)

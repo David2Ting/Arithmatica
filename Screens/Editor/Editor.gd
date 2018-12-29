@@ -114,9 +114,10 @@ func _on_GoalEdit_gui_input(ev):
 	pass # replace with function body
 
 
-func change_goal(new_goal):
+func change_goal(new_goal,forwards=true):
 	goal = new_goal
-	goal_label.set_text(str(new_goal))
+#	goal_label.set_text(str(new_goal))
+	goal_sign.get_node('Label').set_text(str(new_goal))
 	goal_sign.get_node('LineEdit').menu_option(3)
 
 func _on_Levels_pressed():

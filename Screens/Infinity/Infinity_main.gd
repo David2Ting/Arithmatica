@@ -7,7 +7,7 @@ onready var tween = get_node('Tween')
 onready var hub = get_node('../')
 onready var operator_select_holder = get_node('Level/Operator_select_holder')
 var selected_operators = []
-
+var mode = 'Infinity'
 var values = {'+':2,'-':2,'*':3,'/':3,'1':2}
 var summation_values = {'+':1,'-':-1,'*':3,'/':-1,'1':2}
 
@@ -98,14 +98,14 @@ func next_level():
 #	yield(current_level,'move_complete')
 
 	
-func move(type):
-	var x_size = get_node('/root/globals').x_size*1.5
-	if type == 'out':
-		tween.interpolate_property(self,'position',Vector2(0,0),Vector2(x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-		tween.start()
-	if type == 'in':
-		tween.interpolate_property(self,'position',Vector2(x_size,0),Vector2(0,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-		tween.start()
+#func move(type):
+#	var x_size = get_node('/root/globals').x_size*1.5
+#	if type == 'out':
+#		tween.interpolate_property(self,'position',Vector2(0,0),Vector2(x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+#		tween.start()
+#	if type == 'in':
+#		tween.interpolate_property(self,'position',Vector2(x_size,0),Vector2(0,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+#		tween.start()
 
 func _on_Infinity_pressed():
 	selected_operators.clear()
@@ -132,7 +132,7 @@ func _on_Tween_tween_completed(object, key):
 func change_selecting_menu(boo):
 	current_operator = null
 	selecting_menu = boo
-	if boo:
-		infinity_button_label.set_text('Levels')
-	else:
-		infinity_button_label.set_text('Back')
+#	if boo:
+#		infinity_button_label.set_text('Levels')
+#	else:
+#		infinity_button_label.set_text('Back')
