@@ -2,13 +2,13 @@ extends Node2D
 
 signal reset_finished
 
-onready var operators_holder = get_node('../Operators_holder')
-onready var main = get_node('../')
+
+onready var main = get_node('../../../../../')
+onready var operators_holder = get_node('../../../Bottom/Container/Operators_holder')
 onready var node_positions = main.node_positions
 onready var reset_timer = get_node('ResetTimer')
 onready var goal_label = main.goal_label
 onready var tween = get_node('Tween')
-onready var background = get_node('Background')
 
 onready var node_holder = get_node('Node_holder')
 onready var goal = get_node('Node_holder/Goal')
@@ -34,7 +34,7 @@ var level_operators = packed_level[1]
 var node_size_area = 0
 var node_size = 0
 var node_starting_positions = []
-var node_area_position = Vector2(0,-120)
+var node_area_position = Vector2(0,-40)
 var value = 1 setget change_value
 var level_spot_size = Vector2()
 var level_size = Vector2()
@@ -42,7 +42,7 @@ var level_size = Vector2()
 
 
 func start():
-	calculator = get_parent().calculator
+	calculator = main.calculator
 	level_size = screen_size/1.2
 	tip_box_label = get_node('TipBox/Label')
 	tip_box = get_node('TipBox')

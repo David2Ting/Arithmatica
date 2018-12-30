@@ -1,149 +1,80 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Screens/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Screens/Levels/Main.gd" type="Script" id=2]
-[ext_resource path="res://Screens/Level.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=4]
-[ext_resource path="res://Images/blank.png" type="Texture" id=5]
-[ext_resource path="res://Images/Top bar/Modes/arrow.png" type="Texture" id=6]
-
-[sub_resource type="DynamicFont" id=1]
-
-size = 300
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 4 )
-_sections_unfolded = [ "Font", "Settings" ]
 
 [node name="World" index="0" instance=ExtResource( 1 )]
 
 script = ExtResource( 2 )
 
-[node name="Control" type="Control" parent="." index="0"]
+[node name="VerticalContainer" parent="BaseContainer" index="0"]
 
-anchor_left = 0.0
-anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 200.0
-margin_top = 177.0
-margin_right = 335.0
-margin_bottom = 272.0
-rect_scale = Vector2( 0.2, 0.2 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
+margin_left = 8.0
+margin_right = 548.0
+margin_bottom = 900.0
 
-[node name="Level" parent="." index="1" instance=ExtResource( 3 )]
+[node name="Top" parent="BaseContainer/VerticalContainer" index="0"]
 
-[node name="GoalContainer" parent="." index="2"]
+margin_right = 540.0
 
-position = Vector2( 270, 237.963 )
+[node name="Levels" parent="BaseContainer/VerticalContainer/Top/Modes" index="0"]
 
-[node name="Label" parent="Header/Calculator" index="0"]
+editor/display_folded = true
 
-margin_left = -1206.0
-margin_top = -253.0
-margin_right = 794.0
-margin_bottom = 251.0
-valign = 1
-_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
+[node name="Sprite" parent="BaseContainer/VerticalContainer/Top/Modes/Levels" index="2"]
 
-[node name="ModesScreen" parent="Header" index="1"]
+position = Vector2( 158.901, 29.2634 )
+scale = Vector2( 0.1, 0.1 )
 
-_sections_unfolded = [ "Rect", "Textures" ]
+[node name="LineEdit" parent="BaseContainer/VerticalContainer/Top/Level_select" index="3"]
 
-[node name="Levels" parent="Header/Modes" index="0"]
+margin_left = -33.0
+margin_right = 39.0
+margin_bottom = 32.0
 
-margin_top = -151.0
-margin_bottom = 255.0
+[node name="High" parent="BaseContainer/VerticalContainer" index="1"]
 
-[node name="Sprite" parent="Header/Modes/Levels" index="2"]
+margin_right = 540.0
 
-position = Vector2( 867.472, 205.078 )
+[node name="Calculator" parent="BaseContainer/VerticalContainer/High/CalculatorContainer" index="0"]
 
-[node name="Stacks" parent="Header/Modes" index="1"]
+position = Vector2( 26.2876, 38.8074 )
 
-margin_bottom = 299.0
+[node name="GoalContainer" parent="BaseContainer/VerticalContainer" index="2"]
 
-[node name="Levels3" parent="Header/Modes" index="2"]
+margin_right = 540.0
 
-margin_left = -394.0
-margin_top = -75.0
-margin_right = 526.0
-margin_bottom = 331.0
+[node name="Container" parent="BaseContainer/VerticalContainer/GoalContainer" index="0"]
 
-[node name="Reset" parent="Header" index="3"]
+margin_left = 270.0
+margin_right = 270.0
 
-margin_left = 376.0
-margin_top = 21.0
-margin_right = 1232.0
-margin_bottom = 421.0
-rect_scale = Vector2( 0.16, 0.16 )
+[node name="Mid" parent="BaseContainer/VerticalContainer" index="3"]
 
-[node name="Label" parent="Header/Reset" index="0"]
+margin_right = 540.0
 
-margin_left = 140.0
-margin_top = 52.0
-margin_right = 841.0
-margin_bottom = 352.0
-custom_fonts/font = SubResource( 1 )
-align = 0
-valign = 0
-_sections_unfolded = [ "Anchor", "Margin", "Rect", "custom_colors", "custom_fonts" ]
+[node name="Container" parent="BaseContainer/VerticalContainer/Mid" index="0"]
 
-[node name="Label" parent="Header/Goal" index="0"]
+margin_left = 270.0
+margin_right = 270.0
 
-_sections_unfolded = [ "Rect", "custom_colors", "custom_fonts" ]
+[node name="Bottom" parent="BaseContainer/VerticalContainer" index="4"]
 
-[node name="Level_select" parent="Header" index="5"]
+margin_right = 540.0
 
-modulate = Color( 1, 1, 1, 1 )
-margin_left = 167.0
-margin_top = 13.0
-margin_right = 567.0
-margin_bottom = 413.0
-texture_normal = ExtResource( 5 )
-texture_pressed = ExtResource( 5 )
+[node name="ModesScreen" parent="BaseContainer" index="1"]
 
-[node name="Label" parent="Header/Level_select" index="0"]
+rect_min_size = Vector2( 540, 0 )
 
-margin_top = 39.0
-margin_bottom = 427.0
-custom_colors/font_color = Color( 0.470588, 0.470588, 0.470588, 1 )
+[node name="TextureRect" parent="." index="3"]
 
-[node name="Left" parent="Header/Level_select" index="1"]
+margin_top = -61.0
+margin_bottom = 899.0
+_sections_unfolded = [ "Material", "Rect", "Visibility", "Z Index" ]
 
-self_modulate = Color( 0.808594, 0.808594, 0.808594, 1 )
-margin_left = -18.0
-margin_top = 155.0
-margin_right = 263.0
-margin_bottom = 398.0
-rect_rotation = 90.0
-texture_normal = ExtResource( 6 )
-
-[node name="Right" parent="Header/Level_select" index="2"]
-
-self_modulate = Color( 0.808594, 0.808594, 0.808594, 1 )
-margin_left = 439.0
-margin_top = 260.0
-margin_right = 720.0
-margin_bottom = 503.0
-rect_rotation = -90.0
-texture_normal = ExtResource( 6 )
-
-[node name="LineEdit" parent="Header/Level_select" index="3"]
-
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -203.0
-margin_right = 202.0
-
-[node name="Dialog_box" type="TextureRect" parent="." index="6"]
+[node name="Dialog_box" type="TextureRect" parent="." index="4"]
 
 visible = false
 anchor_left = 0.0
@@ -163,20 +94,14 @@ size_flags_vertical = 1
 stretch_mode = 0
 _sections_unfolded = [ "Mouse", "Visibility" ]
 
-[node name="HintTimer" type="Timer" parent="." index="7"]
+[node name="HintTimer" type="Timer" parent="." index="5"]
 
 process_mode = 1
 wait_time = 4.0
 one_shot = true
 autostart = false
 
-[node name="TextureRect" parent="." index="8"]
-
-margin_top = -61.0
-margin_bottom = 899.0
-_sections_unfolded = [ "Material", "Rect", "Visibility", "Z Index" ]
-
-[node name="Label" type="Label" parent="." index="9"]
+[node name="Label" type="Label" parent="." index="7"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -197,4 +122,3 @@ max_lines_visible = -1
 [connection signal="tween_completed" from="Tween" to="." method="_on_Tween_tween_completed"]
 
 
-[editable path="Header/Modes/Stacks"]

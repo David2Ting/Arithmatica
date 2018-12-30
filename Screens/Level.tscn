@@ -1,19 +1,18 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://Screens/Levels/Main_level.gd" type="Script" id=1]
 [ext_resource path="res://Images/Level/Background.png" type="Texture" id=2]
-[ext_resource path="res://Images/Level_spot.png" type="Texture" id=3]
-[ext_resource path="res://Parts/Node_holder.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Images/Stackup/Screen.png" type="Texture" id=5]
-[ext_resource path="res://Images/Calculator 1.png" type="Texture" id=6]
-[ext_resource path="res://Images/Fonts/BebasNeue-Regular.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Parts/Node_holder.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Images/Stackup/Screen.png" type="Texture" id=4]
+[ext_resource path="res://Images/Calculator 1.png" type="Texture" id=5]
+[ext_resource path="res://Images/Fonts/BebasNeue-Regular.ttf" type="DynamicFontData" id=6]
 
 [sub_resource type="DynamicFont" id=1]
 
 size = 100
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 7 )
+font_data = ExtResource( 6 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [node name="Level" type="Node2D"]
@@ -58,34 +57,28 @@ z_as_relative = false
 texture = ExtResource( 2 )
 _sections_unfolded = [ "Visibility", "Z Index" ]
 
-[node name="Background" type="Sprite" parent="." index="4"]
-
-visible = false
-position = Vector2( 0, -118.109 )
-z_index = 2
-texture = ExtResource( 3 )
-_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
-
-[node name="Node_holder" parent="." index="5" instance=ExtResource( 4 )]
+[node name="Node_holder" parent="." index="4" instance=ExtResource( 3 )]
 
 position = Vector2( 0, -2.86102e-006 )
 
-[node name="Screen" type="Sprite" parent="." index="6"]
+[node name="Screen" type="Sprite" parent="." index="5"]
 
-position = Vector2( 0.0159607, -131.585 )
+position = Vector2( 0, 7.25311 )
+scale = Vector2( 0.2, 0.2 )
 z_index = -5
 z_as_relative = false
-texture = ExtResource( 5 )
+texture = ExtResource( 4 )
+offset = Vector2( 0, -250 )
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
-[node name="ResetTimer" type="Timer" parent="." index="7"]
+[node name="ResetTimer" type="Timer" parent="." index="6"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="Tween" type="Tween" parent="." index="8"]
+[node name="Tween" type="Tween" parent="." index="7"]
 
 repeat = false
 playback_process_mode = 1
@@ -94,7 +87,7 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
-[node name="TipBox" type="Node2D" parent="." index="9"]
+[node name="TipBox" type="Node2D" parent="." index="8"]
 
 visible = false
 position = Vector2( 0, -329.026 )
@@ -106,7 +99,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 position = Vector2( -7.92345, -135.547 )
 scale = Vector2( 1.93322, 1.40041 )
-texture = ExtResource( 6 )
+texture = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="TipBox" index="1"]
 

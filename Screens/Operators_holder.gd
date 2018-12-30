@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var globals = get_node('/root/globals')
-onready var main = get_node('../')
+onready var main = get_node('../../../../../')
 
 var operator = preload('res://Parts/Operator.tscn')
 var operators = []

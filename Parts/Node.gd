@@ -1,7 +1,8 @@
 extends Area2D
 
-onready var main = get_node('../../../')
-onready var level = main.current_level
+
+onready var level = get_node('../../')
+onready var main = level.get_node('../')
 onready var sprite = get_node('Image_holder/Sprite')
 onready var label = get_node('Image_holder/Label_holder/Label')
 onready var label_holder = get_node('Image_holder/Label_holder')

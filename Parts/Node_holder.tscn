@@ -13,9 +13,10 @@ _sections_unfolded = [ "Font", "Settings" ]
 
 [node name="Node_holder" type="Node2D"]
 
+scale = Vector2( 0.2, 0.2 )
 z_index = -4
 z_as_relative = false
-_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Goal" type="Label" parent="." index="0"]
 

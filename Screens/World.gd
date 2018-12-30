@@ -1,20 +1,20 @@
-extends Node2D
+extends Control
 
 onready var globals = get_node('/root/globals')
 #onready var current_level = get_node('Level')
 onready var audio_player = get_node('Audio_Player')
-onready var operators_holder = get_node('Operators_holder')
+onready var operators_holder = get_node('BaseContainer/VerticalContainer/Bottom/Container/Operators_holder')
 #onready var goal_label = get_node('Header/Goal/Label')
 onready var animation = get_node('AnimationPlayer')
-onready var level_select = get_node('Header/Level_select')
-onready var header = get_node('Header')
+onready var level_select = get_node('BaseContainer/VerticalContainer/Top/Level_select')
+#onready var header = get_node('Header')
 #onready var infinity_button = get_node('Header/Infinity')
 #onready var infinity_button_label = infinity_button.get_node('Label')
-onready var calculator = get_node('Header/Calculator/Label')
-onready var goal_container = get_node('GoalContainer')
-onready var modes = get_node('Header/Modes')
+onready var calculator = get_node('BaseContainer/VerticalContainer/High/CalculatorContainer/Calculator/Label')
+onready var goal_container = get_node('BaseContainer/VerticalContainer/GoalContainer/Container/GoalContainer')
+onready var modes = get_node('BaseContainer/VerticalContainer/Top/Modes')
 onready var modes_timer = modes.get_node('ModesTimer')
-onready var modes_screen = get_node('Header/ModesScreen')
+onready var modes_screen = get_node('BaseContainer/ModesScreen')
 var goals = preload("res://Screens/Levels/Goals.tscn")
 var pressed = false
 var select_chain = []
@@ -40,7 +40,7 @@ var DATABASE_PATH = "res://Screens/Levels/Levels.json"
 var database = {}
 var neutral_level = [0,['+','+'],[['/','/','/','/'],['/','/','/','/'],['/','/','/','/'],['/','/','/','/'],['/','/','/','/']]]
 var goal = 0 setget change_goal
-onready var current_level = get_node('Level')
+onready var current_level = get_node('BaseContainer/VerticalContainer/Mid/Container/Level')
 var settled = true
 var running_sum = 0
 var hint = [null,null]
@@ -66,13 +66,13 @@ func setup_dimensions():
 	operator_size = (operator_size_area/400)/1.1
 	level_size = Vector2(window_size.x/1.2,window_size.y/1.8)
 	
-	header.start()
+#	header.start()
 
 	current_level.start()
-	current_level.set_position(Vector2(globals.x_size/2,globals.y_size/1.8))
+#	current_level.set_position(Vector2(globals.x_size/2,globals.y_size/1.8))
 	var level_texture_size = current_level.screen.get_texture().get_size()
 	var level_scale = min(level_size.x/level_texture_size.x,level_size.y/level_texture_size.y)
-	current_level.set_scale(Vector2(level_scale,level_scale))
+#	current_level.set_scale(Vector2(level_scale,level_scale))
 	node_positions = current_level.node_positions
 	globals.actual_level_size = level_texture_size*level_scale
 
@@ -326,7 +326,7 @@ func toggle_menu(boo):
 			yield(modes_timer,'timeout')
 		mode_menu = false
 		modes_screen.hide()
-		modes.get_children()[0].sprite.set_rotation(0)
+		modes.get_children()[0].get_node('sprite').set_rotation(0)
 
 func _on_ModesScreen_pressed():
 	toggle_menu(false)
