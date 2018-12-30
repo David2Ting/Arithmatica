@@ -14,6 +14,7 @@ func _ready():
 	pass
 	
 func start():
+	.start()
 	randomize()
 	operators = []
 	for child in get_children():

@@ -17,9 +17,12 @@ var difficulty_progress = 20
 
 #onready var current_health_label = get_node('Header/Health/Current')
 onready var drop_timer = get_node('DropTimer')
-func _ready():
+func start():
+	.start()
+	current_level.start()
 	setup_dimensions()
-	operators_holder.start()
+
+#	operators_holder.start()
 	goals = preload("res://Screens/Stack Up!/Goals.tscn")
 	add_goal(0,true)
 	add_goal(0,true)  #Left
@@ -49,15 +52,20 @@ func operate_chain():
 			operators_holder.off_operator()
 			select_chain = []
 		else:
+			var test_chain = [] + select_chain
+			test_chain.pop_back()
+			var dropping = current_level.check_above(test_chain)
 			current_level.pop_nodes(select_chain,false)
 			audio_player.stream = pop_sound
 			audio_player.play()
 			calculator.value = 0
-			drop_timer.start()
+#			drop_timer.start()
 			last_node.select(false)
 			operators_holder.off_operator()
+			select_chain.pop_back()
+			if dropping:
+				yield(current_level,'pop_finish')
 			select_chain = []
-			yield(drop_timer,'timeout')
 			current_level.add_row()
 			streak = 0
 
@@ -67,8 +75,8 @@ func success(last_node,index):
 	calculator.value = 'WIN'
 	audio_player.stream = success_sound
 	audio_player.play()
-	drop_timer.start()
-	yield(drop_timer,'timeout')
+#	drop_timer.start()
+	yield(current_level,'pop_finish')
 	current_level.reward('row',last_node,index)
 
 

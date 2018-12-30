@@ -1,20 +1,17 @@
 extends Control
 
-onready var globals = get_node('/root/globals')
-#onready var current_level = get_node('Level')
-onready var audio_player = get_node('Audio_Player')
-onready var operators_holder = get_node('BaseContainer/VerticalContainer/Bottom/Container/Operators_holder')
-#onready var goal_label = get_node('Header/Goal/Label')
-onready var animation = get_node('AnimationPlayer')
-onready var level_select = get_node('BaseContainer/VerticalContainer/Top/Level_select')
-#onready var header = get_node('Header')
-#onready var infinity_button = get_node('Header/Infinity')
-#onready var infinity_button_label = infinity_button.get_node('Label')
-onready var calculator = get_node('BaseContainer/VerticalContainer/High/CalculatorContainer/Calculator/Label')
-onready var goal_container = get_node('BaseContainer/VerticalContainer/GoalContainer/Container/GoalContainer')
-onready var modes = get_node('BaseContainer/VerticalContainer/Top/Modes')
-onready var modes_timer = modes.get_node('ModesTimer')
-onready var modes_screen = get_node('BaseContainer/ModesScreen')
+var globals
+var audio_player
+var operators_holder
+
+var animation 
+var level_select
+
+var calculator
+var goal_container
+var modes 
+var modes_timer 
+var modes_screen
 var goals = preload("res://Screens/Levels/Goals.tscn")
 var pressed = false
 var select_chain = []
@@ -45,10 +42,25 @@ var settled = true
 var running_sum = 0
 var hint = [null,null]
 var active = true
-
+var screen
 var mode_menu = false
 var tips_mode = false
 
+func start():
+	globals = get_node('/root/globals')
+	audio_player = get_node('../Audio_Player')
+	operators_holder = get_node('../BaseContainer/VerticalContainer/Bottom/Container/Operators_holder')
+
+	animation = get_node('../AnimationPlayer')
+	level_select = get_node('../BaseContainer/VerticalContainer/Top/Level_select')
+
+	calculator = get_node('../BaseContainer/VerticalContainer/High/CalculatorContainer/Calculator/Label')
+	goal_container = get_node('../BaseContainer/VerticalContainer/GoalContainer/Container/GoalContainer')
+	modes = get_node('../BaseContainer/VerticalContainer/Top/Modes')
+	modes_timer = modes.get_node('../ModesTimer')
+	modes_screen = get_node('../BaseContainer/ModesScreen')
+	current_level = get_node('../BaseContainer/VerticalContainer/Mid/Container/Level')
+	screen = get_node('../BaseContainer/VerticalContainer/Mid/Container/Screen')
 func _ready():
 	randomize()
 #	setup_dimensions()
@@ -68,9 +80,8 @@ func setup_dimensions():
 	
 #	header.start()
 
-	current_level.start()
 #	current_level.set_position(Vector2(globals.x_size/2,globals.y_size/1.8))
-	var level_texture_size = current_level.screen.get_texture().get_size()
+	var level_texture_size = screen.get_texture().get_size()
 	var level_scale = min(level_size.x/level_texture_size.x,level_size.y/level_texture_size.y)
 #	current_level.set_scale(Vector2(level_scale,level_scale))
 	node_positions = current_level.node_positions
@@ -89,11 +100,9 @@ func setup_level(new_level,forwards):
 	print(hint)
 #	change_goal(new_level[0])
 
-	current_level.start()
-	current_level.load_level(map,level_operators,new_level[0],forwards,hint)
 	node_positions = current_level.node_positions
 	current_level.show()
-
+	current_level.load_level(map,level_operators,new_level[0],forwards,hint)
 
 func add_node(obj):
 	if pressed and select_chain.size()>0 and (check_adjacency(select_chain[-1],obj)) and current_operator and !obj.is_block:
@@ -333,7 +342,7 @@ func _on_ModesScreen_pressed():
 	pass # replace with function body
 
 func move(type,forwards = true):
-	var tween=get_node('Tween')
+	var tween=get_node('../Tween')
 	var x_size = globals.x_size*1.5
 	if !forwards:
 		x_size = -x_size

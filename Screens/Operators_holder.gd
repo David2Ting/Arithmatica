@@ -1,7 +1,7 @@
 extends Node2D
 
 onready var globals = get_node('/root/globals')
-onready var main = get_node('../../../../../')
+var main
 
 var operator = preload('res://Parts/Operator.tscn')
 var operators = []
@@ -14,6 +14,8 @@ func _ready():
 			operators.append(operator)
 	pass
 
+func start():
+	main = get_node('../../../../../Main')
 
 func add_operator(type='+'):
 	var operator_instance = operator.instance()

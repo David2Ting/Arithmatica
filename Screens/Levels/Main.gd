@@ -3,8 +3,8 @@ extends 'res://Screens/World.gd'
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
-onready var hint_timer = get_node('HintTimer')
-onready var tween = get_node('Tween')
+var hint_timer
+var tween
 var mode = 'Levels'
 var progress_file = File.new()
 var PROGRESS_PATH = "res://Screens/Progress.json"
@@ -15,6 +15,13 @@ var dialogue = []
 var dialogue_number = 0
 
 func _ready():
+	pass
+func start():
+	.start()
+
+	hint_timer = get_node('../HintTimer')
+	tween = get_node('../Tween')
+	
 	setup_dimensions()
 	load_database()
 	
@@ -26,11 +33,10 @@ func _ready():
 		next_level = neutral_level
 	level_select.value = progress_level
 	level_number = progress_level
-
+	current_level.start()
 	setup_level(next_level,true)
 	hint_timer.start()
-	pass
-
+	
 func setup_level(next_level,boo):
 	.setup_level(next_level,boo)
 	if progress_level == 1:

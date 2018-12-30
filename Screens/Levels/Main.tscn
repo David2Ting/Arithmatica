@@ -23,12 +23,6 @@ modulate = Color( 0.48674, 0.495763, 0.847656, 1 )
 self_modulate = Color( 1, 1, 1, 1 )
 position = Vector2( 166.193, 29.4451 )
 
-[node name="LineEdit" parent="BaseContainer/VerticalContainer/Top/Level_select" index="3"]
-
-margin_left = -33.0
-margin_right = 39.0
-margin_bottom = 32.0
-
 [node name="High" parent="BaseContainer/VerticalContainer" index="1"]
 
 margin_top = 98.0

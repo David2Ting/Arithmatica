@@ -60,10 +60,11 @@ _sections_unfolded = [ "Visibility", "Z Index" ]
 [node name="Node_holder" parent="." index="4" instance=ExtResource( 3 )]
 
 position = Vector2( 0, -2.86102e-006 )
-scale = Vector2( 0.25, 0.25 )
+scale = Vector2( 0.24, 0.24 )
 
 [node name="Screen" type="Sprite" parent="." index="5"]
 
+visible = false
 position = Vector2( 0, 7.25311 )
 scale = Vector2( 0.25, 0.25 )
 z_index = -5

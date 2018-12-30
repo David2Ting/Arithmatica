@@ -5,7 +5,7 @@ extends TextureButton
 # var b = "textvar""res://Images/Top bar/Modes/Infinity.png"
 onready var label = get_node('Label')
 onready var animation = get_node('AnimationPlayer')
-onready var main = get_node('../../../../../')
+onready var hub = get_node('../../../../../')
 onready var modes = get_node('../')
 export var size = 1
 export var current_mode = false
@@ -54,12 +54,13 @@ func disappear():
 	hide()
 
 func _on_Levels_pressed():
-	if value == main.mode:
-		main.toggle_menu(true)
+	if value == hub.mode:
+		hub.toggle_menu(true)
 		get_node('Sprite').set_rotation_degrees(-90)
 	else:
 		modes.get_children()[0].value = value
 		print('testing')
-		main.toggle_menu(false)
+		hub.toggle_menu(false)
+		hub.change_mode(value)
 #		main.get_parent().change_mode(value)
 	pass # replace with function body

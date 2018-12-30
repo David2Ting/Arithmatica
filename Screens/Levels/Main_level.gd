@@ -3,6 +3,8 @@ extends 'res://Screens/Level.gd'
 
 func _ready():
 	pass
+func start():
+	.start()
 
 func reset_level(reset_group_nodes,reset_group_operators):
 	.reset_level(reset_group_nodes,reset_group_operators)

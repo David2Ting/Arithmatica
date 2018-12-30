@@ -1,0 +1,18 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://Parts/Level_select.tscn" type="PackedScene" id=1]
+[ext_resource path="res://Screens/Stack Up!/Level_select.gd" type="Script" id=2]
+
+[node name="Level_select" instance=ExtResource( 1 )]
+
+script = ExtResource( 2 )
+
+[node name="Left" parent="." index="1"]
+
+visible = false
+
+[node name="Right" parent="." index="2"]
+
+visible = false
+
+

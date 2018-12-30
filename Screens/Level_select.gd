@@ -1,12 +1,16 @@
 extends TextureButton
 
 onready var label = get_node('Label')
-onready var main = get_node('../../../../')
+var main
 var value = 1 setget change_value
 onready var line_edit = get_node('LineEdit')
 
 onready var left = get_node('Left')
 onready var right = get_node('Right')
+
+func start():
+	 main = get_node('../../../../Main')
+
 func change_value(new_value):
 	value = new_value
 	label.set_text(str(value))
@@ -14,10 +18,10 @@ func change_value(new_value):
 		left.hide()
 	else:
 		left.show()
-	if new_value >= main.progress_level:
-		right.hide()
-	else:
-		right.show()
+#	if new_value >= main.progress_level:
+#		right.hide()
+#	else:
+#		right.show()
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
@@ -56,4 +60,14 @@ func change_value(new_value):
 func _on_LineEdit_text_entered(new_text):
 	main.level_number = int(new_text)
 	line_edit.menu_option(3)
+	pass # replace with function body
+
+
+func _on_Left_pressed():
+	main.level_number -= 1
+	pass # replace with function body
+
+
+func _on_Right_pressed():
+	main.level_number += 1
 	pass # replace with function body

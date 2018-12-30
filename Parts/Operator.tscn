@@ -50,7 +50,7 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Operator" type="Area2D" groups=[
+[node name="Operator" type="Area2D" index="0" groups=[
 "operators",
 ]]
 

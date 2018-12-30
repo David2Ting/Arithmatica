@@ -6,32 +6,4 @@
 
 script = null
 
-[node name="BaseContainer" parent="." index="1"]
-
-script = null
-
-[node name="Operators_holder" parent="BaseContainer/VerticalContainer/Bottom/Container" index="0"]
-
-script = null
-
-[node name="Operator" parent="BaseContainer/VerticalContainer/Bottom/Container/Operators_holder" index="1"]
-
-visible = false
-script = null
-
-[node name="Operator2" parent="BaseContainer/VerticalContainer/Bottom/Container/Operators_holder" index="2"]
-
-visible = false
-script = null
-
-[node name="Operator3" parent="BaseContainer/VerticalContainer/Bottom/Container/Operators_holder" index="3"]
-
-visible = false
-script = null
-
-[node name="Operator4" parent="BaseContainer/VerticalContainer/Bottom/Container/Operators_holder" index="4"]
-
-visible = false
-script = null
-
 

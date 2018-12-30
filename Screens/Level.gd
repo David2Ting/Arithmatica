@@ -3,17 +3,16 @@ extends Node2D
 signal reset_finished
 
 
-onready var main = get_node('../../../../../')
-onready var operators_holder = get_node('../../../Bottom/Container/Operators_holder')
-onready var node_positions = main.node_positions
-onready var reset_timer = get_node('ResetTimer')
-onready var goal_label = main.goal_label
-onready var tween = get_node('Tween')
-
-onready var node_holder = get_node('Node_holder')
-onready var goal = get_node('Node_holder/Goal')
-onready var screen = get_node('Screen')
-onready var screen_size = screen.get_texture().get_size()
+var main
+var operators_holder
+var node_positions
+var reset_timer
+var goal_label
+var tween
+var node_holder
+var goal 
+var screen
+var screen_size
 
 var tip_box
 var tip_box_label
@@ -42,6 +41,18 @@ var level_size = Vector2()
 
 
 func start():
+	main = get_node('../../../../../Main')
+	operators_holder = get_node('../../../Bottom/Container/Operators_holder')
+	node_positions = main.node_positions
+	reset_timer = get_node('ResetTimer')
+	goal_label = main.goal_label
+	tween = get_node('Tween')
+
+	node_holder = get_node('Node_holder')
+	goal = get_node('Node_holder/Goal')
+	screen = get_node('../Screen')
+	screen_size = screen.get_texture().get_size()
+	
 	calculator = main.calculator
 	level_size = screen_size/1.2
 	tip_box_label = get_node('TipBox/Label')
@@ -60,7 +71,7 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 	var node_number_x = map_new[0].size()
 	var node_number_y = map_new.size()
 #	operators_holder.set_position(Vector2(0,globals.y_size/1.15-(globals.y_size/2)))
-	var level_size = (screen_size - Vector2(0,480))/1.1
+	var level_size = (screen_size)/1.1
 	node_size_area = min(level_size.x/node_number_x,level_size.y/node_number_y)
 	var node_scale_area = node_size_area/400
 	node_scale = node_scale_area/1.05

@@ -10,6 +10,8 @@ func _ready():
 	# Initialization here
 	pass
 
+func start():
+	pass
 func change_value(new_value):
 	value = new_value
 	label.set_text(str(new_value))

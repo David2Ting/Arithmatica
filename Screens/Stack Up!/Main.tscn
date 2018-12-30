@@ -4,7 +4,7 @@
 [ext_resource path="res://Screens/Stack Up!/Main.gd" type="Script" id=2]
 [ext_resource path="res://Screens/Stack Up!/Level_select.gd" type="Script" id=3]
 [ext_resource path="res://Screens/Stack Up!/StackUp! Level.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Screens/Stack Up!/Operators_holder.gd" type="Script" id=5]
+[ext_resource path="res://Parts/Operator.tscn" type="PackedScene" id=5]
 
 [node name="World" instance=ExtResource( 1 )]
 
@@ -22,27 +22,23 @@ editor/display_folded = true
 
 script = ExtResource( 3 )
 
-[node name="Label" parent="BaseContainer/VerticalContainer/Top/Level_select" index="0"]
-
-text = "0"
-
-[node name="Left" parent="BaseContainer/VerticalContainer/Top/Level_select" index="1"]
-
-visible = false
-
-[node name="Right" parent="BaseContainer/VerticalContainer/Top/Level_select" index="2"]
-
-visible = false
-
 [node name="Reset" parent="BaseContainer/VerticalContainer/Top" index="2"]
 
 editor/display_folded = true
 
 [node name="Level" parent="BaseContainer/VerticalContainer/Mid/Container" index="0" instance=ExtResource( 4 )]
 
-[node name="Operators_holder" parent="BaseContainer/VerticalContainer/Bottom/Container" index="0"]
+[node name="Container" parent="BaseContainer/VerticalContainer/Bottom" index="0"]
 
-script = ExtResource( 5 )
+_sections_unfolded = [ "Mouse", "Rect" ]
+
+[node name="Sprite" parent="BaseContainer/VerticalContainer/Bottom/Container" index="0"]
+
+_sections_unfolded = [ "Transform" ]
+
+[node name="Operator" parent="BaseContainer/VerticalContainer/Bottom/Container" index="1" instance=ExtResource( 5 )]
+
+scale = Vector2( 0.3, 0.3 )
 
 [node name="DropTimer" type="Timer" parent="." index="5"]
 

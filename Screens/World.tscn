@@ -1,24 +1,23 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://Screens/World.gd" type="Script" id=1]
 [ext_resource path="res://Sounds/Effects/Blop-Mark_DiAngelo-79054334.wav" type="AudioStream" id=2]
 [ext_resource path="res://Images/blank.png" type="Texture" id=3]
 [ext_resource path="res://Parts/Modes.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Images/Top bar/Modes/arrow.png" type="Texture" id=5]
-[ext_resource path="res://Parts/Level_select.tscn" type="PackedScene" id=6]
-[ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://Images/Top bar/Calculator.png" type="Texture" id=8]
-[ext_resource path="res://Images/Fonts/Calculator.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://Screens/Calculator.gd" type="Script" id=10]
-[ext_resource path="res://Images/Level/Operator_holder.png" type="Texture" id=11]
-[ext_resource path="res://Images/Border.png" type="Texture" id=12]
+[ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Images/Top bar/Calculator.png" type="Texture" id=7]
+[ext_resource path="res://Images/Fonts/Calculator.ttf" type="DynamicFontData" id=8]
+[ext_resource path="res://Screens/Calculator.gd" type="Script" id=9]
+[ext_resource path="res://Images/Level/Operator_holder.png" type="Texture" id=10]
+[ext_resource path="res://Images/Border.png" type="Texture" id=11]
 
 [sub_resource type="DynamicFont" id=2]
 
 size = 60
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 7 )
+font_data = ExtResource( 6 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=3]
@@ -26,10 +25,10 @@ _sections_unfolded = [ "Font", "Settings" ]
 size = 450
 use_mipmaps = true
 use_filter = false
-font_data = ExtResource( 9 )
+font_data = ExtResource( 8 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="World" type="Control" index="0"]
+[node name="World" type="Control"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -189,9 +188,7 @@ wait_time = 0.25
 one_shot = false
 autostart = false
 
-[node name="Level_select" parent="BaseContainer/VerticalContainer/Top" index="1" instance=ExtResource( 6 )]
-
-[node name="Reset" type="TextureButton" parent="BaseContainer/VerticalContainer/Top" index="2"]
+[node name="Reset" type="TextureButton" parent="BaseContainer/VerticalContainer/Top" index="1"]
 
 anchor_left = 1.0
 anchor_top = 0.5
@@ -286,7 +283,7 @@ _sections_unfolded = [ "Mouse", "Rect" ]
 
 position = Vector2( 27.0053, 54.2443 )
 scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 8 )
+texture = ExtResource( 7 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Label" type="Label" parent="BaseContainer/VerticalContainer/High/CalculatorContainer/Calculator" index="0"]
@@ -312,7 +309,7 @@ align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 10 )
+script = ExtResource( 9 )
 _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
 [node name="Timer" type="Timer" parent="BaseContainer/VerticalContainer/High/CalculatorContainer/Calculator/Label" index="0"]
@@ -436,7 +433,7 @@ _sections_unfolded = [ "Mouse" ]
 
 position = Vector2( -0.520508, -3.56781 )
 scale = Vector2( 0.317838, 0.337848 )
-texture = ExtResource( 11 )
+texture = ExtResource( 10 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 
@@ -462,7 +459,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 12 )
+texture = ExtResource( 11 )
 stretch_mode = 0
 
 [node name="Tween" type="Tween" parent="." index="4"]

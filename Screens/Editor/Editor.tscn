@@ -583,6 +583,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 position = Vector2( -1.73507, -11.8927 )
 scale = Vector2( 1.05946, 1.12616 )
 texture = ExtResource( 23 )
+_sections_unfolded = [ "Transform" ]
 
 [node name="Operator" parent="Operators_holder" index="1" instance=ExtResource( 24 )]
 

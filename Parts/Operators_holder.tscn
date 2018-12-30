@@ -1,90 +1,37 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Screens/Operators_holder.gd" type="Script" id=1]
-[ext_resource path="res://Parts/Operator.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Parts/Operator.gd" type="Script" id=3]
+[ext_resource path="res://Images/Top bar/Calculator.png" type="Texture" id=2]
+[ext_resource path="res://Parts/Operator.tscn" type="PackedScene" id=3]
 
 [node name="Operators_holder" type="Node2D"]
 
-editor/display_folded = true
-scale = Vector2( 0.3, 0.3 )
+z_index = 3
+z_as_relative = false
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
-[node name="Operator" type="Area2D" parent="." index="0" groups=[
-"operators",
-] instance=ExtResource( 2 )]
+[node name="Sprite" type="Sprite" parent="." index="0"]
 
-modulate = Color( 0.898438, 0.898438, 0.898438, 1 )
-position = Vector2( -570, 0 )
-scale = Vector2( 0.9, 0.9 )
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-script = ExtResource( 3 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+visible = false
+position = Vector2( -30, -20 )
+scale = Vector2( 1.17, 1.17 )
+texture = ExtResource( 2 )
 
-[node name="Operator2" type="Area2D" parent="." index="1" groups=[
-"operators",
-] instance=ExtResource( 2 )]
+[node name="Operator" parent="." index="1" instance=ExtResource( 3 )]
 
-modulate = Color( 0.898438, 0.898438, 0.898438, 1 )
-position = Vector2( -190, 0 )
-scale = Vector2( 0.9, 0.9 )
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-script = ExtResource( 3 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+position = Vector2( -630, 0 )
 
-[node name="Operator3" type="Area2D" parent="." index="2" groups=[
-"operators",
-] instance=ExtResource( 2 )]
+[node name="Operator2" parent="." index="2" instance=ExtResource( 3 )]
 
-modulate = Color( 0.898438, 0.898438, 0.898438, 1 )
-position = Vector2( 190, 0 )
-scale = Vector2( 0.9, 0.9 )
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-script = ExtResource( 3 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+position = Vector2( -210, 0 )
 
-[node name="Operator4" type="Area2D" parent="." index="3" groups=[
-"operators",
-] instance=ExtResource( 2 )]
+[node name="Operator3" parent="." index="3" instance=ExtResource( 3 )]
 
-modulate = Color( 0.898438, 0.898438, 0.898438, 1 )
-position = Vector2( 570, 0 )
-scale = Vector2( 0.9, 0.9 )
-input_pickable = true
-gravity_vec = Vector2( 0, 1 )
-gravity = 98.0
-linear_damp = 0.1
-angular_damp = 1.0
-audio_bus_override = false
-audio_bus_name = "Master"
-script = ExtResource( 3 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+position = Vector2( 210, 0 )
 
-[connection signal="input_event" from="Operator" to="Operator" method="_on_Operator_input_event"]
+[node name="Operator4" parent="." index="4" instance=ExtResource( 3 )]
 
-[connection signal="input_event" from="Operator2" to="Operator2" method="_on_Operator_input_event"]
-
-[connection signal="input_event" from="Operator3" to="Operator3" method="_on_Operator_input_event"]
-
-[connection signal="input_event" from="Operator4" to="Operator4" method="_on_Operator_input_event"]
+position = Vector2( 630, 0 )
 
 

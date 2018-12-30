@@ -10,7 +10,7 @@ var black_list_numbers_counts = []
 var timer
 signal drop_completed
 signal tween_completed
-
+signal pop_finish
 var is_falling = false
 
 func _ready():
@@ -19,6 +19,7 @@ func _ready():
 	pass
 
 func start():
+	.start()
 	node = preload("res://Screens/Stack Up!/Node_stack.tscn")
 	timer = get_node('Timer')
 	add_row()
@@ -154,17 +155,21 @@ func pop_nodes(select_chain,is_success):
 	if empty:
 		return false
 	yield(node,'pop_finish')
+	emit_signal('pop_finish')
 	for node in node_holder.get_children():
 		if node.is_in_group('nodes'):
 			node.drop()
-	emit_signal('drop_completed')
 	return falling_nodes
 
 func check_above(chain):
 	for node in chain:
+		print(node.value)
 		var pos = node.pos
-		if pos.y-1>=0 and node_positions[pos.y-1][pos.x]:
+		print(node_positions[pos.y-1][pos.x])
+		if pos.y-1>=0 and node_positions[pos.y-1][pos.x] and chain.find(node_positions[pos.y-1][pos.x])==-1:
+			print('true')
 			return true
+	print(false)
 	return false
 
 func finish_pop():
