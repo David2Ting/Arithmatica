@@ -28,7 +28,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0, 0 ), Vector2( 0.2, 0.2 ), Vector2( 0.18, 0.18 ) ]
+"values": [ Vector2( 0, 0 ), Vector2( 1.1, 1.1 ), Vector2( 1, 1 ) ]
 }
 
 [sub_resource type="Animation" id=3]
@@ -47,7 +47,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.1, 0.3 ),
 "transitions": PoolRealArray( 1, 1, 1 ),
 "update": 0,
-"values": [ Vector2( 0.18, 0.18 ), Vector2( 0.2, 0.2 ), Vector2( 0, 0 ) ]
+"values": [ Vector2( 1, 1 ), Vector2( 1.1, 1.1 ), Vector2( 0, 0 ) ]
 }
 
 [node name="Levels" type="TextureButton"]
@@ -60,7 +60,7 @@ margin_left = -84.0
 margin_top = -29.0
 margin_right = 86.0
 margin_bottom = 29.0
-rect_pivot_offset = Vector2( 459.029, 198.245 )
+rect_pivot_offset = Vector2( 84.016, 28.4699 )
 rect_clip_content = false
 focus_mode = 2
 mouse_filter = 0

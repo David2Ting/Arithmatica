@@ -183,7 +183,7 @@ func operate_specials():
 			node.select(false)
 	operators_holder.off_operator()
 	select_chain = []
-	current_level.calculator.value = 0
+	calculator.value = 0
 	
 
 func success(last_node):
@@ -251,7 +251,7 @@ func calculate_sum():
 		running_sum = sum
 		return sum
 	else:
-		current_level.calculator.value = 0
+		calculator.value = 0
 		running_sum = 0
 
 
@@ -326,7 +326,7 @@ func toggle_menu(boo):
 			yield(modes_timer,'timeout')
 		mode_menu = false
 		modes_screen.hide()
-		modes.get_children()[0].get_node('sprite').set_rotation(0)
+		modes.get_children()[0].get_node('Sprite').set_rotation(0)
 
 func _on_ModesScreen_pressed():
 	toggle_menu(false)

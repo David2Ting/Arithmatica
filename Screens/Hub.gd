@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 # class member variables go here, for example:
 # var a = 2
@@ -13,9 +13,11 @@ var packed_infinity = preload("res://Screens/Infinity/Infinity_main.tscn")
 var packed_modes = {'Levels':"res://Screens/Levels/Main.tscn",'Stacks':"res://Screens/Stack Up!/Main.tscn",'Infinity':"res://Screens/Infinity/Infinity_main.tscn"}
 var current_mode = 'Levels'
 var modes = ['Stacks','Levels','Infinity']
+var test_script = preload("res://Screens/Levels/Main.gd")
 func _ready():
 	current_world.setup_dimensions()
 	top_bar()
+	self = test_script.new()
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	pass

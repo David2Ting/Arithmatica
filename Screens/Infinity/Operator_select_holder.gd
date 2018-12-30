@@ -14,10 +14,10 @@ var PROGRESS_PATH = "res://Screens/Progress.json"
 var infinity_progress = 0
 var infinity_operators = []
 var progress
-onready var  operators_holder = get_node('../Operators_holder')
-onready var main = get_node('../../')
-onready var selected_operators = main.selected_operators
+onready var  operators_holder = get_node('../../../../Bottom/Container/Operators_holder')
 onready var level = get_parent()
+onready var main = get_node('../../../../../../')
+onready var selected_operators = main.selected_operators
 onready var size_area = 170
 var finish_buffer = false
 func _ready():

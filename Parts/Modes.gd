@@ -5,7 +5,8 @@ extends TextureButton
 # var b = "textvar""res://Images/Top bar/Modes/Infinity.png"
 onready var label = get_node('Label')
 onready var animation = get_node('AnimationPlayer')
-onready var main = get_node('../../../')
+onready var main = get_node('../../../../../')
+onready var modes = get_node('../')
 export var size = 1
 export var current_mode = false
 var images = {'Levels':"res://Images/Top bar/Modes/Levels.png",'Stacks':"res://Images/Top bar/Modes/StackUp.png",'Infinity':"res://Images/Top bar/Modes/Infinity.png"}
@@ -34,12 +35,14 @@ func change_value(new_value):
 	value = new_value
 	var colour = colours[new_value]
 	if current_mode:
+		print('current')
 		get_node('Sprite').set('modulate',colour)
 
 #	set_normal_texture(load(images[new_value]))
 #	set_pressed_texture(load(pressed_images[new_value]))
 	if label:
 		label.set_text(new_value)
+		label.set('custom_colors/font_color',colours[value])
 
 func appear():
 	show()
@@ -53,7 +56,10 @@ func disappear():
 func _on_Levels_pressed():
 	if value == main.mode:
 		main.toggle_menu(true)
-		get_node('sprite').set_rotation_degrees(-90)
+		get_node('Sprite').set_rotation_degrees(-90)
 	else:
-		main.get_parent().change_mode(value)
+		modes.get_children()[0].value = value
+		print('testing')
+		main.toggle_menu(false)
+#		main.get_parent().change_mode(value)
 	pass # replace with function body

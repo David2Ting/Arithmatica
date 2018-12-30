@@ -32,9 +32,9 @@ func enter(side=true):
 		distance = globals.actual_level_size.x*0.5
 	else:
 		distance = -globals.actual_level_size.x*0.5
-	tween.interpolate_property(self,'scale',Vector2(0.6,0.6),Vector2(1,1),1.3,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-	tween.interpolate_property(self,'modulate',Color(1,1,1,0),Color(1,1,1,1),1.3,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-	tween.interpolate_property(self,'position',Vector2(distance,0),Vector2(),1.3,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'scale',Vector2(0.6,0.6),Vector2(1,1),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'modulate',Color(1,1,1,0),Color(1,1,1,1),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'position',Vector2(distance,0),Vector2(),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()
 func leave(side=true):
 #	timer.start()
@@ -44,7 +44,7 @@ func leave(side=true):
 		distance = globals.actual_level_size.x*0.5
 	else:
 		distance = -globals.actual_level_size.x*0.5
-	tween.interpolate_property(self,'scale',Vector2(1,1),Vector2(0.6,0.6),1.3,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.3,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-	tween.interpolate_property(self,'position',Vector2(),Vector2(-distance,0),1.3,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'scale',Vector2(1,1),Vector2(0.6,0.6),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'position',Vector2(),Vector2(-distance,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()

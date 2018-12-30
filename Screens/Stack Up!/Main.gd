@@ -15,7 +15,7 @@ var max_health = 4
 var mode = 'Stacks'
 var difficulty_progress = 20
 
-onready var current_health_label = get_node('Header/Health/Current')
+#onready var current_health_label = get_node('Header/Health/Current')
 onready var drop_timer = get_node('DropTimer')
 func _ready():
 	setup_dimensions()
@@ -175,11 +175,12 @@ func add_points(amount):
 	level_select.value = total_points
 
 func change_health(amount):
-	if current_health + amount > max_health:
-		current_health = max_health
-	else:
-		current_health+=amount
-	current_health_label.set_text(str(current_health))
+	return
+#	if current_health + amount > max_health:
+#		current_health = max_health
+#	else:
+#		current_health+=amount
+#	current_health_label.set_text(str(current_health))
 	
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.

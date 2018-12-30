@@ -7,11 +7,11 @@
 
 script = ExtResource( 2 )
 
-[node name="Node_holder" parent="." index="5"]
+[node name="Node_holder" parent="." index="4"]
 
-position = Vector2( 0, 967.253 )
+position = Vector2( 0.0415783, 222.347 )
 
-[node name="Timer" type="Timer" parent="." index="10"]
+[node name="Timer" type="Timer" parent="." index="9"]
 
 process_mode = 1
 wait_time = 1.0

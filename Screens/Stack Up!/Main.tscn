@@ -1,204 +1,50 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://Screens/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Screens/Stack Up!/Main.gd" type="Script" id=2]
-[ext_resource path="res://Screens/Stack Up!/StackUp! Level.tscn" type="PackedScene" id=3]
-[ext_resource path="res://Images/Stackup/Health.png" type="Texture" id=4]
-[ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://Images/blank.png" type="Texture" id=6]
-[ext_resource path="res://Screens/Stack Up!/Level_select.gd" type="Script" id=7]
-[ext_resource path="res://Images/Fonts/Calibri Family/calibri.ttf" type="DynamicFontData" id=8]
-[ext_resource path="res://Screens/Stack Up!/Operators_holder.gd" type="Script" id=9]
-[ext_resource path="res://Parts/Operator.tscn" type="PackedScene" id=10]
-[ext_resource path="res://Images/Level/Background.png" type="Texture" id=11]
+[ext_resource path="res://Screens/Stack Up!/Level_select.gd" type="Script" id=3]
+[ext_resource path="res://Screens/Stack Up!/StackUp! Level.tscn" type="PackedScene" id=4]
+[ext_resource path="res://Screens/Stack Up!/Operators_holder.gd" type="Script" id=5]
 
-[sub_resource type="DynamicFont" id=1]
-
-size = 350
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 5 )
-_sections_unfolded = [ "Font", "Settings" ]
-
-[sub_resource type="DynamicFont" id=2]
-
-size = 220
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 5 )
-_sections_unfolded = [ "Font", "Settings" ]
-
-[sub_resource type="DynamicFont" id=3]
-
-size = 70
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 8 )
-_sections_unfolded = [ "Font", "Settings" ]
-
-[node name="World" index="0" instance=ExtResource( 1 )]
+[node name="World" instance=ExtResource( 1 )]
 
 script = ExtResource( 2 )
 
-[node name="Level" parent="." index="0" instance=ExtResource( 3 )]
-
-position = Vector2( -3.21954, 2.10297 )
-
-[node name="GoalContainer" parent="." index="1"]
-
-position = Vector2( 270, 235.999 )
-
-[node name="Label" parent="Header/Calculator" index="0"]
-
-_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
-
-[node name="ModesScreen" parent="Header" index="1"]
-
-visible = false
-
-[node name="Levels" parent="Header/Modes" index="0"]
-
-margin_left = -386.0
-margin_top = -156.0
-margin_right = 534.0
-margin_bottom = 250.0
-current_mode = false
-value = "Stacks"
-
-[node name="Stacks" parent="Header/Modes" index="1"]
-
-visible = false
-rect_scale = Vector2( 0, 0 )
-value = "Levels"
-
-[node name="Levels3" parent="Header/Modes" index="2"]
-
-visible = false
-rect_scale = Vector2( 0, 0 )
-
-[node name="Reset" parent="Header" index="3"]
-
-margin_left = 383.0
-margin_right = 1319.0
-
-[node name="Label" parent="Header/Reset" index="0"]
-
-margin_left = -65.0
-margin_right = 932.0
-custom_colors/font_color = Color( 0.910156, 0.135101, 0.316755, 1 )
-
-[node name="Health" type="Sprite" parent="Header" index="5"]
-
-position = Vector2( 480.695, 141.873 )
-scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 4 )
-_sections_unfolded = [ "Transform", "Z Index" ]
-
-[node name="Current" type="Label" parent="Header/Health" index="0"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -173.0
-margin_top = -209.0
-margin_right = 202.0
-margin_bottom = 200.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-text = "4"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Visibility", "custom_colors", "custom_fonts" ]
-
-[node name="Max" type="Label" parent="Header/Health" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = -27.0
-margin_top = -47.0
-margin_right = 254.0
-margin_bottom = 253.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = SubResource( 2 )
-custom_colors/font_color = Color( 0.703125, 0.703125, 0.703125, 1 )
-text = "/4"
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "custom_colors", "custom_fonts" ]
-
-[node name="Level_select" parent="Header" index="6"]
-
-margin_left = 115.0
-margin_top = -1.0
-margin_right = 297.0
-margin_bottom = 93.0
-rect_scale = Vector2( 1, 1 )
-texture_normal = ExtResource( 6 )
-texture_pressed = ExtResource( 6 )
-expand = true
-script = ExtResource( 7 )
-
-[node name="Label" parent="Header/Level_select" index="0"]
-
-margin_left = -5.0
-margin_top = -8.0
-margin_right = 198.0
-margin_bottom = 92.0
-custom_fonts/font = SubResource( 3 )
-custom_colors/font_color = Color( 0.429688, 0.429688, 0.429688, 1 )
-text = "0"
-
-[node name="Left" parent="Header/Level_select" index="1"]
-
-visible = false
-
-[node name="Right" parent="Header/Level_select" index="2"]
-
-visible = false
-
-[node name="LineEdit" parent="Header/Level_select" index="3"]
-
-visible = false
-margin_right = 929.0
-align = 1
-
-[node name="Operators_holder" parent="." index="6"]
+[node name="Modes" parent="BaseContainer/VerticalContainer/Top" index="0"]
 
 editor/display_folded = true
-position = Vector2( 270, 790.439 )
-script = ExtResource( 9 )
 
-[node name="Operator5" parent="Operators_holder" index="5" instance=ExtResource( 10 )]
+[node name="Levels" parent="BaseContainer/VerticalContainer/Top/Modes" index="0"]
 
-position = Vector2( 950, 0 )
-scale = Vector2( 0.9, 0.9 )
-_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+editor/display_folded = true
 
-[node name="Sprite2" type="Sprite" parent="Operators_holder" index="6"]
+[node name="Level_select" parent="BaseContainer/VerticalContainer/Top" index="1"]
 
-position = Vector2( 1050.9, 26.2434 )
-scale = Vector2( 1.19449, 1.55173 )
-z_index = 4
-texture = ExtResource( 11 )
-_sections_unfolded = [ "Z Index" ]
+script = ExtResource( 3 )
 
-[node name="DropTimer" type="Timer" parent="." index="7"]
+[node name="Label" parent="BaseContainer/VerticalContainer/Top/Level_select" index="0"]
+
+text = "0"
+
+[node name="Left" parent="BaseContainer/VerticalContainer/Top/Level_select" index="1"]
+
+visible = false
+
+[node name="Right" parent="BaseContainer/VerticalContainer/Top/Level_select" index="2"]
+
+visible = false
+
+[node name="Reset" parent="BaseContainer/VerticalContainer/Top" index="2"]
+
+editor/display_folded = true
+
+[node name="Level" parent="BaseContainer/VerticalContainer/Mid/Container" index="0" instance=ExtResource( 4 )]
+
+[node name="Operators_holder" parent="BaseContainer/VerticalContainer/Bottom/Container" index="0"]
+
+script = ExtResource( 5 )
+
+[node name="DropTimer" type="Timer" parent="." index="5"]
 
 process_mode = 1
 wait_time = 0.3
@@ -206,4 +52,3 @@ one_shot = false
 autostart = false
 
 
-[editable path="Header/Modes/Stacks"]

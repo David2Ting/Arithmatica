@@ -5,7 +5,7 @@ extends "res://Screens/World.gd"
 # var b = "textvar"
 onready var tween = get_node('Tween')
 onready var hub = get_node('../')
-onready var operator_select_holder = get_node('Level/Operator_select_holder')
+onready var operator_select_holder = current_level.get_node('Operator_select_holder')
 var selected_operators = []
 var mode = 'Infinity'
 var values = {'+':2,'-':2,'*':3,'/':3,'1':2}
@@ -18,14 +18,14 @@ var selecting_menu = true setget change_selecting_menu
 func _ready():
 	randomize()
 	setup_dimensions()
-	current_level = get_node('Level')
+#	current_level = get_node('Level')
 	current_level.start()
-	operators_holder = current_level.get_node('Operators_holder')
-	current_level.set_position(Vector2(globals.x_size/2,globals.y_size/1.6))
+#	operators_holder = current_level.get_node('Operators_holder')
+#	current_level.set_position(Vector2(globals.x_size/2,globals.y_size/1.6))
 
-	var level_texture_size = current_level.background.get_texture().get_size()
-	var level_scale = min(level_size.x/level_texture_size.x,level_size.y/level_texture_size.y)
-	current_level.set_scale(Vector2(level_scale,level_scale))
+#	var level_texture_size = current_level.background.get_texture().get_size()
+#	var level_scale = min(level_size.x/level_texture_size.x,level_size.y/level_texture_size.y)
+#	current_level.set_scale(Vector2(level_scale,level_scale))
 	pass
 
 
@@ -38,7 +38,7 @@ func _input(INPUT):
 				operate_chain()
 			else:
 				select_chain[0].select(false)
-				current_level.calculator.value = 0
+				calculator.value = 0
 		elif selecting_menu:
 			current_level.operator_select_holder.pressed = false
 			if selected_operators.size()>1:

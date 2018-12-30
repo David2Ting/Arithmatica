@@ -1,38 +1,24 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://Screens/World.gd" type="Script" id=1]
 [ext_resource path="res://Sounds/Effects/Blop-Mark_DiAngelo-79054334.wav" type="AudioStream" id=2]
-[ext_resource path="res://Screens/Header.gd" type="Script" id=3]
+[ext_resource path="res://Images/blank.png" type="Texture" id=3]
 [ext_resource path="res://Parts/Modes.tscn" type="PackedScene" id=4]
 [ext_resource path="res://Images/Top bar/Modes/arrow.png" type="Texture" id=5]
-[ext_resource path="res://Images/blank.png" type="Texture" id=6]
-[ext_resource path="res://Images/Level_select_pressed.png" type="Texture" id=7]
-[ext_resource path="res://Screens/Level_select.gd" type="Script" id=8]
-[ext_resource path="res://Images/Fonts/KeepCalm-Medium.ttf" type="DynamicFontData" id=9]
-[ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=10]
-[ext_resource path="res://Images/Top bar/Calculator.png" type="Texture" id=11]
-[ext_resource path="res://Images/Fonts/Calculator.ttf" type="DynamicFontData" id=12]
-[ext_resource path="res://Screens/Calculator.gd" type="Script" id=13]
-[ext_resource path="res://Screens/Level.tscn" type="PackedScene" id=14]
-[ext_resource path="res://Screens/Operators_holder.gd" type="Script" id=15]
-[ext_resource path="res://Images/Level/Operator_holder.png" type="Texture" id=16]
-[ext_resource path="res://Parts/Operator.tscn" type="PackedScene" id=17]
-[ext_resource path="res://Images/Border.png" type="Texture" id=18]
-
-[sub_resource type="DynamicFont" id=1]
-
-size = 60
-use_mipmaps = false
-use_filter = false
-font_data = ExtResource( 9 )
-_sections_unfolded = [ "Font", "Settings" ]
+[ext_resource path="res://Parts/Level_select.tscn" type="PackedScene" id=6]
+[ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=7]
+[ext_resource path="res://Images/Top bar/Calculator.png" type="Texture" id=8]
+[ext_resource path="res://Images/Fonts/Calculator.ttf" type="DynamicFontData" id=9]
+[ext_resource path="res://Screens/Calculator.gd" type="Script" id=10]
+[ext_resource path="res://Images/Level/Operator_holder.png" type="Texture" id=11]
+[ext_resource path="res://Images/Border.png" type="Texture" id=12]
 
 [sub_resource type="DynamicFont" id=2]
 
 size = 60
 use_mipmaps = false
 use_filter = true
-font_data = ExtResource( 10 )
+font_data = ExtResource( 7 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [sub_resource type="DynamicFont" id=3]
@@ -40,10 +26,10 @@ _sections_unfolded = [ "Font", "Settings" ]
 size = 450
 use_mipmaps = true
 use_filter = false
-font_data = ExtResource( 12 )
+font_data = ExtResource( 9 )
 _sections_unfolded = [ "Extra Spacing", "Font", "Settings" ]
 
-[node name="World" type="Control"]
+[node name="World" type="Control" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -82,15 +68,42 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 3 )
 _sections_unfolded = [ "Anchor", "Margin", "Material", "Mouse", "Rect", "Theme", "Transform", "Visibility" ]
 
-[node name="VerticalContainer" type="VBoxContainer" parent="BaseContainer" index="0"]
+[node name="ModesScreen" type="TextureButton" parent="BaseContainer" index="0"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 548.0
+margin_bottom = 900.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+focus_mode = 2
+mouse_filter = 0
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+group = null
+texture_normal = ExtResource( 3 )
+expand = true
+_sections_unfolded = [ "Margin", "Rect", "Textures" ]
+
+[node name="VerticalContainer" type="Container" parent="BaseContainer" index="1"]
 
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = 8.0
+margin_right = 548.0
+margin_bottom = 900.0
 rect_min_size = Vector2( 540, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -98,21 +111,18 @@ mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-alignment = 0
 _sections_unfolded = [ "Grow Direction", "Margin", "Mouse", "Rect" ]
 
 [node name="Top" type="Container" parent="BaseContainer/VerticalContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.0
+anchor_right = 1.0
 anchor_bottom = 0.0
-margin_right = 548.0
-margin_bottom = 100.0
 rect_min_size = Vector2( 540, 100 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 0
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
@@ -130,11 +140,11 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 180, 0 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 0
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Margin", "Rect", "Size Flags", "Transform", "Visibility", "Z Index" ]
+_sections_unfolded = [ "Margin", "Mouse", "Rect", "Size Flags", "Transform", "Visibility", "Z Index" ]
 
 [node name="Levels" parent="BaseContainer/VerticalContainer/Top/Modes" index="0" instance=ExtResource( 4 )]
 
@@ -151,27 +161,25 @@ current_mode = true
 
 self_modulate = Color( 0.458824, 0.466667, 0.772549, 1 )
 position = Vector2( 161.987, 29.4451 )
-scale = Vector2( 0.0885166, 0.0885166 )
+scale = Vector2( 0.05, 0.05 )
 texture = ExtResource( 5 )
 _sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Stacks" parent="BaseContainer/VerticalContainer/Top/Modes" index="1" instance=ExtResource( 4 )]
 
 editor/display_folded = true
-visible = false
-margin_left = -394.0
-margin_top = -113.0
-margin_right = 526.0
-margin_bottom = 293.0
+margin_left = 7.0
+margin_top = 71.0
+margin_right = 160.0
+margin_bottom = 129.0
 value = "Stacks"
 
 [node name="Levels3" parent="BaseContainer/VerticalContainer/Top/Modes" index="2" instance=ExtResource( 4 )]
 
-visible = false
-margin_left = -393.0
-margin_top = -69.0
-margin_right = 527.0
-margin_bottom = 337.0
+margin_left = 8.0
+margin_top = 119.0
+margin_right = 160.0
+margin_bottom = 181.0
 value = "Infinity"
 
 [node name="ModesTimer" type="Timer" parent="BaseContainer/VerticalContainer/Top/Modes" index="3"]
@@ -181,138 +189,7 @@ wait_time = 0.25
 one_shot = false
 autostart = false
 
-[node name="Level_select" type="TextureButton" parent="BaseContainer/VerticalContainer/Top" index="1"]
-
-modulate = Color( 0.734375, 0.734375, 0.734375, 1 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -90.0
-margin_top = -50.0
-margin_right = 90.0
-margin_bottom = 50.0
-rect_min_size = Vector2( 180, 0 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-texture_normal = ExtResource( 6 )
-texture_pressed = ExtResource( 7 )
-expand = true
-script = ExtResource( 8 )
-_sections_unfolded = [ "Anchor", "Rect", "Textures", "Visibility" ]
-
-[node name="Label" type="Label" parent="BaseContainer/VerticalContainer/Top/Level_select" index="0"]
-
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -43.0
-margin_top = -43.0
-margin_right = 43.0
-margin_bottom = 44.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-mouse_filter = 2
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 4
-custom_fonts/font = SubResource( 1 )
-custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "1"
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
-_sections_unfolded = [ "Rect", "Visibility", "custom_colors", "custom_fonts" ]
-
-[node name="Left" type="TextureButton" parent="BaseContainer/VerticalContainer/Top/Level_select" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.5
-anchor_right = 0.0
-anchor_bottom = 0.5
-margin_left = 45.0
-margin_top = -20.0
-margin_right = 326.0
-margin_bottom = 223.0
-rect_rotation = 90.0
-rect_scale = Vector2( 0.12, 0.12 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-texture_normal = ExtResource( 5 )
-_sections_unfolded = [ "Rect", "Textures" ]
-
-[node name="Right" type="TextureButton" parent="BaseContainer/VerticalContainer/Top/Level_select" index="2"]
-
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-margin_left = -40.0
-margin_top = 13.0
-margin_right = 241.0
-margin_bottom = 256.0
-rect_rotation = -90.0
-rect_scale = Vector2( 0.12, 0.12 )
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-texture_normal = ExtResource( 5 )
-_sections_unfolded = [ "Rect", "Textures" ]
-
-[node name="LineEdit" type="LineEdit" parent="BaseContainer/VerticalContainer/Top/Level_select" index="3"]
-
-self_modulate = Color( 1, 1, 1, 0 )
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-margin_left = -85.0
-margin_top = -49.0
-margin_right = 84.0
-margin_bottom = 72.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 1
-size_flags_horizontal = 1
-size_flags_vertical = 1
-focus_mode = 2
-context_menu_enabled = true
-placeholder_alpha = 0.6
-caret_blink = true
-caret_blink_speed = 0.65
-caret_position = 0
-_sections_unfolded = [ "Rect", "Visibility" ]
+[node name="Level_select" parent="BaseContainer/VerticalContainer/Top" index="1" instance=ExtResource( 6 )]
 
 [node name="Reset" type="TextureButton" parent="BaseContainer/VerticalContainer/Top" index="2"]
 
@@ -338,8 +215,8 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 6 )
-texture_pressed = ExtResource( 6 )
+texture_normal = ExtResource( 3 )
+texture_pressed = ExtResource( 3 )
 expand = true
 _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Rect", "Size Flags", "Textures", "Visibility" ]
 
@@ -370,21 +247,21 @@ _sections_unfolded = [ "Anchor", "Margin", "custom_colors", "custom_fonts" ]
 
 [node name="High" type="Container" parent="BaseContainer/VerticalContainer" index="1"]
 
+editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
-anchor_right = 0.0
+anchor_right = 1.0
 anchor_bottom = 0.0
-margin_top = 104.0
-margin_right = 548.0
-margin_bottom = 204.0
+margin_top = 94.0
+margin_bottom = 194.0
 rect_min_size = Vector2( 540, 100 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 0
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Margin", "Rect" ]
+_sections_unfolded = [ "Margin", "Mouse", "Rect" ]
 
 [node name="CalculatorContainer" type="Container" parent="BaseContainer/VerticalContainer/High" index="0"]
 
@@ -399,17 +276,17 @@ margin_bottom = 50.0
 rect_min_size = Vector2( 50, 50 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 0
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-_sections_unfolded = [ "Rect" ]
+_sections_unfolded = [ "Mouse", "Rect" ]
 
 [node name="Calculator" type="Sprite" parent="BaseContainer/VerticalContainer/High/CalculatorContainer" index="0"]
 
 position = Vector2( 27.0053, 54.2443 )
 scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 11 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="Label" type="Label" parent="BaseContainer/VerticalContainer/High/CalculatorContainer/Calculator" index="0"]
@@ -435,7 +312,7 @@ align = 2
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 13 )
+script = ExtResource( 10 )
 _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
 [node name="Timer" type="Timer" parent="BaseContainer/VerticalContainer/High/CalculatorContainer/Calculator/Label" index="0"]
@@ -447,23 +324,23 @@ autostart = false
 
 [node name="GoalContainer" type="CenterContainer" parent="BaseContainer/VerticalContainer" index="2"]
 
-editor/display_folded = true
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 208.0
-margin_right = 548.0
-margin_bottom = 308.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -270.0
+margin_top = -262.0
+margin_right = 270.0
+margin_bottom = -162.0
 rect_min_size = Vector2( 540, 100 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 0
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
 use_top_left = false
-_sections_unfolded = [ "Rect" ]
+_sections_unfolded = [ "Mouse", "Rect" ]
 
 [node name="Container" type="Container" parent="BaseContainer/VerticalContainer/GoalContainer" index="0"]
 
@@ -471,9 +348,9 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 274.0
+margin_left = 270.0
 margin_top = 50.0
-margin_right = 274.0
+margin_right = 270.0
 margin_bottom = 50.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -484,26 +361,27 @@ size_flags_vertical = 1
 
 [node name="GoalContainer" type="Node2D" parent="BaseContainer/VerticalContainer/GoalContainer/Container" index="0"]
 
+position = Vector2( 0, -1.79622 )
 _sections_unfolded = [ "Transform" ]
 
-[node name="Mid" type="CenterContainer" parent="BaseContainer/VerticalContainer" index="3"]
+[node name="Mid" type="Container" parent="BaseContainer/VerticalContainer" index="3"]
 
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 312.0
-margin_right = 548.0
-margin_bottom = 712.0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -270.0
+margin_top = -131.0
+margin_right = 270.0
+margin_bottom = 269.0
 rect_min_size = Vector2( 540, 400 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 0
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-use_top_left = false
-_sections_unfolded = [ "Margin", "Rect" ]
+_sections_unfolded = [ "Mouse" ]
 
 [node name="Container" type="Container" parent="BaseContainer/VerticalContainer/Mid" index="0"]
 
@@ -511,31 +389,26 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = 274.0
-margin_top = 200.0
-margin_right = 274.0
-margin_bottom = 200.0
+margin_left = 270.0
+margin_top = 178.0
+margin_right = 270.0
+margin_bottom = 178.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
-mouse_filter = 0
+mouse_filter = 2
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-
-[node name="Level" parent="BaseContainer/VerticalContainer/Mid/Container" index="0" instance=ExtResource( 14 )]
-
-position = Vector2( 0, -32.649 )
+_sections_unfolded = [ "Mouse" ]
 
 [node name="Bottom" type="Container" parent="BaseContainer/VerticalContainer" index="4"]
 
-editor/display_folded = true
 anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_top = 716.0
-margin_right = 548.0
-margin_bottom = 896.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -176.0
+margin_bottom = 4.0
 rect_min_size = Vector2( 540, 180 )
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -551,8 +424,6 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_top = -64.5
-margin_bottom = 64.5
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -561,62 +432,11 @@ size_flags_horizontal = 1
 size_flags_vertical = 1
 _sections_unfolded = [ "Mouse" ]
 
-[node name="Operators_holder" type="Node2D" parent="BaseContainer/VerticalContainer/Bottom/Container" index="0"]
+[node name="Sprite" type="Sprite" parent="BaseContainer/VerticalContainer/Bottom/Container" index="0"]
 
-position = Vector2( 0, 51.5071 )
-scale = Vector2( 0.25, 0.25 )
-script = ExtResource( 15 )
-_sections_unfolded = [ "Transform", "Z Index" ]
-
-[node name="Sprite" type="Sprite" parent="BaseContainer/VerticalContainer/Bottom/Container/Operators_holder" index="0"]
-
-position = Vector2( -1.73507, -11.8927 )
-scale = Vector2( 1.05946, 1.12616 )
-texture = ExtResource( 16 )
-
-[node name="Operator" parent="BaseContainer/VerticalContainer/Bottom/Container/Operators_holder" index="1" instance=ExtResource( 17 )]
-
-position = Vector2( -570, 0 )
-scale = Vector2( 0.9, 0.9 )
-
-[node name="Operator2" parent="BaseContainer/VerticalContainer/Bottom/Container/Operators_holder" index="2" instance=ExtResource( 17 )]
-
-position = Vector2( -190, 0 )
-scale = Vector2( 0.9, 0.9 )
-
-[node name="Operator3" parent="BaseContainer/VerticalContainer/Bottom/Container/Operators_holder" index="3" instance=ExtResource( 17 )]
-
-position = Vector2( 190, 0 )
-scale = Vector2( 0.9, 0.9 )
-
-[node name="Operator4" parent="BaseContainer/VerticalContainer/Bottom/Container/Operators_holder" index="4" instance=ExtResource( 17 )]
-
-position = Vector2( 570, 0 )
-scale = Vector2( 0.9, 0.9 )
-
-[node name="ModesScreen" type="TextureButton" parent="BaseContainer" index="1"]
-
-anchor_left = 0.0
-anchor_top = 0.0
-anchor_right = 0.0
-anchor_bottom = 0.0
-margin_left = 8.0
-margin_right = 548.0
-margin_bottom = 900.0
-rect_pivot_offset = Vector2( 0, 0 )
-rect_clip_content = false
-focus_mode = 2
-mouse_filter = 0
-mouse_default_cursor_shape = 0
-size_flags_horizontal = 1
-size_flags_vertical = 1
-toggle_mode = false
-enabled_focus_mode = 2
-shortcut = null
-group = null
-texture_normal = ExtResource( 6 )
-expand = true
-_sections_unfolded = [ "Margin", "Rect", "Textures" ]
+position = Vector2( -0.520508, -3.56781 )
+scale = Vector2( 0.317838, 0.337848 )
+texture = ExtResource( 11 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." index="2"]
 
@@ -642,7 +462,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 18 )
+texture = ExtResource( 12 )
 stretch_mode = 0
 
 [node name="Tween" type="Tween" parent="." index="4"]
@@ -654,20 +474,8 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
-[connection signal="button_down" from="BaseContainer/VerticalContainer/Top/Level_select" to="BaseContainer/VerticalContainer/Top/Level_select" method="_on_Level_select_button_down"]
-
-[connection signal="button_up" from="BaseContainer/VerticalContainer/Top/Level_select" to="BaseContainer/VerticalContainer/Top/Level_select" method="_on_Level_select_button_up"]
-
-[connection signal="pressed" from="BaseContainer/VerticalContainer/Top/Level_select" to="BaseContainer/VerticalContainer/Top/Level_select" method="_on_Level_select_pressed"]
-
-[connection signal="pressed" from="BaseContainer/VerticalContainer/Top/Level_select/Left" to="." method="_on_Left_pressed"]
-
-[connection signal="pressed" from="BaseContainer/VerticalContainer/Top/Level_select/Right" to="." method="_on_Right_pressed"]
-
-[connection signal="text_entered" from="BaseContainer/VerticalContainer/Top/Level_select/LineEdit" to="BaseContainer/VerticalContainer/Top/Level_select" method="_on_LineEdit_text_entered"]
+[connection signal="pressed" from="BaseContainer/ModesScreen" to="." method="_on_ModesScreen_pressed"]
 
 [connection signal="pressed" from="BaseContainer/VerticalContainer/Top/Reset" to="." method="_on_TextureButton_pressed"]
-
-[connection signal="pressed" from="BaseContainer/ModesScreen" to="." method="_on_ModesScreen_pressed"]
 
 

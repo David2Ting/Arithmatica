@@ -5,7 +5,7 @@
 
 [sub_resource type="DynamicFont" id=1]
 
-size = 80
+size = 100
 use_mipmaps = true
 use_filter = false
 font_data = ExtResource( 2 )
@@ -23,10 +23,10 @@ anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
 margin_left = -105.0
-margin_top = -34.0
+margin_top = -46.0
 margin_right = 104.0
-margin_bottom = 46.0
-rect_pivot_offset = Vector2( 105.227, 65.9298 )
+margin_bottom = 54.0
+rect_pivot_offset = Vector2( 105.217, 46.1424 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
