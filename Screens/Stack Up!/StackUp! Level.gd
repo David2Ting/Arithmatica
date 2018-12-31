@@ -31,7 +31,16 @@ func tween_completed():  #when falling has ended
 	if first_fall_completed:
 		first_fall_completed = false
 
+func disappear():
+#	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	var level_size_x = globals.x_size
+	tween.interpolate_property(node_holder,'position',node_area_position,node_area_position+Vector2(level_size_x,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween,'tween_completed')
+	hub.emit_signal('queue_free')
+
 func reward(type,node,index):
+	print(type)
 	main.streak+=1
 	if type == 'row':
 		var pos = node.pos
@@ -153,9 +162,12 @@ func pop_nodes(select_chain,is_success):
 		node.pop()
 	gravity()
 	if empty:
+		print('empty')
+		emit_signal('pop_finish')
 		return false
 	yield(node,'pop_finish')
 	emit_signal('pop_finish')
+	print('actual_pop')
 	for node in node_holder.get_children():
 		if node.is_in_group('nodes'):
 			node.drop()

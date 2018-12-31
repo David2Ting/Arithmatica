@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Screens/Operators_holder.gd" type="Script" id=1]
 [ext_resource path="res://Images/Top bar/Calculator.png" type="Texture" id=2]
-[ext_resource path="res://Parts/Operator.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Screens/Editor/Operator_editor.tscn" type="PackedScene" id=3]
 
 [node name="Operators_holder" type="Node2D"]
 
@@ -22,7 +22,6 @@ texture = ExtResource( 2 )
 [node name="Operator" parent="." index="1" instance=ExtResource( 3 )]
 
 position = Vector2( -630, 0 )
-_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Operator2" parent="." index="2" instance=ExtResource( 3 )]
 

@@ -1,7 +1,7 @@
 extends TextureButton
 
 onready var label = get_node('Label')
-var main
+onready var main = get_node('../../../../Main')
 var value = 1 setget change_value
 onready var line_edit = get_node('LineEdit')
 

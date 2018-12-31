@@ -1,6 +1,6 @@
 extends Control
 
-var globals
+onready var globals = get_node('/root/globals')
 var audio_player
 var operators_holder
 
@@ -47,7 +47,7 @@ var mode_menu = false
 var tips_mode = false
 
 func start():
-	globals = get_node('/root/globals')
+
 	audio_player = get_node('../Audio_Player')
 	operators_holder = get_node('../BaseContainer/VerticalContainer/Bottom/Container/Operators_holder')
 
@@ -263,6 +263,8 @@ func calculate_sum():
 		calculator.value = 0
 		running_sum = 0
 
+func disappear():
+	pass
 
 func load_database():
 	save_file.open(DATABASE_PATH, File.READ)
@@ -296,6 +298,7 @@ func change_level_number(new_level_number):
 func change_goal(new_goal,forwards = true):
 	print('goal')
 	goal = new_goal
+	goals = load("res://Screens/Levels/Goals.tscn")
 	var goal_instance = goals.instance()
 	if goal_label:
 		goal_label.leave(forwards)

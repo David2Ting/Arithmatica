@@ -13,3 +13,9 @@ func reset_level(reset_group_nodes,reset_group_operators):
 		var hint = main.hint
 		if hint!=[null,null]:
 			node_positions[hint[0].y][hint[0].x].hint(hint[1])
+			
+func disappear():
+#	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(node_holder,'position',node_area_position,node_area_position+Vector2(-level_size.x,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	yield(tween,'tween_completed')
+	hub.emit_signal('queue_free')

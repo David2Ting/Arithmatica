@@ -1,13 +1,14 @@
 extends Node2D
 
 onready var globals = get_node('/root/globals')
+onready var tween = get_node('Tween')
 var main
 
 var operator = preload('res://Parts/Operator.tscn')
 var operators = []
 var current_operator = '+' setget change_current_operator
 var current_operator_id = null
-
+signal pop_finish
 func _ready():
 	for operator in get_children():
 		if operator.is_in_group('operators'):
@@ -16,6 +17,21 @@ func _ready():
 
 func start():
 	main = get_node('../../../../../Main')
+	var tween = get_node('Tween')
+	var x_size = globals.x_size
+	set_position(Vector2(x_size,0))
+	tween.interpolate_property(self,'position',Vector2(x_size,0),Vector2(0,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()
+	show()
+func disappear():
+	var x_size = globals.x_size
+#	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'position',Vector2(0,0),Vector2(-x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()
+#	for operator in operators:
+#		operator.pressed(true)
+#		operator.on(false)
+
 
 func add_operator(type='+'):
 	var operator_instance = operator.instance()

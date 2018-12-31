@@ -2,20 +2,40 @@ extends "res://Screens/Level.gd"
 
 onready var algebra = get_node('Algebra')
 onready var builder = get_node('Builder')
-onready var operator_select_holder = get_node('Operator_select_holder')
+var operator_select_holder
 var operator_group = [['+',3],['-',2],['+',3]]
 var sum = 10
 signal move_complete
 
 func start():
+	.start()
+	operator_select_holder = get_node('Operator_select_holder')
 	level_size = screen_size/1.2
+	operator_select_holder.hide()
+	operator_select_holder.start()
 	operator_select_holder.load_operators()
-	
+	tween = get_node('Tween')
+	var y_size = globals.y_size
+	operator_select_holder.set_position(Vector2(0,-y_size))
+	tween.interpolate_property(operator_select_holder,'position',Vector2(0,-y_size),Vector2(0,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()
+	operator_select_holder.show()
 #	var operator_groups = algebra.calculate(operator_group,sum)
 #	builder.gravity()
 #	var map = builder.build(operator_groups)
 #	load_level(map,['+','-'],sum,true)
 	pass
+
+func disappear():
+	if main.selecting_menu:
+		var y_size = globals.y_size
+		tween.interpolate_property(operator_select_holder,'position',Vector2(0,0),Vector2(0,-y_size),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	else:
+		var x_size = globals.x_size
+		tween.interpolate_property(node_holder,'position',Vector2(0,0),Vector2(x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween,'tween_completed')
+	hub.emit_signal('queue_free')
 
 func create_level(operator_group,sum):
 	var operators = []

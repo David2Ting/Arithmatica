@@ -5,12 +5,19 @@ extends TextureButton  #Stackup
 # var b = "textvar"
 onready var label = get_node('Label')
 var value = 0 setget change_value
+onready var tween = get_node('Tween')
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	pass
 
+func disappear():
+	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()
+
 func start():
+	tween.interpolate_property(self,'modulate',Color(1,1,1,0),Color(1,1,1,1),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()
 	pass
 func change_value(new_value):
 	value = new_value

@@ -61,6 +61,9 @@ _sections_unfolded = [ "Visibility", "Z Index" ]
 
 position = Vector2( 0, -2.86102e-006 )
 scale = Vector2( 0.24, 0.24 )
+z_index = -1
+z_as_relative = true
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Screen" type="Sprite" parent="." index="5"]
 

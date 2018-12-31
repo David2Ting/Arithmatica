@@ -24,6 +24,7 @@ func appear(distance):
 	upgrade_position = current_position+Vector2(-distance,0)*2
 	tween.interpolate_property(self,'position',current_position,current_position+Vector2(-distance,0),0.5,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
 	tween.start()
+	
 
 func change_value(new_value):
 	value = new_value
@@ -38,6 +39,16 @@ func upgrade(distance):
 	tween.interpolate_property(self,'position',current_position,upgrade_position,0.5,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
 	tween.start()
 
+func disappear(side=true):
+	var tween = get_node('Tween')
+	var current_position = get_position()
+	tween.interpolate_property(self,'scale',get_scale(),Vector2(0.6,0.6),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'modulate',get('modulate'),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'position',current_position,current_position+Vector2(set_distance,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween,'tween_completed')
+	queue_free()
+	
 func death():
 	set('modulate','9affffff')
 	var tween = get_node('Tween')

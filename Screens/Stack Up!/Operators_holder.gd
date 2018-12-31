@@ -15,12 +15,20 @@ func _ready():
 	
 func start():
 	.start()
+	hide()
 	randomize()
 	operators = []
 	for child in get_children():
 		if child.is_in_group('operators'):
 			operators.append(child)
 			child.value = generate_operator()
+
+	var tween = get_node('Tween')
+	var x_size = globals.x_size
+	set_position(Vector2(x_size,0))
+	tween.interpolate_property(self,'position',Vector2(x_size,0),Vector2(0,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()
+	show()
 func off_operator():
 	if current_operator_id:
 		operator_chances[current_operator_id.value]+=1
@@ -49,7 +57,7 @@ func generate_operator():
 
 func add_operator():
 	var operator_instance = operator.instance()
-	operator_instance.set_scale(Vector2(0.9,0.9))
+	operator_instance.set_scale(Vector2(1,1))
 	add_child(operator_instance)
 	operators.append(operator_instance)
 	operator_instance.set_position(Vector2(operator_area_size*3.5,0))
@@ -58,4 +66,8 @@ func add_operator():
 	for i in range(operator_index,operators.size()):
 		operators[i].left(operator_area_size)
 
-	
+func disappear():
+	var x_size = globals.x_size
+#	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'position',Vector2(0,0),Vector2(x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()

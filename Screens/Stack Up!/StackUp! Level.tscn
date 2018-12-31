@@ -9,7 +9,11 @@ script = ExtResource( 2 )
 
 [node name="Node_holder" parent="." index="4"]
 
-position = Vector2( 0.0415783, 222.347 )
+position = Vector2( 0.0415783, 212.975 )
+
+[node name="Screen" parent="." index="5"]
+
+visible = true
 
 [node name="Timer" type="Timer" parent="." index="9"]
 

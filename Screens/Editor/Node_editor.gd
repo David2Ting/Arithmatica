@@ -1,7 +1,7 @@
 extends "res://Parts/Node.gd"
 onready var node = get_parent()
 onready var line_edit = get_node('LineEdit')
-onready var editor = get_node('/root/World')
+onready var editor = get_node('/root/World/Main')
 onready var editor_level = editor.current_level
 func _ready():
 	mode_check()

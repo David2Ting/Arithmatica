@@ -3,9 +3,9 @@ extends "res://Screens/World.gd"
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
-onready var tween = get_node('Tween')
-onready var hub = get_node('../')
-onready var operator_select_holder = current_level.get_node('Operator_select_holder')
+var tween
+var hub 
+var operator_select_holder 
 var selected_operators = []
 var mode = 'Infinity'
 var values = {'+':2,'-':2,'*':3,'/':3,'1':2}
@@ -16,19 +16,18 @@ var summation_values = {'+':1,'-':-1,'*':3,'/':-1,'1':2}
 var completed = false
 var selecting_menu = true setget change_selecting_menu
 func _ready():
-	randomize()
-	setup_dimensions()
-#	current_level = get_node('Level')
-	current_level.start()
-#	operators_holder = current_level.get_node('Operators_holder')
-#	current_level.set_position(Vector2(globals.x_size/2,globals.y_size/1.6))
 
-#	var level_texture_size = current_level.background.get_texture().get_size()
-#	var level_scale = min(level_size.x/level_texture_size.x,level_size.y/level_texture_size.y)
-#	current_level.set_scale(Vector2(level_scale,level_scale))
 	pass
 
+func start():
+	.start()
+	randomize()
+	tween = get_node('Tween')
+	hub = get_node('../')
+	operator_select_holder = current_level.get_node('Operator_select_holder')
+	setup_dimensions()
 
+	current_level.start()
 func _input(INPUT):
 	if INPUT.is_action_released('left_click'):
 		if pressed and current_operator and !selecting_menu:

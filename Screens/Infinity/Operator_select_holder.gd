@@ -14,22 +14,30 @@ var PROGRESS_PATH = "res://Screens/Progress.json"
 var infinity_progress = 0
 var infinity_operators = []
 var progress
-onready var  operators_holder = get_node('../../../../Bottom/Container/Operators_holder')
-onready var level = get_parent()
-onready var main = get_node('../../../../../../')
-onready var selected_operators = main.selected_operators
-onready var size_area = 170
-var finish_buffer = false
+var  operators_holder
+var level
+var main 
+var selected_operators
+var size_area
+var finish_buffer
+var size_scale
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
-
+func start():
+	operators_holder = get_node('../../../../Bottom/Container/Operators_holder')
+	level = get_parent()
+	main = get_node('../../../../../../Main')
+	selected_operators = main.selected_operators
+	size_area = 170
+	finish_buffer = false
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
 func load_operators():
+	var level_size = (level.screen_size)/1.1
+	size_area = min(level_size.x/3,level_size.y/4)
+	size_scale = size_area/400/1.05
 	load_progress()
 	operator_positions = []
 	for child in get_children():
@@ -42,6 +50,7 @@ func load_operators():
 			operator_positions[y].append(operator_instance)
 			var pos = Vector2(((3-1)*-0.5+x),((11-1)*-0.5+y))*size_area
 			operator_instance.value = operators_table[y][x]
+			operator_instance.set_scale(Vector2(size_scale,size_scale))
 			operator_instance.set_position(pos)
 			operator_instance.pos = Vector2(x,y)
 
@@ -81,6 +90,7 @@ func gravity():
 				operator_instance.set_position(pos)
 				operator_instance.value = get_random()
 				operator_instance.pos = Vector2(x,y)
+				operator_instance.set_scale(Vector2(size_scale,size_scale))
 	
 	#Calculate number of specials
 	special_count = 0

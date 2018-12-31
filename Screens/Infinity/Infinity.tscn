@@ -17,6 +17,7 @@ scale = Vector2( 1.07072, 3.54405 )
 
 [node name="Operator_select_holder" type="Node2D" parent="." index="3"]
 
+scale = Vector2( 0.24, 0.24 )
 z_index = -4
 z_as_relative = false
 script = ExtResource( 3 )

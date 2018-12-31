@@ -21,7 +21,7 @@ func start():
 
 	hint_timer = get_node('../HintTimer')
 	tween = get_node('../Tween')
-	
+	goals = preload("res://Screens/Levels/Goals.tscn")
 	setup_dimensions()
 	load_database()
 	

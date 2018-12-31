@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Screens/World.tscn" type="PackedScene" id=1]
 [ext_resource path="res://Screens/Hub2.0.gd" type="Script" id=2]
 [ext_resource path="res://Images/Stackup/Screen.png" type="Texture" id=3]
+[ext_resource path="res://Images/Level/Background.png" type="Texture" id=4]
 
 [node name="Hub" index="0" instance=ExtResource( 1 )]
 
@@ -12,21 +13,66 @@ script = ExtResource( 2 )
 
 editor/display_folded = true
 
+[node name="Container" parent="BaseContainer/VerticalContainer/Mid" index="0"]
+
+_sections_unfolded = [ "Mouse", "Rect" ]
+
 [node name="Screen" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="0"]
 
 scale = Vector2( 0.24, 0.24 )
-z_index = -4
+z_index = -5
 texture = ExtResource( 3 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Bottom" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="1"]
+
+position = Vector2( 0, 245.086 )
+scale = Vector2( 1.32159, 0.147868 )
+texture = ExtResource( 4 )
+
+[node name="Right" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="2"]
+
+position = Vector2( 502.145, -4.14462 )
+scale = Vector2( 1.32159, 1.10432 )
+texture = ExtResource( 4 )
+
+[node name="Left" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="3"]
+
+position = Vector2( -503.372, -4.14462 )
+scale = Vector2( 1.32159, 1.10432 )
+texture = ExtResource( 4 )
+
+[node name="Top" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="4"]
+
+position = Vector2( -8.59118, -433.853 )
+scale = Vector2( 1.34865, 1.10432 )
+z_index = -1
+texture = ExtResource( 4 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Container" parent="BaseContainer/VerticalContainer/Bottom" index="0"]
 
-rect_scale = Vector2( 0.25, 0.25 )
 _sections_unfolded = [ "Mouse", "Rect" ]
 
-[node name="Sprite" parent="BaseContainer/VerticalContainer/Bottom/Container" index="0"]
+[node name="Left" type="Sprite" parent="BaseContainer/VerticalContainer/Bottom/Container" index="0"]
 
-scale = Vector2( 1.2, 1.2 )
+position = Vector2( -495.845, 0.410095 )
+scale = Vector2( 1.32159, 0.38062 )
+z_index = 2
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Right" type="Sprite" parent="BaseContainer/VerticalContainer/Bottom/Container" index="1"]
+
+position = Vector2( 494.507, 0.410095 )
+scale = Vector2( 1.32159, 0.38062 )
+z_index = 2
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Sprite" parent="BaseContainer/VerticalContainer/Bottom/Container" index="2"]
+
+scale = Vector2( 0.3, 0.3 )
 _sections_unfolded = [ "Transform" ]
 
 [node name="HintTimer" type="Timer" parent="." index="5"]
@@ -35,5 +81,7 @@ process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
+
+[connection signal="pressed" from="BaseContainer/VerticalContainer/Top/Reset" to="." method="_on_Reset_pressed"]
 
 

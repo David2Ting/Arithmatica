@@ -1,6 +1,6 @@
 extends "res://Parts/Operator.gd"
 onready var line_edit = get_node('LineEdit')
-onready var editor = get_node('/root/World')
+onready var editor = get_node('/root/World/Main')
 onready var editor_level = get_parent()
 var operator_types = ['+','-','*','/']
 func _ready():

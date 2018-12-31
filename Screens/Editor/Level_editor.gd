@@ -11,6 +11,7 @@ func _ready():
 	pass
 
 func start():
+	.start()
 	level_size = screen_size/1.2
 	node = preload("res://Screens/Editor/Node_editor.tscn")
 	operators_holder.operator = preload("res://Screens/Editor/Operator_editor.tscn")

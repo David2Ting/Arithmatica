@@ -2,7 +2,7 @@ extends Node2D
 
 signal reset_finished
 
-
+var hub
 var main
 var operators_holder
 var node_positions
@@ -41,6 +41,7 @@ var level_size = Vector2()
 
 
 func start():
+	hub = get_node('../../../../../')
 	main = get_node('../../../../../Main')
 	operators_holder = get_node('../../../Bottom/Container/Operators_holder')
 	node_positions = main.node_positions
@@ -103,7 +104,6 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 				behind_instance.set('scale',Vector2(node_scale,node_scale))
 				behind_instance.set_position(pos)
 				node_holder.add_child(behind_instance)
-
 				continue
 			var node_instance = node.instance()
 			node_holder.add_child(node_instance)
@@ -280,6 +280,15 @@ func change_operator(new_operator):
 #		level_label.set_text(str(new_operator))
 #	else:
 #		level_label.set_text(str(main.level_number))
+#func disappear():
+#	var node
+#	for y in range(node_positions.size()):
+#		for x in range(node_positions[0].size()):
+#			if node_positions[y][x]:
+#				node = node_positions[y][x]
+#				node_positions[y][x].pop()
+#	yield(node,'pop_finish')
+#	hub.emit_signal('queue_free')
 
 func _on_Tween_tween_completed(object, key):
 	if prev_node_holder:
@@ -289,3 +298,27 @@ func _on_Tween_tween_completed(object, key):
 	main.settled = true
 	main.calculator.value = 0
 	pass # replace with function body
+
+
+func check_above(chain):
+	for node in chain:
+		print(node.value)
+		var pos = node.pos
+		print(node_positions[pos.y-1][pos.x])
+		if pos.y-1>=0 and node_positions[pos.y-1][pos.x] and chain.find(node_positions[pos.y-1][pos.x])==-1:
+			print('true')
+			return true
+	print(false)
+	return false
+	
+	
+func check_above_entire(chain):
+	for i in range(chain.size()-1):
+		var node = chain[i]
+		var pos = node.pos
+		print(node_positions[pos.y-1][pos.x])
+		if pos.y-1>=0 and node_positions[pos.y-1][pos.x] and chain.find(node_positions[pos.y-1][pos.x])==-1:
+			print('true')
+			return true
+	print(false)
+	return false

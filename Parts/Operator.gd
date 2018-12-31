@@ -60,7 +60,8 @@ func change_value(new_value):
 		symbol.set_texture(load("res://Images/blank.png"))
 	show()
 
-
+func die():
+	animation.play('Pop')
 
 
 func pop():
@@ -128,3 +129,7 @@ func reset():
 		on(false)
 		pressed(true)
 	
+
+func _on_AnimationPlayer_animation_finished(anim_name):
+	container.emit_signal('pop_finish')
+	pass # replace with function body

@@ -25,8 +25,11 @@ func start():
 #	operators_holder.start()
 	goals = preload("res://Screens/Stack Up!/Goals.tscn")
 	add_goal(0,true)
-	add_goal(0,true)  #Left
+#	add_goal(0,true)  #Left
 	add_goal(1,true)
+	yield(next_goal_position[0].get_node('Tween'),'tween_completed')
+		
+	add_goal(0,true)   #Right
 	add_goal(1,true)   #Right
 
 	# Called when the node is added to the scene for the first time.
@@ -46,8 +49,9 @@ func operate_chain():
 		last_node.value = sum
 		var index = current_goal.find(last_node.value)
 		if index > -1:
+			var dropping = current_level.check_above_entire(select_chain)
 			current_level.pop_nodes(select_chain,false)
-			success(last_node,index)
+			success(last_node,index,dropping)
 			last_node.select(false)
 			operators_holder.off_operator()
 			select_chain = []
@@ -64,19 +68,20 @@ func operate_chain():
 			operators_holder.off_operator()
 			select_chain.pop_back()
 			if dropping:
-				yield(current_level,'pop_finish')
+				yield(current_level,'tween_completed')
 			select_chain = []
 			current_level.add_row()
 			streak = 0
 
 
-func success(last_node,index):
+func success(last_node,index,dropping):
 	last_node.animation.play('Success')
 	calculator.value = 'WIN'
 	audio_player.stream = success_sound
 	audio_player.play()
 #	drop_timer.start()
-	yield(current_level,'pop_finish')
+	if dropping:
+		yield(current_level,'pop_finish')
 	current_level.reward('row',last_node,index)
 
 

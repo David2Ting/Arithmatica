@@ -23,6 +23,14 @@ func change_value(new_value):
 	value = new_value
 	label.set_text(str(new_value))
 
+func disappear():
+	var x_size = globals.x_size
+	tween.interpolate_property(self,'scale',Vector2(1,1),Vector2(0.6,0.6),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.interpolate_property(self,'position',Vector2(),Vector2(-x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	tween.start()
+	yield(tween,'tween_completed')
+	queue_free()
 
 func enter(side=true):
 #	timer.start()
@@ -48,3 +56,5 @@ func leave(side=true):
 	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.interpolate_property(self,'position',Vector2(),Vector2(-distance,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()
+	yield(tween,'tween_completed')
+	queue_free()

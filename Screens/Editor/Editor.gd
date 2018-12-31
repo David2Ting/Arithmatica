@@ -2,11 +2,14 @@ extends "res://Screens/World.gd"
 
 var mode = 'edit'
 var currently_editing = null setget change_currently_editing
-onready var goal_sign = get_node("Header/Goal")
+onready var goal_sign = get_node("../BaseContainer/VerticalContainer/GoalContainer/Container/GoalContainer/Goal")
 var progress_level = 100
 #onready var level = get_node('Level')
 
 func _ready():
+	start()
+	operators_holder.start()
+	current_level.start()
 	print(int(15/3))
 	packed_level = preload("res://Screens/Editor/Level.tscn")
 	setup_dimensions()
@@ -97,7 +100,7 @@ func editor_select(boo):
 		goal_sign.set('self_modulate','0796ff')
 	else:
 		goal_sign.set('self_modulate','ffffff')
-		goal_sign.get_node('GoalEdit').menu_option(3)
+		goal_sign.get_node('../GoalEdit').menu_option(3)
 
 
 
@@ -117,8 +120,8 @@ func _on_GoalEdit_gui_input(ev):
 func change_goal(new_goal,forwards=true):
 	goal = new_goal
 #	goal_label.set_text(str(new_goal))
-	goal_sign.get_node('Label').set_text(str(new_goal))
-	goal_sign.get_node('LineEdit').menu_option(3)
+	goal_sign.set_text(str(new_goal))
+	goal_sign.get_node('../GoalEdit').menu_option(3)
 
 func _on_Levels_pressed():
 	get_tree().change_scene("res://Screens/Levels/Main.tscn")
@@ -148,3 +151,6 @@ func _on_Remove_pressed():
 	database.erase(str(check_level))
 	change_level_number(level_number)
 	pass # replace with function body
+
+
+
