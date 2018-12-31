@@ -154,3 +154,8 @@ func _on_Remove_pressed():
 
 
 
+
+
+func _on_Reset_pressed():
+	current_level.reset()
+	pass # replace with function body

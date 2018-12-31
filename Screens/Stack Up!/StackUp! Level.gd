@@ -34,7 +34,8 @@ func tween_completed():  #when falling has ended
 func disappear():
 #	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	var level_size_x = globals.x_size
-	tween.interpolate_property(node_holder,'position',node_area_position,node_area_position+Vector2(level_size_x,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+	var current_position = node_holder.get_position()
+	tween.interpolate_property(node_holder,'position',current_position,current_position+Vector2(level_size_x,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()
 	yield(tween,'tween_completed')
 	hub.emit_signal('queue_free')

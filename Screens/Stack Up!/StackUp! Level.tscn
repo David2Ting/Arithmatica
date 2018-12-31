@@ -7,13 +7,25 @@
 
 script = ExtResource( 2 )
 
+[node name="Back_R" parent="." index="0"]
+
+visible = false
+
+[node name="Top" parent="." index="1"]
+
+visible = false
+
+[node name="Bottom" parent="." index="2"]
+
+visible = false
+
+[node name="Back_L" parent="." index="3"]
+
+visible = false
+
 [node name="Node_holder" parent="." index="4"]
 
 position = Vector2( 0.0415783, 212.975 )
-
-[node name="Screen" parent="." index="5"]
-
-visible = true
 
 [node name="Timer" type="Timer" parent="." index="9"]
 

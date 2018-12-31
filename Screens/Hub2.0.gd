@@ -1,4 +1,4 @@
-extends Control
+extends Node
 
 signal queue_free
 signal finish_cull
@@ -10,13 +10,13 @@ var mode_labels = {'Levels':['Stacks','Infinity'],'Stacks':['Levels','Infinity']
 
 var mode_menu = false
 var mode = 'Levels'
-onready var modes = get_node('BaseContainer/VerticalContainer/Top/Modes')
+onready var modes = get_node('BaseContainer/VerticalContainer/Upper/Top/Modes')
 onready var modes_timer = modes.get_node('ModesTimer')
 onready var modes_screen = get_node('BaseContainer/ModesScreen')
 onready var level_area = get_node('BaseContainer/VerticalContainer/Mid/Container')
 onready var operator_holders_area = get_node('BaseContainer/VerticalContainer/Bottom/Container')
-onready var label_area = get_node('BaseContainer/VerticalContainer/Top')
-onready var goal_container = get_node('BaseContainer/VerticalContainer/GoalContainer/Container/GoalContainer')
+onready var label_area = get_node('BaseContainer/VerticalContainer/Upper/Top')
+onready var goal_container = get_node('BaseContainer/VerticalContainer/Upper/GoalContainer/Container/GoalContainer')
 var new_main
 var new_level
 var new_operator_holder

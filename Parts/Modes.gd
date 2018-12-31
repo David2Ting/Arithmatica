@@ -5,7 +5,7 @@ extends TextureButton
 # var b = "textvar""res://Images/Top bar/Modes/Infinity.png"
 onready var label = get_node('Label')
 onready var animation = get_node('AnimationPlayer')
-onready var hub = get_node('../../../../../')
+onready var hub = get_node('../../../../../../')
 onready var modes = get_node('../')
 export var size = 1
 export var current_mode = false

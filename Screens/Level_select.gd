@@ -9,7 +9,7 @@ onready var left = get_node('Left')
 onready var right = get_node('Right')
 onready var tween = get_node('Tween')
 func start():
-	main = get_node('../../../../Main')
+	main = get_node('../../../../../Main')
 	tween.interpolate_property(self,'modulate',Color(1,1,1,0),Color(1,1,1,1),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()
 

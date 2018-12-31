@@ -52,11 +52,11 @@ func start():
 	operators_holder = get_node('../BaseContainer/VerticalContainer/Bottom/Container/Operators_holder')
 
 	animation = get_node('../AnimationPlayer')
-	level_select = get_node('../BaseContainer/VerticalContainer/Top/Level_select')
+	level_select = get_node('../BaseContainer/VerticalContainer/Upper/Top/Level_select')
 
-	calculator = get_node('../BaseContainer/VerticalContainer/High/CalculatorContainer/Calculator/Label')
-	goal_container = get_node('../BaseContainer/VerticalContainer/GoalContainer/Container/GoalContainer')
-	modes = get_node('../BaseContainer/VerticalContainer/Top/Modes')
+	calculator = get_node('../BaseContainer/VerticalContainer/Upper/High/CalculatorContainer/Calculator/Label')
+	goal_container = get_node('../BaseContainer/VerticalContainer/Upper/GoalContainer/Container/GoalContainer')
+	modes = get_node('../BaseContainer/VerticalContainer/Upper/Top/Modes')
 	modes_timer = modes.get_node('../ModesTimer')
 	modes_screen = get_node('../BaseContainer/ModesScreen')
 	current_level = get_node('../BaseContainer/VerticalContainer/Mid/Container/Level')
