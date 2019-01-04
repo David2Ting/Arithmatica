@@ -14,15 +14,17 @@ var current_health = 4
 var max_health = 4
 var mode = 'Stacks'
 var difficulty_progress = 20
-
+var progress
+var high_score
 #onready var current_health_label = get_node('Header/Health/Current')
 onready var drop_timer = get_node('DropTimer')
 func start():
 	.start()
 	current_level.start()
 	setup_dimensions()
-
+	load_progress()
 #	operators_holder.start()
+	hub.high_score.value = high_score
 	goals = preload("res://Screens/Stack Up!/Goals.tscn")
 	add_goal(0,true)
 #	add_goal(0,true)  #Left
@@ -31,7 +33,9 @@ func start():
 		
 	add_goal(0,true)   #Right
 	add_goal(1,true)   #Right
-
+	if high_score == 0:
+		hub.start_tip('stack_up_starter')
+		
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	pass
@@ -39,6 +43,9 @@ func start():
 func _input(event):
 	if event.is_action_pressed('right_click'):
 		current_level.add_row()
+
+func load_progress():
+	high_score = globals.user_data['stack_up_score']
 
 func operate_chain():
 	if int(current_operator) > 0:
@@ -112,7 +119,8 @@ func add_goal(side,first=false):
 			for x in range(5):
 				if current_level.node_positions[i][x]:
 					if current_level.node_positions[i][x].value == current_goal[index] and !second_goal:
-						success(current_level.node_positions[i][x],index)
+						var dropping = current_level.check_above_entire(select_chain)
+						success(current_level.node_positions[i][x],index,dropping)
 						second_goal = true
 						break
 	difficulty_progress += 0.5
@@ -128,12 +136,17 @@ func random_goal():
 				if current_level.node_positions[i][x]:
 					black_list_nodes.append(current_level.node_positions[i][x].value)
 	var black_list_numbers = current_goal+next_goal+black_list_nodes
+	var all_goals = current_goal+next_goal
+	var has_negative = false
+	for i in range(all_goals.size()):
+		if all_goals[i] and all_goals[i]<0:
+			has_negative = true
 	var row = []
 	var rand = null
-	while !rand or black_list_numbers.find(rand)>-1:
+	while !rand or black_list_numbers.find(rand)>-1 or (rand<0 and has_negative):
 		var sum = 0
 		for i in range(5):
-			sum += randi()%(int(difficulty_progress)-int(difficulty_progress/4))
+			sum += randi()%(int(difficulty_progress)) - int(difficulty_progress)/4
 		rand = sum / 5
 	return rand
 func random_reward(goal):
@@ -186,9 +199,23 @@ func add_node(obj):
 func add_points(amount):
 	total_points += amount
 	level_select.value = total_points
-
+	if total_points > high_score:
+		high_score = total_points
+		hub.high_score.value = total_points
+		globals.user_data['stack_up_score'] = total_points
+		globals.save_data()
 func change_health(amount):
 	return
+
+func game_over():
+	globals.user_data['stack_up_score'] = total_points
+	globals.save_data()
+	
+	hub.tips_screen.get_node('AnimationPlayer').play('Tips')
+	hub.miscellaneous.stack_up_appear()
+func reset():
+	hub.tips_screen.hide()
+	hub.miscellaneous.stack_up_disappear()
 #	if current_health + amount > max_health:
 #		current_health = max_health
 #	else:

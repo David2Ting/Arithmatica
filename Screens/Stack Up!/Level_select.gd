@@ -4,7 +4,7 @@ extends TextureButton  #Stackup
 # var a = 2
 # var b = "textvar"
 onready var label = get_node('Label')
-var value = 0 setget change_value
+var value setget change_value
 onready var tween = get_node('Tween')
 onready var timer = get_node('Timer')
 func _ready():

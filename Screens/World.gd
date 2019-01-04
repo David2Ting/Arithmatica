@@ -1,6 +1,7 @@
 extends Control
 
 onready var globals = get_node('/root/globals')
+onready var hub = get_node('../')
 var audio_player
 var operators_holder
 
@@ -45,6 +46,9 @@ var active = true
 var screen
 var mode_menu = false
 var tips_mode = false
+
+var progress_file = File.new()
+var PROGRESS_PATH = "res://Screens/Progress.json"
 
 func start():
 
@@ -276,9 +280,6 @@ func load_database():
 func change_current_operator(new_operator):
 	current_operator = new_operator
 
-func _on_TextureButton_pressed():
-	current_level.reset()
-	pass # replace with function body
 
 func change_level_number(new_level_number):
 	level_select.value = new_level_number

@@ -14,8 +14,25 @@ func _ready():
 #	# Update game logic here.
 #	pass
 
+func change_value(new_value):
+	var level = get_node('../../')
+	var old_value = value
+	.change_value(new_value)
+	if level and old_value:
+		print('test')
+		if level.number_counts.has(str(new_value)):
+			level.number_counts[str(new_value)]+=1
+			if level.number_counts[str(new_value)] > 1:
+				level.black_list_numbers_counts.append(new_value)
+				level.black_list_numbers.append(new_value)
+		else:
+			level.number_counts[str(new_value)] = 1
 
-
+		if level.number_counts.has(str(old_value)):
+			level.number_counts[str(old_value)]-=1
+			if level.number_counts[str(old_value)] < 2 and level.black_list_numbers_counts.find(old_value) > -1:
+				level.black_list_numbers_counts.remove(level.black_list_numbers_counts.find(old_value))
+		
 func destroy_prepare():
 	animation.play('Destroy_prepare')
 func success():
@@ -24,8 +41,8 @@ func destroy():
 	pop()
 
 func pop():
-	level.number_counts[str(original_value)] -= 1
-	if level.number_counts[str(original_value)]<4:
+	level.number_counts[str(value)] -= 1
+	if level.number_counts[str(value)]<4:
 		level.black_list_numbers_counts.remove(level.black_list_numbers_counts.find(original_value))
 	.pop()
 

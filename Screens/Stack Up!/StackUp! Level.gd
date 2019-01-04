@@ -7,11 +7,13 @@ var first_row = ['1','2','3','4','5']
 var first_fall_completed = false
 var number_counts = {}
 var black_list_numbers_counts = []
+var black_list_numbers = []
 var timer
 signal drop_completed
 signal tween_completed
 signal pop_finish
 var is_falling = false
+
 
 func _ready():
 	# Called when the node is added to the scene for the first time.
@@ -31,6 +33,7 @@ func tween_completed():  #when falling has ended
 	if first_fall_completed:
 		first_fall_completed = false
 
+
 func disappear():
 #	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	var level_size_x = globals.x_size
@@ -41,7 +44,6 @@ func disappear():
 	hub.emit_signal('queue_free')
 
 func reward(type,node,index):
-	print(type)
 	main.streak+=1
 	if type == 'row':
 		var pos = node.pos
@@ -82,10 +84,6 @@ func reward(type,node,index):
 				chain.append(node_positions[pos.y][pos.x])
 				empty_row = true
 				
-#			for x in range(node_positions[0].size()):
-#				if node_positions[pos.y][x]:
-#					empty_row = false
-#					chain.append(node_positions[pos.y][x])
 			chain.append(1)
 			main.add_points((chain.size()-1)*2)
 	#			if node_positions[pos.y][x]:
@@ -163,12 +161,10 @@ func pop_nodes(select_chain,is_success):
 		node.pop()
 	gravity()
 	if empty:
-		print('empty')
 		emit_signal('pop_finish')
 		return false
 	yield(node,'pop_finish')
 	emit_signal('pop_finish')
-	print('actual_pop')
 	for node in node_holder.get_children():
 		if node.is_in_group('nodes'):
 			node.drop()
@@ -176,13 +172,9 @@ func pop_nodes(select_chain,is_success):
 
 func check_above(chain):
 	for node in chain:
-		print(node.value)
 		var pos = node.pos
-		print(node_positions[pos.y-1][pos.x])
 		if pos.y-1>=0 and node_positions[pos.y-1][pos.x] and chain.find(node_positions[pos.y-1][pos.x])==-1:
-			print('true')
 			return true
-	print(false)
 	return false
 
 func finish_pop():
@@ -219,7 +211,7 @@ func elevate():
 				
 
 func random_row():
-	var black_list_numbers = main.current_goal+main.next_goal+black_list_numbers_counts
+	black_list_numbers = main.current_goal+main.next_goal+black_list_numbers_counts
 	var row = []
 	for i in range(5):
 		var rand = null
@@ -228,44 +220,45 @@ func random_row():
 			for i in range(5):
 				sum += randi()%20-5
 			rand = sum / 5
+		row.append(rand)
 		if number_counts.has(str(rand)):
 			number_counts[str(rand)]+=1
-			if number_counts[str(rand)] > 3:
+			if number_counts[str(rand)] > 1:
 				black_list_numbers_counts.append(rand)
 				black_list_numbers.append(rand)
 		else:
-			number_counts[str(rand)] = 1
-		row.append(rand)
+			number_counts[str(rand)]=1
 	return row
 
 func overflow():
 	var damaged = false
 	for i in range(node_positions[0].size()):
 		if node_positions[0][i]:
-			node_positions[0][i].pop()
+#			node_positions[0][i].pop()
 			damaged = true
 	node_positions.pop_front()
 	if damaged:
-		timer.set_wait_time(0.25)
-		timer.start()
-		yield(timer,'timeout')
-		for i in range(node_positions[0].size()):
-			if node_positions[0][i]:
-				node_positions[0][i].pop()
-		timer.set_wait_time(0.25)
-		timer.start()
-		yield(timer,'timeout')
-		for i in range(node_positions[0].size()):
-			if node_positions[1][i]:
-				node_positions[1][i].pop()
-		node_positions.pop_front()
-
-		node_positions.pop_front()
-		main.change_health(-1)
-		for y in range(node_positions.size()):
-			for x in range(node_positions[0].size()):
-				if node_positions[y][x]:
-					node_positions[y][x].pos = node_positions[y][x].pos - Vector2(0,3)
+		main.game_over()
+#		timer.set_wait_time(0.25)
+#		timer.start()
+#		yield(timer,'timeout')
+#		for i in range(node_positions[0].size()):
+#			if node_positions[0][i]:
+#				node_positions[0][i].pop()
+#		timer.set_wait_time(0.25)
+#		timer.start()
+#		yield(timer,'timeout')
+#		for i in range(node_positions[0].size()):
+#			if node_positions[1][i]:
+#				node_positions[1][i].pop()
+#		node_positions.pop_front()
+#
+#		node_positions.pop_front()
+#		main.change_health(-1)
+#		for y in range(node_positions.size()):
+#			for x in range(node_positions[0].size()):
+#				if node_positions[y][x]:
+#					node_positions[y][x].pos = node_positions[y][x].pos - Vector2(0,3)
 	else:
 		for y in range(node_positions.size()):
 			for x in range(node_positions[0].size()):

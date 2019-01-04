@@ -11,16 +11,18 @@ var special_count = 0
 
 var progress_file = File.new()
 var PROGRESS_PATH = "res://Screens/Progress.json"
-var infinity_progress = 0
 var infinity_operators = []
 var progress
-var  operators_holder
+var operators_holder
 var level
 var main 
 var selected_operators
 var size_area
 var finish_buffer
 var size_scale
+
+var operator_values = {'+':1,'-':3,'*':4,'/':4,'1':4,'2':4,'3':5}
+
 func _ready():
 	pass
 func start():
@@ -55,17 +57,19 @@ func load_operators():
 			operator_instance.pos = Vector2(x,y)
 
 func load_progress():
-	progress_file.open(PROGRESS_PATH,File.READ)
-	progress = parse_json(progress_file.get_as_text())
-	progress_file.close()
-	operators_table = progress['infinity']
-	infinity_progress = progress['score']
+	operators_table = globals.user_data['infinity_operators']
+
 
 func pop(operators):
-	for operator in selected_operators:
+	var score = 0
+	for operator in operators:
+		var type = str(operator.value)[0]
+		var value = operator_values[type]
+		score+=value
 		operator_positions[operator.pos.y][operator.pos.x] = null
 		operator.pop()
-
+	score*int(operators.size()/2)
+	main.add_score(score)
 func gravity():
 	for y in range(0,operator_positions.size()):
 		for x in range(0,operator_positions[0].size()):
@@ -102,12 +106,8 @@ func gravity():
 	update_progress()
 
 func update_progress():
-	progress_file.open(PROGRESS_PATH, File.WRITE)
-	progress['infinity']=operators_table
-	progress['score'] = infinity_progress
-	progress_file.store_line(to_json(progress))
-	progress_file.close()
-
+	globals.user_data['infinity_operators'] = operators_table
+	globals.save_data()
 func finish_pop():
 	if !finish_buffer:
 		finish_buffer = true

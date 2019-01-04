@@ -7,8 +7,7 @@
 [node name="Operators_holder" type="Node2D"]
 
 scale = Vector2( 0.25, 0.25 )
-z_index = 1
-z_as_relative = false
+z_index = -1
 script = ExtResource( 1 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
