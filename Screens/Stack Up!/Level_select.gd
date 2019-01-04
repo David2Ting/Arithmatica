@@ -6,6 +6,7 @@ extends TextureButton  #Stackup
 onready var label = get_node('Label')
 var value = 0 setget change_value
 onready var tween = get_node('Tween')
+onready var timer = get_node('Timer')
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
@@ -22,6 +23,10 @@ func start():
 func change_value(new_value):
 	value = new_value
 	label.set_text(str(new_value))
+	label.set('modulate','5effffff')
+	timer.start()
+	yield(timer,'timeout')
+	label.set('modulate','ffffff')
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
