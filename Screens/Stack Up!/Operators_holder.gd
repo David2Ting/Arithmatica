@@ -4,7 +4,7 @@ extends "res://Screens/Operators_holder.gd" #Stack Up!
 # var a = 2
 # var b = "textvar"
 var operator_index = 0
-var operator_area_size = 380
+var operator_area_size = 420
 var operator_chances = {'+':5,'-':4,'*':2,'/':2}
 var starter_operators = ['+','+','+','-','-','*','/']
 func _ready():

@@ -116,6 +116,10 @@ anims/Appear = SubResource( 2 )
 anims/Disappear = SubResource( 3 )
 blend_times = [  ]
 
+[connection signal="button_down" from="." to="." method="_on_Levels_button_down"]
+
+[connection signal="button_up" from="." to="." method="_on_Levels_button_up"]
+
 [connection signal="pressed" from="." to="." method="_on_Levels_pressed"]
 
 

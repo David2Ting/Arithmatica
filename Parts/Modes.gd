@@ -15,10 +15,11 @@ var colours = {'Levels':'7577c5','Stacks':'77c777','Infinity':'bb64c3'}
 export var value = 'Levels' setget change_value
 
 func _ready():
-	label.set_text(value)
-	label.set('custom_colors/font_color',colours[value])
-	if !current_mode:
-		get_node('Label').set('rect_scale',Vector2(size,size))
+#	label.set_text(value)
+#	label.set('custom_colors/font_color',colours[value])
+#	if !current_mode:
+#		get_node('Label').set('rect_scale',Vector2(size,size))
+	change_value(value)
 #	else:
 #		get_node('Sprite').set('modulate',colour)
 	print(value)
@@ -33,6 +34,7 @@ func _ready():
 
 func change_value(new_value):
 	value = new_value
+
 	var colour = colours[new_value]
 	if current_mode:
 		print('current')
@@ -43,7 +45,10 @@ func change_value(new_value):
 	if label:
 		label.set_text(new_value)
 		label.set('custom_colors/font_color',colours[value])
-
+		if new_value == 'Infinity':
+			label.set('rect_scale',Vector2(0.9,0.9))
+		else:
+			label.set('rect_scale',Vector2(1,1))
 func appear():
 	show()
 	animation.play('Appear')
@@ -56,11 +61,28 @@ func disappear():
 func _on_Levels_pressed():
 	if value == hub.mode:
 		hub.toggle_menu(true)
-		get_node('Sprite').set_rotation_degrees(-90)
+		var tween = get_node('Tween')
+		tween.interpolate_property(get_node('Sprite'),'rotation_degrees',0,-90,0.15,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
+		tween.start()
+#		get_node('Sprite').set_rotation_degrees(-90)
 	else:
 		modes.get_children()[0].value = value
 		print('testing')
 		hub.toggle_menu(false)
 		hub.change_mode(value)
 #		main.get_parent().change_mode(value)
+	pass # replace with function body
+
+func rotate_back():
+	var tween = get_node('Tween')
+	tween.interpolate_property(get_node('Sprite'),'rotation_degrees',-90,0,0.15,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
+	tween.start()
+	
+func _on_Levels_button_up():
+	set('modulate','ffffff')
+	pass # replace with function body
+
+
+func _on_Levels_button_down():
+	set('modulate','8cffffff')
 	pass # replace with function body

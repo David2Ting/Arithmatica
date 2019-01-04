@@ -19,3 +19,11 @@ func disappear():
 	tween.interpolate_property(node_holder,'position',node_area_position,node_area_position+Vector2(-level_size.x,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	yield(tween,'tween_completed')
 	hub.emit_signal('queue_free')
+
+func reset():
+	.reset()
+	if main.level_number == 100 and main.success_node:
+		print(main.success_node.get_node('Image_holder/Sprite'))
+		main.success_node.get_node('Image_holder/Sprite').set('modulate','ffffff')
+
+	main.method_100 = [[],[],[],[]]

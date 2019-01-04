@@ -19,6 +19,7 @@ func _ready():
 #	pass
 func _on_Operator_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed('left_click') and active:
+		main.pressed = true
 		holder.pressed = true
 		holder.add(self)
 		pressed(true)

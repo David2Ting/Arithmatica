@@ -4,13 +4,12 @@ extends "res://Screens/World.gd"
 # var a = 2
 # var b = "textvar"
 var tween
-var hub 
 var operator_select_holder 
 var selected_operators = []
 var mode = 'Infinity'
 var values = {'+':2,'-':2,'*':3,'/':3,'1':2}
 var summation_values = {'+':1,'-':-1,'*':3,'/':-1,'1':2}
-
+var score = 0
 
 
 var completed = false
@@ -22,6 +21,8 @@ func _ready():
 func start():
 	.start()
 	randomize()
+	score = globals.user_data['infinity_score']
+	level_select.value = score
 	tween = get_node('Tween')
 	hub = get_node('../')
 	operator_select_holder = current_level.get_node('Operator_select_holder')
@@ -38,7 +39,7 @@ func _input(INPUT):
 			else:
 				select_chain[0].select(false)
 				calculator.value = 0
-		elif selecting_menu:
+		elif pressed and selecting_menu:
 			current_level.operator_select_holder.pressed = false
 			if selected_operators.size()>1:
 				for operator in selected_operators:
@@ -48,11 +49,12 @@ func _input(INPUT):
 				selected_operators[0].pressed(false)
 				selected_operators.clear()
 				operator_select_holder.calculate()
+			pressed = false
 
 func setup_level(operators):
 	change_selecting_menu(false)
 	current_level.move('forwards')
-
+	hub.reset_box.transparent(false)
 	var operator_group = []
 	
 	var total_sum_value = 0
@@ -94,6 +96,7 @@ func next_level():
 	change_selecting_menu(true)
 	current_level.move('to_select')
 	completed = true
+	hub.reset_box.transparent(true)
 #	yield(current_level,'move_complete')
 
 	
@@ -131,6 +134,11 @@ func _on_Tween_tween_completed(object, key):
 func change_selecting_menu(boo):
 	current_operator = null
 	selecting_menu = boo
+
+func add_score(score):
+	level_select.value+=score
+	globals.user_data['infinity_score'] = score
+	globals.save_data()
 #	if boo:
 #		infinity_button_label.set_text('Levels')
 #	else:

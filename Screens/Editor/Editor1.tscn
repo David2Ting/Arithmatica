@@ -1,55 +1,53 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://Screens/World.tscn" type="PackedScene" id=1]
-[ext_resource path="res://Parts/Level_select.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Parts/Level_select.gd" type="Script" id=3]
-[ext_resource path="res://Screens/Editor/Editor_button.tscn" type="PackedScene" id=4]
-[ext_resource path="res://Images/Fonts/Calibri Family/calibri.ttf" type="DynamicFontData" id=5]
-[ext_resource path="res://Screens/Goal.gd" type="Script" id=6]
-[ext_resource path="res://Images/Stackup/Screen.png" type="Texture" id=7]
-[ext_resource path="res://Screens/Editor/Level.tscn" type="PackedScene" id=8]
-[ext_resource path="res://Screens/Editor/Operators_holder.tscn" type="PackedScene" id=9]
-[ext_resource path="res://Screens/Editor/Editor.gd" type="Script" id=10]
+[ext_resource path="res://Screens/Editor/EditorHub.gd" type="Script" id=2]
+[ext_resource path="res://Parts/Level_select.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Parts/Level_select.gd" type="Script" id=4]
+[ext_resource path="res://Screens/Editor/Editor_button.tscn" type="PackedScene" id=5]
+[ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Screens/Goal.gd" type="Script" id=7]
+[ext_resource path="res://Images/Stackup/Screen.png" type="Texture" id=8]
+[ext_resource path="res://Screens/Editor/Level.tscn" type="PackedScene" id=9]
+[ext_resource path="res://Screens/Editor/Operators_holder.tscn" type="PackedScene" id=10]
+[ext_resource path="res://Screens/Editor/Editor.gd" type="Script" id=11]
 
 [sub_resource type="DynamicFont" id=1]
 
-size = 70
+size = 60
 use_mipmaps = false
-use_filter = true
-font_data = ExtResource( 5 )
+use_filter = false
+font_data = ExtResource( 6 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [node name="World" instance=ExtResource( 1 )]
 
-script = null
+script = ExtResource( 2 )
 
-[node name="Top" parent="BaseContainer/VerticalContainer" index="0"]
+[node name="Top" parent="BaseContainer/VerticalContainer/Upper" index="0"]
 
-margin_bottom = 100.0
+editor/display_folded = false
+_sections_unfolded = [ "Rect", "Visibility" ]
 
-[node name="Modes" parent="BaseContainer/VerticalContainer/Top" index="0"]
+[node name="Modes" parent="BaseContainer/VerticalContainer/Upper/Top" index="0"]
 
+editor/display_folded = true
 visible = false
 
-[node name="Reset" parent="BaseContainer/VerticalContainer/Top" index="1"]
-
-margin_left = -248.0
-margin_right = -68.0
-
-[node name="Level_select" parent="BaseContainer/VerticalContainer/Top" index="2" instance=ExtResource( 2 )]
+[node name="Level_select" parent="BaseContainer/VerticalContainer/Upper/Top" index="2" instance=ExtResource( 3 )]
 
 modulate = Color( 1, 1, 1, 1 )
-margin_left = -122.0
-margin_right = 58.0
-script = ExtResource( 3 )
+script = ExtResource( 4 )
 
-[node name="Editor_button" parent="BaseContainer/VerticalContainer/Top" index="3" instance=ExtResource( 4 )]
+[node name="Editor_button" parent="BaseContainer/VerticalContainer/Upper/Top" index="3" instance=ExtResource( 5 )]
 
+margin_right = 600.0
+margin_bottom = 400.0
 rect_scale = Vector2( 0.2, 0.2 )
 _sections_unfolded = [ "Rect", "Textures" ]
 value = "Test"
 
-[node name="Editor_button2" parent="BaseContainer/VerticalContainer/Top" index="4" instance=ExtResource( 4 )]
+[node name="Editor_button2" parent="BaseContainer/VerticalContainer/Upper/Top" index="4" instance=ExtResource( 5 )]
 
 margin_top = 80.0
 margin_right = 600.0
@@ -58,23 +56,25 @@ rect_scale = Vector2( 0.2, 0.2 )
 _sections_unfolded = [ "Rect", "Textures" ]
 value = "Save"
 
-[node name="Editor_button3" parent="BaseContainer/VerticalContainer/Top" index="5" instance=ExtResource( 4 )]
+[node name="Editor_button3" parent="BaseContainer/VerticalContainer/Upper/Top" index="5" instance=ExtResource( 5 )]
 
-margin_top = 161.0
+margin_top = 160.0
 margin_right = 600.0
-margin_bottom = 561.0
+margin_bottom = 560.0
 rect_scale = Vector2( 0.2, 0.2 )
 _sections_unfolded = [ "Rect", "Textures" ]
 value = "Hint"
 
-[node name="Goal" type="Label" parent="BaseContainer/VerticalContainer/GoalContainer/Container/GoalContainer" index="0"]
+[node name="Goal" type="Label" parent="BaseContainer/VerticalContainer/Upper/GoalContainer/Container/GoalContainer" index="0"]
 
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_top = -34.2038
-margin_bottom = 36.7962
+margin_left = -79.0
+margin_top = -37.0
+margin_right = 85.0
+margin_bottom = 23.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -83,23 +83,24 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 1 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
+align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-script = ExtResource( 6 )
+script = ExtResource( 7 )
 _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="GoalEdit" type="LineEdit" parent="BaseContainer/VerticalContainer/GoalContainer/Container/GoalContainer" index="1"]
+[node name="GoalEdit" type="LineEdit" parent="BaseContainer/VerticalContainer/Upper/GoalContainer/Container/GoalContainer" index="1"]
 
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -59.0
-margin_top = -47.0
-margin_right = 30.0
-margin_bottom = 34.0
+margin_left = -71.0
+margin_top = -49.0
+margin_right = 53.0
+margin_bottom = 43.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 focus_mode = 2
@@ -119,12 +120,12 @@ _sections_unfolded = [ "Visibility" ]
 
 scale = Vector2( 0.25, 0.25 )
 z_index = -5
-texture = ExtResource( 7 )
+texture = ExtResource( 8 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
-[node name="Level" parent="BaseContainer/VerticalContainer/Mid/Container" index="1" instance=ExtResource( 8 )]
+[node name="Level" parent="BaseContainer/VerticalContainer/Mid/Container" index="1" instance=ExtResource( 9 )]
 
-[node name="Operators_holder" parent="BaseContainer/VerticalContainer/Bottom/Container" index="1" instance=ExtResource( 9 )]
+[node name="Operators_holder" parent="BaseContainer/VerticalContainer/Bottom/Container" index="1" instance=ExtResource( 10 )]
 
 [node name="Add" type="Button" parent="BaseContainer/VerticalContainer/Bottom" index="1"]
 
@@ -189,13 +190,13 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 10 )
+script = ExtResource( 11 )
 
-[connection signal="pressed" from="BaseContainer/VerticalContainer/Top/Reset" to="Main" method="_on_Reset_pressed"]
+[connection signal="pressed" from="BaseContainer/VerticalContainer/Upper/Top/Reset" to="Main" method="_on_Reset_pressed"]
 
-[connection signal="gui_input" from="BaseContainer/VerticalContainer/GoalContainer/Container/GoalContainer/GoalEdit" to="Main" method="_on_GoalEdit_gui_input"]
+[connection signal="gui_input" from="BaseContainer/VerticalContainer/Upper/GoalContainer/Container/GoalContainer/GoalEdit" to="Main" method="_on_GoalEdit_gui_input"]
 
-[connection signal="text_entered" from="BaseContainer/VerticalContainer/GoalContainer/Container/GoalContainer/GoalEdit" to="Main" method="_on_GoalEdit_text_entered"]
+[connection signal="text_entered" from="BaseContainer/VerticalContainer/Upper/GoalContainer/Container/GoalContainer/GoalEdit" to="Main" method="_on_GoalEdit_text_entered"]
 
 [connection signal="pressed" from="BaseContainer/VerticalContainer/Bottom/Add" to="Main" method="_on_Add_pressed"]
 

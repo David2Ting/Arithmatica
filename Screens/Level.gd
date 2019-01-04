@@ -38,7 +38,7 @@ var value = 1 setget change_value
 var level_spot_size = Vector2()
 var level_size = Vector2()
 
-
+var resetting = false
 
 func start():
 	hub = get_node('../../../../../')
@@ -139,9 +139,11 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 	goal.value=int(goal_num)
 #	goal.show()
 	main.change_goal(goal_num,forwards)
-	
+	if hub.hint_box:
+		hub.hint_box.transparent(false)
 	#Hints
 func pop_nodes(select_chain,is_success):
+	hub.hint_box.transparent(true)
 	for i in range(0,select_chain.size()-1):
 		var node = select_chain[i]
 		var pos = node.pos
@@ -178,6 +180,7 @@ func gravity():
 	return empty
 
 func reset():
+	resetting = true
 	var reset_group_nodes = [[],[],[],[]]
 	var reset_group_operators = [[],[],[],[]]
 	var new_nodes = []
@@ -247,6 +250,8 @@ func reset_level(reset_group_nodes,reset_group_operators):
 		yield(reset_timer,"timeout")
 		for node in reset_group_operators[0]:
 			pass
+	hub.hint_box.transparent(false)
+	resetting = false
 	emit_signal("reset_finished")
 
 
@@ -268,6 +273,9 @@ func move(type):
 		tween.start()
 		yield(get_tree().create_timer(.1), "timeout")
 		node_holder.show()
+	main.hub.on_block(true)
+	yield(tween,'tween_completed')
+	main.hub.on_block(false)
 #	elif type == 'exit':
 #		tween.interpolate_property(prev_node_holder,'position',Vector2(globals.x_size/2,globals.y_size/2),Vector2(-globals.x_size/2,globals.y_size/2),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 #		tween.start()
