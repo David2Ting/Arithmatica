@@ -184,7 +184,7 @@ func _on_ModesScreen_pressed():
 
 func _on_Reset_pressed():
 #	print('pressed')
-#	new_level.reset()
+	new_level.reset()
 	pass # replace with function body
 
 
