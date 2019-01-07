@@ -1,26 +1,36 @@
 extends Node2D
 var goal = null
 var freeze_count = 0
+var running_sum = null
+var black_list_goals = []
+var is_last = false
+
 func _ready():
 	randomize()
-	var string = '12345'
+	calculate([['+',2],['/',2]],0)
 	pass
 
 
 	
 func calculate(operator_groups,sum):
+	black_list_goals = []
+	goal = null
 	freeze_count = 0
 	var random_order = random(operator_groups)
-	var running_sum = sum
+	running_sum = null
 	var chain_group = []
 	goal = sum
 	var last_chain = []
+	is_last = false
 	for i in range(random_order.size()):
+		if i == random_order.size()-1:
+			is_last = true
 		var operator = random_order[i]
 
 		var chain = [false]
 		
 		if int(operator[0]) > 0:
+			continue
 			var new_chain = specials(operator[0],last_chain)
 			running_sum = new_chain[0][last_chain[1]]
 			chain_group[last_chain[2]]=new_chain
@@ -36,11 +46,10 @@ func calculate(operator_groups,sum):
 				chain = division(running_sum,operator[1])
 			freeze_count += 1
 			if freeze_count > 50:
-				print('freeze')
 				return 'freeze'
 		var non_zero_indexes = []
 		for i in range(chain.size()):
-			if chain[i] != 1 and chain[i] != 0:
+			if chain[0][i] != 1 and chain[0][i] != 0:
 				non_zero_indexes.append(i)
 		var rand
 		if non_zero_indexes.size()>0:
@@ -48,15 +57,13 @@ func calculate(operator_groups,sum):
 			rand = non_zero_indexes[rand]
 		else:
 			rand = randi()%chain.size()
-		if i+1<random_order.size() and str(random_order[i+1][0]) == '*':
-			rand = factor_strat(chain)
-		running_sum = chain[rand]
+#		if i+1<random_order.size() and str(random_order[i+1][0]) == '*':
+#			rand = factor_strat(chain)
 		last_chain = [chain,rand,i]
-		var new_chain = [chain,rand]
-		chain_group.append(new_chain)
-	chain_group.invert()
+		chain_group.append(chain)
 	print(chain_group)
-	return chain_group
+	print(running_sum)
+	return [chain_group,running_sum]
 
 func specials(operator,last_chain):
 	var type = str(operator)[0]
@@ -101,7 +108,7 @@ func random(operator_groups):   #Randomize order of operators
 		var r = randi()%operator_groups.size()
 		random_order.append(operator_groups[r])
 		operator_groups.remove(r)
-
+	random_order.invert()
 	return random_order
 
 func distribute(aimed_num,normality,limit):
@@ -112,79 +119,198 @@ func distribute(aimed_num,normality,limit):
 		for i in range(normality):
 			distribute_sum+=round(rand_range(0,maximum))
 		result = int(round(distribute_sum/normality))
-	
 	return result
 
 func addition(sub_sum,times):
-	var running_sum = sub_sum
-	var chain = []
+	var chain
+	if !sub_sum:
+		var rand = randi()%10+1
+		sub_sum = rand
+		chain = [rand]
+		running_sum = 0
+	else:
+		chain = [sub_sum]
+	black_list_goals.append(sub_sum)
 	for i in range(times-1):
-		var aimed_num = running_sum/times
-		var result = distribute(aimed_num,5,sub_sum)
-		running_sum -= result
-		chain.append(result)
-	if running_sum == goal:
-		return [false]
-	chain.append(running_sum)
-#	chain = random(chain)
-	chain.invert()
-	return chain
+		var aimed_num = 5
+		var result = null
+		result = distribute(aimed_num,5,sub_sum)
+		sub_sum += result
+		var order = randi()%2
+		if order>0:
+			chain.append(result)
+		else:
+			chain.push_front(result)
+		black_list_goals.append(result)
+	var index = chain.find(running_sum)
+	running_sum = sub_sum
+	if is_last:
+		while black_list_goals.find(sub_sum)>-1:
+			var rand = randi()%5
+			sub_sum += rand
+			chain.append(rand)
+	return [chain,index]
 
 func subtraction(sub_sum,times):
-	var running_sum = sub_sum
-	var chain = []
-	for i in range(times-1):
-		var aimed_num = sub_sum
-		var result = distribute(aimed_num,5,sub_sum*1.5)
-		running_sum += result
-		chain.append(result)
-	if running_sum == goal:
-		return [false]
-	chain.append(running_sum)
-	chain.invert()
-	return chain
+	var chain
+	var is_front = false
+	if !sub_sum:
+		var rand = randi()%10+5
+		sub_sum = rand
+		chain = [rand]
+#		running_sum = 0
+	else:
+		chain = [sub_sum]
+	black_list_goals.append(sub_sum)
+	if sub_sum>10:
+		var front_chance = randi()%2
+		if front_chance > 0:
+			is_front = true
+	var added_sum = sub_sum
+
+	if is_front:
+		for i in range(times-1):
+			var aimed_num = sub_sum/times
+			var result = null
+	#		while !result or result == goal:
+			result = distribute(aimed_num,5,sub_sum)
+			sub_sum -= result
+			chain.append(result)
+			black_list_goals.append(result)
+			running_sum = sub_sum
+	else:
+		for i in range(times-2):
+			var aimed_num = 5
+			var result = null
+	#		while !result or result == goal:
+			result = distribute(aimed_num,5,sub_sum)
+			var order = randi()%2
+			if order>0:
+				chain.append(result)
+			else:
+				chain.push_front(result)
+			black_list_goals.append(result)
+			added_sum += result
+		var result = randi()%10+5
+		chain.push_front(added_sum+result)
+		sub_sum = result
+	
+#	if running_sum == goal:
+#		return [false]
+	var index = chain.find(running_sum)
+	running_sum = sub_sum
+	
+	if is_last:
+		while black_list_goals.find(sub_sum)>-1:
+			var rand = randi()%5+1
+			sub_sum -= rand
+			chain.append(rand)
+#	chain = random(chain)
+#	chain.invert()
+	return [chain,index]
 
 func multiplication(sub_sum,times):
-	var running_sum = int(sub_sum)
-	var chain = []
+	var chain
+	if !sub_sum:
+		var rand = randi()%10+1
+		sub_sum = rand
+		chain = [rand]
+		running_sum = 0
+	else:
+		chain = [sub_sum]
+	black_list_goals.append(sub_sum)
 	for i in range(times-1):
-		var factors = []
-		for j in range(2,sub_sum/2+1):
-			if running_sum%j == 0:
-				factors.append(j)
-		if factors.size()<1:
-			chain.append(1)
+		var aimed_num = 3
+		var result = null
+		result = distribute(aimed_num,5,12)
+		sub_sum *= result
+		var order = randi()%2
+		if order>0:
+			chain.append(result)
 		else:
-			var rand = randi()%factors.size()
-			chain.append(int(factors[rand]))
-			running_sum = int(running_sum/factors[rand])
-	if running_sum == goal:
-		return [false]
-	chain.append(running_sum)
-	chain.invert()
-	return chain
+			chain.push_front(result)
+		black_list_goals.append(result)
+		if result > 100:
+			break
+	var index = chain.find(running_sum)
+	running_sum = sub_sum
+	if is_last:
+		while black_list_goals.find(sub_sum)>-1:
+			var rand = randi()%2+2
+			sub_sum *= rand
+			chain.append(rand)
+	return [chain,index]
 
 func division(sub_sum,times):
-	var distribute = 5
-	var chain = []
-	var running_sum = sub_sum
-	for i in range(times-1):
-		var summation = goal
-		while summation == goal:
-			summation = 0
-			for j in range(distribute):
-				var rand = round(rand_range(-3,10))
-				summation += rand
-			summation = int(summation / distribute)
-			if summation < 1:
-				summation = 1
-		running_sum*=summation
-		chain.append(summation)
-	if running_sum == goal:
-		return [false]
-	chain.append(running_sum)
-	chain.invert()
-	return chain
+	var chain
+	var is_front = false
+	if !sub_sum:
+		var rand = randi()%10+5
+		sub_sum = rand
+		chain = [rand]
+		running_sum = 0
+	else:
+		chain = [sub_sum]
+	black_list_goals.append(sub_sum)
+	if sub_sum>50:
+		var front_chance = randi()%2
+		if front_chance > 0:
+			is_front = true
+	var added_sum = sub_sum
+
+	if is_front:
+		var factors = []
+		for i in range(2,sub_sum/2+1):
+			if sub_sum%i==0:
+				factors.append(i)
+		if factors.size()>0:
+			var rand = randi()%factors.size()
+			var result = factors[rand]
+			sub_sum/=result
+			chain.append(sub_sum)
+		else:
+			var rand = randi()%5
+			sub_sum = rand
+			chain.push_front(sub_sum*rand)
+	else:
+		for i in range(times-2):
+			var aimed_num = 5
+			var result = null
+	#		while !result or result == goal:
+			result = distribute(aimed_num,5,sub_sum)
+			var order = randi()%2
+			if order>0:
+				chain.append(result)
+			else:
+				chain.push_front(result)
+			black_list_goals.append(result)
+			added_sum *= result
+	var result = randi()%4
+	if chain.size() == 1:
+		result = randi()%20
+	chain.push_front(added_sum*result)
+	sub_sum = result
+	
+#	if running_sum == goal:
+#		return [false]
+	var index = chain.find(running_sum)
+	running_sum = sub_sum
+	
+
+	if is_last:
+		var final_sum = 1
+		for i in range(chain.size()):
+			final_sum*=chain[i]
+		if black_list_goals.find(sub_sum)>-1:
+			chain.push_front(final_sum)
+			while black_list_goals.find(sub_sum)>-1:
+				var rand = randi()%2+2
+				chain[0] *=rand
+				sub_sum = chain[0]/final_sum
+				
+#	chain = random(chain)
+#	chain.invert()
+	return [chain,index]
 
 func factor_strat(chain):
 	var possible_numbers = []

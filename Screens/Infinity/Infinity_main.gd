@@ -1,8 +1,6 @@
 extends "res://Screens/World.gd"
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+
 var tween
 var operator_select_holder 
 var selected_operators = []
@@ -22,6 +20,7 @@ func start():
 	.start()
 	randomize()
 	score = globals.user_data['infinity_score']
+	print('score:'+str(score))
 	level_select.value = score
 	tween = get_node('Tween')
 	hub = get_node('../')
@@ -84,30 +83,21 @@ func setup_level(operators):
 		sum += round(rand_range(0,total_sum_value*2+10))
 	sum = int(sum / 5)
 
-	#randomizing sum
-
 	current_level.create_level(operator_group,sum)
-	
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+
 func next_level():
+	print('next')
 	change_selecting_menu(true)
 	current_level.move('to_select')
 	completed = true
 	hub.reset_box.transparent(true)
-#	yield(current_level,'move_complete')
+	if goal_label:
+		goal_label.leave(false)
+		goal_label = null
+
 
 	
-#func move(type):
-#	var x_size = get_node('/root/globals').x_size*1.5
-#	if type == 'out':
-#		tween.interpolate_property(self,'position',Vector2(0,0),Vector2(x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-#		tween.start()
-#	if type == 'in':
-#		tween.interpolate_property(self,'position',Vector2(x_size,0),Vector2(0,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-#		tween.start()
+
 
 func _on_Infinity_pressed():
 	selected_operators.clear()
@@ -124,6 +114,7 @@ func finish_movement():
 	if selecting_menu and completed:
 		operator_select_holder.pop(selected_operators)
 		selected_operators.clear()
+		operator_select_holder.calculate()
 		calculate_sum()
 	completed = false
 func _on_Tween_tween_completed(object, key):
@@ -136,8 +127,10 @@ func change_selecting_menu(boo):
 	selecting_menu = boo
 
 func add_score(score):
+	print(level_select.value)
+	print(score)
 	level_select.value+=score
-	globals.user_data['infinity_score'] = score
+	globals.user_data['infinity_score'] = level_select.value
 	globals.save_data()
 #	if boo:
 #		infinity_button_label.set_text('Levels')

@@ -38,7 +38,7 @@ var new_level
 var new_operator_holder
 var new_label
 func _ready():
-	change_mode('Infinity')
+	change_mode('Levels')
 	globals.load_data()
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
@@ -92,7 +92,6 @@ func cull_previous():
 	if new_operator_holder:
 		new_operator_holder.disappear()
 	if new_label:
-		print('die')
 		new_label.disappear()
 	for child in goal_container.get_children():
 		child.disappear()
@@ -138,7 +137,6 @@ func tips_next():
 	if tips and tip_count >= tips.size():
 		if tip_place:
 			tip_place.set('z_index',tip_place_z)
-			print(tip_place_z)
 		tips_screen.hide()
 		tips_box.hide()
 		tips = null
@@ -150,7 +148,6 @@ func tips_next():
 		var placing = tips[tip_count][1]
 		if tip_place:
 			tip_place.set('z_index',tip_place_z)
-			print(tip_place_z)
 	
 		if placing == 'goal':
 			tip_place = goal_container
@@ -183,7 +180,6 @@ func _on_ModesScreen_pressed():
 
 
 func _on_Reset_pressed():
-	print('pressed')
 	new_level.reset()
 	pass # replace with function body
 
@@ -195,7 +191,6 @@ func _on_Reset_button_down():
 
 func _on_Reset_button_up():
 	reset.set('modulate','ffffff')
-	print('up')
 	pass # replace with function body
 
 
@@ -211,3 +206,5 @@ func _on_TipsScreen_gui_input(ev):
 func _on_Hint_pressed():
 	new_main.hint()
 	pass # replace with function body
+
+

@@ -22,7 +22,6 @@ func _ready():
 	change_value(value)
 #	else:
 #		get_node('Sprite').set('modulate',colour)
-	print(value)
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	pass
@@ -37,7 +36,6 @@ func change_value(new_value):
 
 	var colour = colours[new_value]
 	if current_mode:
-		print('current')
 		get_node('Sprite').set('modulate',colour)
 
 #	set_normal_texture(load(images[new_value]))
@@ -67,7 +65,6 @@ func _on_Levels_pressed():
 #		get_node('Sprite').set_rotation_degrees(-90)
 	else:
 		modes.get_children()[0].value = value
-		print('testing')
 		hub.toggle_menu(false)
 		hub.change_mode(value)
 #		main.get_parent().change_mode(value)

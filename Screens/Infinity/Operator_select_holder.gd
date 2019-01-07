@@ -20,9 +20,10 @@ var selected_operators
 var size_area
 var finish_buffer
 var size_scale
-
+var is_popping = false
 var operator_values = {'+':1,'-':3,'*':4,'/':4,'1':4,'2':4,'3':5}
-
+signal pop_finish
+onready var operator_select_timer = get_node('../OperatorSelectTimer')
 func _ready():
 	pass
 func start():
@@ -62,14 +63,23 @@ func load_progress():
 
 func pop(operators):
 	var score = 0
-	for operator in operators:
+	var last_operator = null
+	var new_operators = []+operators
+	for operator in new_operators:
+		print(new_operators)
 		var type = str(operator.value)[0]
 		var value = operator_values[type]
-		score+=value
 		operator_positions[operator.pos.y][operator.pos.x] = null
 		operator.pop()
-	score*int(operators.size()/2)
-	main.add_score(score)
+		is_popping = true
+		operator_select_timer.start()
+		main.add_score(value*int(new_operators.size()))
+		yield(operator_select_timer,'timeout')
+	selected_operators.clear()
+	calculate()
+	if is_popping:
+		yield(self,'pop_finish')
+	gravity()
 func gravity():
 	for y in range(0,operator_positions.size()):
 		for x in range(0,operator_positions[0].size()):
@@ -108,13 +118,10 @@ func gravity():
 func update_progress():
 	globals.user_data['infinity_operators'] = operators_table
 	globals.save_data()
+	
 func finish_pop():
-	if !finish_buffer:
-		finish_buffer = true
-		gravity()
-		yield(get_tree().create_timer(.4), "timeout")
-		finish_buffer = false
-
+	is_popping = false
+	emit_signal('pop_finish')
 func get_random():
 	var rand = randi()%100+1
 	if rand < 35:
@@ -139,7 +146,6 @@ func add(obj):
 		else:
 			obj.pressed(true)
 			selected_operators.append(obj)
-	calculate()
 func calculate():
 	if selected_operators and selected_operators.size():
 		for i in range(selected_operators.size()):

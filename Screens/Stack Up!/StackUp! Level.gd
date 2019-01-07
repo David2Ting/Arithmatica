@@ -23,7 +23,7 @@ func start():
 	.start()
 	node = preload("res://Screens/Stack Up!/Node_stack.tscn")
 	timer = get_node('Timer')
-	add_row()
+
 		
 func tween_completed():  #when falling has ended
 	pop_buffer = false

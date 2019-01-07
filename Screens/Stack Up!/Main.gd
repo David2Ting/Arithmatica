@@ -43,6 +43,9 @@ func start():
 		
 	add_goal(0,true)   #Right
 	add_goal(1,true)   #Right
+	
+	current_level.add_row()
+
 	if high_score == 0:
 		hub.start_tip('stack_up_starter')
 	level_select.value = 0
@@ -162,7 +165,7 @@ func random_goal():
 	for i in range(current_difficulty):
 		potential_goals+=levels[i]
 
-	if current_level.node_positions.size()>1:
+	if current_level.node_positions.size()>0:
 		for i in range(-1,-min(6,node_positions.size()),-1):
 			for x in range(5):
 				if current_level.node_positions[i][x]:

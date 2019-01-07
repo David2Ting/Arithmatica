@@ -39,19 +39,19 @@ func disappear():
 	hub.emit_signal('queue_free')
 
 func create_level(operator_group,sum):
+	print(operator_group)
 	var operators = []
 	for operator in operator_group:
 		operators.append(operator[0])
 	var state = 'freeze'
 
-	while str(state) == 'freeze':
-		var maths_groups = algebra.calculate(operator_group,sum)
-		state = maths_groups
-	var map = builder.build(state)
-	load_level(map,operators,sum,true)
+
+	var maths_groups = algebra.calculate(operator_group,sum)
+	var maths = maths_groups[0]
+	var map = builder.build(maths)
+	load_level(map,operators,maths_groups[1],true)
 	prev_node_holder.queue_free()
 	prev_node_holder = null
-	
 func move(type):
 	main.settled = false
 	var normal_select_pos = Vector2(0,operator_select_holder.get_position().y)
