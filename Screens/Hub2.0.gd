@@ -9,7 +9,7 @@ var labels = {'Levels':"res://Parts/Level_select.tscn",'Stacks':"res://Screens/S
 var mode_labels = {'Levels':['Stacks','Infinity'],'Stacks':['Levels','Infinity'],'Infinity':['Levels','Stacks']}
 
 var mode_menu = false
-var mode = 'Levels'
+var mode = 'Infinity'
 onready var modes = get_node('BaseContainer/VerticalContainer/Upper/Top/Modes')
 onready var modes_timer = modes.get_node('ModesTimer')
 onready var modes_screen = get_node('BaseContainer/ModesScreen')
@@ -21,7 +21,7 @@ onready var block = get_node('Block')
 onready var reset = get_node('BaseContainer/VerticalContainer/Upper/Top/ResetContainer/Reset/Label')
 onready var reset_box = reset.get_parent()
 onready var high_score = get_node('BaseContainer/VerticalContainer/Upper/Top/ResetContainer/HighScore')
-
+onready var miscellaneous = get_node('Miscellaneous')
 onready var tips_box = get_node('TipsContainer')
 onready var tips_label = tips_box.get_node('Tips')
 onready var tips_screen = get_node('TipsScreen')
@@ -38,7 +38,7 @@ var new_level
 var new_operator_holder
 var new_label
 func _ready():
-	change_mode('Levels')
+	change_mode('Infinity')
 	globals.load_data()
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
@@ -183,8 +183,8 @@ func _on_ModesScreen_pressed():
 
 
 func _on_Reset_pressed():
-#	print('pressed')
-#	new_level.reset()
+	print('pressed')
+	new_level.reset()
 	pass # replace with function body
 
 

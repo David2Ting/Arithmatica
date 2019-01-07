@@ -141,16 +141,22 @@ func add(obj):
 			selected_operators.append(obj)
 	calculate()
 func calculate():
-	for i in range(selected_operators.size()):
-		var operator = operators_holder.operators[i]
-		operator.value = selected_operators[i].value
-		operator.pressed(false)
-		operator.on(true)
-	for i in range(selected_operators.size(),4):
-		var operator = operators_holder.operators[i]
-		operator.value = '0'
-		operator.pressed(true)
-		operator.on(false)
+	if selected_operators and selected_operators.size():
+		for i in range(selected_operators.size()):
+			var operator = operators_holder.operators[i]
+			operator.value = selected_operators[i].value
+			operator.pressed(false)
+			operator.on(true)
+		for i in range(selected_operators.size(),4):
+			var operator = operators_holder.operators[i]
+			operator.value = '0'
+			operator.pressed(true)
+			operator.on(false)
+	else:
+		for operator in operators_holder.operators:
+			operator.value = '0'
+			operator.pressed(true)
+			operator.on(false)
 	
 func check_adjacency(original_pos, new_pos):
 	if abs(original_pos.y-new_pos.y) + abs(original_pos.x-new_pos.x) == 1:

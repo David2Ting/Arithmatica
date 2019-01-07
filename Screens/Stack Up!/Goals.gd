@@ -62,6 +62,7 @@ func death():
 	queue_free()
 
 func change_reward(new_reward):
+	pass
 	reward_logo.set_texture(load(reward_images[new_reward]))
 #func _process(delta):
 #	# Called every frame. Delta is time since last frame.

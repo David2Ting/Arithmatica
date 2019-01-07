@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://Screens/Hub2.0.gd" type="Script" id=1]
 [ext_resource path="res://Images/blank.png" type="Texture" id=2]
@@ -14,9 +14,10 @@
 [ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=12]
 [ext_resource path="res://Screens/HighScore.gd" type="Script" id=13]
 [ext_resource path="res://Images/Stackup/Screen.png" type="Texture" id=14]
-[ext_resource path="res://Images/Level/Background.png" type="Texture" id=15]
-[ext_resource path="res://Images/Level/Operator_holder.png" type="Texture" id=16]
-[ext_resource path="res://Screens/Miscellaneous.gd" type="Script" id=17]
+[ext_resource path="res://Images/Stackup/Screen_front.png" type="Texture" id=15]
+[ext_resource path="res://Images/Level/Background.png" type="Texture" id=16]
+[ext_resource path="res://Images/Level/Operator_holder.png" type="Texture" id=17]
+[ext_resource path="res://Screens/Miscellaneous.gd" type="Script" id=18]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -104,7 +105,37 @@ use_filter = false
 font_data = ExtResource( 12 )
 _sections_unfolded = [ "Font", "Settings" ]
 
-[node name="Hub" type="Node" index="0"]
+[sub_resource type="Animation" id=9]
+
+length = 1.6
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:self_modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.3 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("../TipsContainer:modulate")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"times": PoolRealArray( 0, 1, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
+}
+
+[node name="Hub" type="Node"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Mouse", "Size Flags" ]
@@ -120,7 +151,6 @@ bus = "Master"
 
 [node name="BaseContainer" type="MarginContainer" parent="." index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -669,35 +699,42 @@ z_index = -5
 texture = ExtResource( 14 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
-[node name="Bottom" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="1"]
+[node name="ScreenFront" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="1"]
+
+scale = Vector2( 0.24, 0.24 )
+z_index = -3
+texture = ExtResource( 15 )
+_sections_unfolded = [ "Transform", "Z Index" ]
+
+[node name="Bottom" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="2"]
 
 position = Vector2( 0, 375.579 )
 scale = Vector2( 1.32159, 0.800332 )
 z_index = -2
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 _sections_unfolded = [ "Z Index" ]
 
-[node name="Right" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="2"]
+[node name="Right" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="3"]
 
 position = Vector2( 502.145, -4.14462 )
 scale = Vector2( 1.32159, 1.10432 )
 z_index = -2
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 _sections_unfolded = [ "Z Index" ]
 
-[node name="Left" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="3"]
+[node name="Left" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="4"]
 
 position = Vector2( -503.372, -4.14462 )
 scale = Vector2( 1.32159, 1.10432 )
 z_index = -2
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 
-[node name="Top" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="4"]
+[node name="Top" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="5"]
 
-position = Vector2( -9.72064, -436.841 )
-scale = Vector2( 2.18308, 1.10432 )
+position = Vector2( -9.72064, -436.207 )
+scale = Vector2( 2.18308, 1.10749 )
 z_index = -2
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Bottom" type="Container" parent="BaseContainer/VerticalContainer" index="2"]
@@ -736,14 +773,14 @@ _sections_unfolded = [ "Mouse" ]
 
 position = Vector2( -495.845, 0.410095 )
 scale = Vector2( 1.32159, 0.38062 )
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Right" type="Sprite" parent="BaseContainer/VerticalContainer/Bottom/Container" index="1"]
 
-position = Vector2( 494.507, 0.410095 )
-scale = Vector2( 1.32159, 0.38062 )
-texture = ExtResource( 15 )
+position = Vector2( 494.507, -1.73865 )
+scale = Vector2( 1.32159, 0.369876 )
+texture = ExtResource( 16 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Sprite" type="Sprite" parent="BaseContainer/VerticalContainer/Bottom/Container" index="2"]
@@ -751,7 +788,7 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 position = Vector2( -0.520508, -3.56781 )
 scale = Vector2( 0.3, 0.3 )
 z_index = -2
-texture = ExtResource( 16 )
+texture = ExtResource( 17 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="TipsScreen" type="Container" parent="." index="2"]
@@ -787,7 +824,7 @@ mouse_filter = 1
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-texture = ExtResource( 15 )
+texture = ExtResource( 16 )
 expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
@@ -857,19 +894,42 @@ mouse_filter = 0
 mouse_default_cursor_shape = 0
 size_flags_horizontal = 1
 size_flags_vertical = 1
-script = ExtResource( 17 )
+script = ExtResource( 18 )
 _sections_unfolded = [ "Rect" ]
 
-[node name="FinalScore" type="Label" parent="Miscellaneous" index="0"]
+[node name="Sprite" type="TextureRect" parent="Miscellaneous" index="0"]
+
+modulate = Color( 1, 1, 1, 0.917137 )
+self_modulate = Color( 1, 1, 1, 0 )
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -8.0
+margin_top = 2.0
+margin_right = 4.0
+margin_bottom = 11.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 16 )
+expand = true
+stretch_mode = 0
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
+
+[node name="FinalScore" type="Label" parent="Miscellaneous" index="1"]
 
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 margin_left = -179.5
-margin_top = -40.0
+margin_top = -115.5
 margin_right = 179.5
-margin_bottom = 40.0
+margin_bottom = 43.5
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
 mouse_filter = 2
@@ -879,12 +939,13 @@ size_flags_vertical = 4
 custom_fonts/font = SubResource( 8 )
 custom_colors/font_color = Color( 0.398438, 0.398438, 0.398438, 1 )
 text = "Final Score"
+align = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
-[node name="Tween" type="Tween" parent="Miscellaneous" index="1"]
+[node name="Tween" type="Tween" parent="Miscellaneous" index="2"]
 
 repeat = false
 playback_process_mode = 1
@@ -893,7 +954,17 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
-[node name="StackUpReset" type="TextureButton" parent="Miscellaneous" index="2"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Miscellaneous" index="3"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+anims/Tips = SubResource( 9 )
+blend_times = [  ]
+
+[node name="StackUpReset" type="TextureButton" parent="Miscellaneous" index="4"]
 
 editor/display_folded = true
 anchor_left = 0.5

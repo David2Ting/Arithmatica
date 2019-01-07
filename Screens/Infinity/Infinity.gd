@@ -14,6 +14,7 @@ func start():
 	operator_select_holder.hide()
 	operator_select_holder.start()
 	operator_select_holder.load_operators()
+	operator_select_holder.calculate()
 	tween = get_node('Tween')
 	var y_size = globals.y_size
 	operator_select_holder.set_position(Vector2(0,-y_size))
@@ -53,17 +54,18 @@ func create_level(operator_group,sum):
 	
 func move(type):
 	main.settled = false
-	var normal_pos = Vector2(0,operator_select_holder.get_position().y)
+	var normal_select_pos = Vector2(0,operator_select_holder.get_position().y)
+	var normal_pos = Vector2(0,-40)
 	var x = Vector2(level_size.x,0)*1.5
 	if type == 'forwards':
 		tween.interpolate_property(node_holder,'position',normal_pos+x,normal_pos,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-		tween.interpolate_property(operator_select_holder,'position',normal_pos,normal_pos-x,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.interpolate_property(operator_select_holder,'position',normal_select_pos,normal_select_pos-x,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 		tween.start()
 		yield(get_tree().create_timer(.1), "timeout")
 		node_holder.show()
 	elif type == 'to_select':
 		tween.interpolate_property(node_holder,'position',normal_pos,normal_pos+x,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-		tween.interpolate_property(operator_select_holder,'position',normal_pos-x,normal_pos,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.interpolate_property(operator_select_holder,'position',normal_select_pos-x,normal_select_pos,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 		tween.start()
 
 

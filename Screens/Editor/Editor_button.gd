@@ -4,7 +4,7 @@ extends TextureButton
 # var a = 2
 # var b = "textvar"
 onready var label = get_node('Label')
-onready var editor = get_node('/root/World/Main')
+onready var editor = get_node('/root/Hub/Main')
 export var value = 'test' setget change_value
 func _ready():
 	change_value(value)
@@ -62,7 +62,7 @@ func save():
 	editor.save()
 
 func hint():
-	var operators_holder = get_node('/root/World/Main').operators_holder
+	var operators_holder = get_node('/root/Hub/Main').operators_holder
 	var check = editor.currently_editing
 	if check:
 		if check.is_in_group('nodes'):

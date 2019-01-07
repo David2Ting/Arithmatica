@@ -38,7 +38,7 @@ var DATABASE_PATH = "res://Screens/Levels/Levels.json"
 var database = {}
 var neutral_level = [0,['+','+'],[['/','/','/','/'],['/','/','/','/'],['/','/','/','/'],['/','/','/','/'],['/','/','/','/']]]
 var goal = 0 setget change_goal
-onready var current_level = get_node('BaseContainer/VerticalContainer/Mid/Container/Level')
+var current_level
 var settled = true
 var running_sum = 0
 var hint = [null,null]
@@ -51,7 +51,7 @@ var progress_file = File.new()
 var PROGRESS_PATH = "res://Screens/Progress.json"
 
 func start():
-
+	current_level = get_node('BaseContainer/VerticalContainer/Mid/Container/Level')
 	audio_player = get_node('../Audio_Player')
 	operators_holder = get_node('../BaseContainer/VerticalContainer/Bottom/Container/Operators_holder')
 
@@ -297,7 +297,6 @@ func change_level_number(new_level_number):
 	setup_level(new_level,forwards)
 
 func change_goal(new_goal,forwards = true):
-	print('goal')
 	goal = new_goal
 	goals = load("res://Screens/Levels/Goals.tscn")
 	var goal_instance = goals.instance()

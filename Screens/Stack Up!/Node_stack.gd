@@ -3,7 +3,6 @@ extends "res://Parts/Node.gd"
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
-var original_value = null
 func _ready():
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
@@ -22,7 +21,7 @@ func change_value(new_value):
 		print('test')
 		if level.number_counts.has(str(new_value)):
 			level.number_counts[str(new_value)]+=1
-			if level.number_counts[str(new_value)] > 1:
+			if level.number_counts[str(new_value)] > 3:
 				level.black_list_numbers_counts.append(new_value)
 				level.black_list_numbers.append(new_value)
 		else:
@@ -30,7 +29,7 @@ func change_value(new_value):
 
 		if level.number_counts.has(str(old_value)):
 			level.number_counts[str(old_value)]-=1
-			if level.number_counts[str(old_value)] < 2 and level.black_list_numbers_counts.find(old_value) > -1:
+			if level.number_counts[str(old_value)] < 4 and level.black_list_numbers_counts.find(old_value) > -1:
 				level.black_list_numbers_counts.remove(level.black_list_numbers_counts.find(old_value))
 		
 func destroy_prepare():
@@ -43,7 +42,7 @@ func destroy():
 func pop():
 	level.number_counts[str(value)] -= 1
 	if level.number_counts[str(value)]<4:
-		level.black_list_numbers_counts.remove(level.black_list_numbers_counts.find(original_value))
+		level.black_list_numbers_counts.remove(level.black_list_numbers_counts.find(value))
 	.pop()
 
 func rise(node_size):
@@ -54,5 +53,5 @@ func rise(node_size):
 	drop_tween.start()
 
 func drop():
-	level.is_falling = true
+	level.falling_nodes = true
 	.drop()

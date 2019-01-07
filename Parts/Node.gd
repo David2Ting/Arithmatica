@@ -10,6 +10,7 @@ onready var animation = get_node('AnimationPlayer')
 onready var drop_tween = get_node('DropTween')
 onready var colours = globals.colours
 
+signal success_finish
 signal tween_finish
 signal pop_finish 
 
@@ -104,6 +105,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == 'Pop':
 		emit_signal('pop_finish')
 		main.current_level.finish_pop()
+	elif anim_name == 'Success':
+		emit_signal('success_finish')
 
 func drop():
 	var current_position = get_position()

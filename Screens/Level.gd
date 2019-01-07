@@ -23,6 +23,7 @@ var node = preload('res://Parts/Node.tscn')
 var node_scale = 0
 var pop_buffer = false
 var falling_nodes = false
+var popping_nodes = false
 var calculator
 
 var packed_node_holder = preload("res://Parts/Node_holder.tscn")
@@ -143,7 +144,8 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 		hub.hint_box.transparent(false)
 	#Hints
 func pop_nodes(select_chain,is_success):
-	hub.hint_box.transparent(true)
+	if hub.hint_box:
+		hub.hint_box.transparent(true)
 	for i in range(0,select_chain.size()-1):
 		var node = select_chain[i]
 		var pos = node.pos
@@ -153,6 +155,7 @@ func pop_nodes(select_chain,is_success):
 				var check_node = node_positions[y][pos.x]
 				if check_node != null:
 					check_node.drop_amount+=1
+					falling_nodes = true
 		node.pop()
 	gravity()
 
@@ -164,7 +167,7 @@ func finish_pop():
 				node.drop()
 
 func gravity():
-	falling_nodes = false
+#	falling_nodes = false
 	var empty = true
 	for y in range(0,node_positions.size()):
 		for x in range(0,node_positions[0].size()):
@@ -175,7 +178,7 @@ func gravity():
 					node_positions[y_val+1][x]=node_positions[y_val][x]
 					node_positions[y_val][x]=null
 					y_val+=1
-					falling_nodes = true
+#					falling_nodes = true
 				node_positions[y_val][x].pos=Vector2(x,y_val)
 	return empty
 
@@ -250,7 +253,8 @@ func reset_level(reset_group_nodes,reset_group_operators):
 		yield(reset_timer,"timeout")
 		for node in reset_group_operators[0]:
 			pass
-	hub.hint_box.transparent(false)
+	if hub.hint_box:
+		hub.hint_box.transparent(false)
 	resetting = false
 	emit_signal("reset_finished")
 
@@ -310,13 +314,9 @@ func _on_Tween_tween_completed(object, key):
 
 func check_above(chain):
 	for node in chain:
-		print(node.value)
 		var pos = node.pos
-		print(node_positions[pos.y-1][pos.x])
 		if pos.y-1>=0 and node_positions[pos.y-1][pos.x] and chain.find(node_positions[pos.y-1][pos.x])==-1:
-			print('true')
 			return true
-	print(false)
 	return false
 	
 	
@@ -324,9 +324,6 @@ func check_above_entire(chain):
 	for i in range(chain.size()-1):
 		var node = chain[i]
 		var pos = node.pos
-		print(node_positions[pos.y-1][pos.x])
 		if pos.y-1>=0 and node_positions[pos.y-1][pos.x] and chain.find(node_positions[pos.y-1][pos.x])==-1:
-			print('true')
 			return true
-	print(false)
 	return false

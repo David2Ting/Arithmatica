@@ -42,4 +42,11 @@ wait_time = 0.25
 one_shot = false
 autostart = false
 
+[node name="TransitionTimer" type="Timer" parent="." index="11"]
+
+process_mode = 1
+wait_time = 0.15
+one_shot = false
+autostart = false
+
 
