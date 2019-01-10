@@ -40,7 +40,7 @@ func _on_Node_mouse_entered():
 
 func _on_Node_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed('left_click') and !is_block and main.current_operator:
-		if main.current_operator == '2' and (value < 0 or sqrt(value)*sqrt(value)!=value):
+		if str(main.current_operator)[0] == '2' and (value < 0 or sqrt(value)*sqrt(value)!=value):
 			return
 		main.pressed = true
 		main.select_chain = [self]

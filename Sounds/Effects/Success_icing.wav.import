@@ -1,0 +1,21 @@
+[remap]
+
+importer="wav"
+type="AudioStreamSample"
+path="res://.import/Success_icing.wav-0d6b7af1c15dbb2795f7ce003ab6bdfc.sample"
+
+[deps]
+
+source_file="res://Sounds/Effects/Success_icing.wav"
+dest_files=[ "res://.import/Success_icing.wav-0d6b7af1c15dbb2795f7ce003ab6bdfc.sample" ]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=true
+edit/normalize=true
+edit/loop=false
+compress/mode=0

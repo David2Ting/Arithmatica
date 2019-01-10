@@ -95,6 +95,7 @@ func operate_chain():
 		operate_chain_100()
 		return
 	else:
+		print('operate')
 		.operate_chain()
 func operate_chain_100():
 	var numbers = []
@@ -125,7 +126,7 @@ func success(last_node):
 	success_node = last_node
 	last_node.animation.play('Success')
 	calculator.value = 'WIN'
-	current_level.pop_nodes(select_chain,false)
+	current_level.pop_nodes(select_chain,true)
 	audio_player.stream = success_sound
 	audio_player.play()
 	var new = true

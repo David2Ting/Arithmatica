@@ -3,6 +3,7 @@ extends TextureButton
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
+onready var hub = get_node('/root/Hub')
 var value = 0
 var textures = ["res://Images/Top bar/Sound/Music.png","res://Images/Top bar/Sound/Sound.png","res://Images/Top bar/Sound/Mute.png"]
 func _ready():
@@ -23,6 +24,15 @@ func _on_Sound_pressed():
 	var texture = load(textures[value])
 	set_normal_texture(texture)
 	
+	if value == 1:
+		hub.music_player.set_volume_db(-100)
+		hub.audio_player.set_volume_db(0)
+	elif value == 2:
+		hub.music_player.set_volume_db(-100)
+		hub.audio_player.set_volume_db(-100)
+	else:
+		hub.music_player.set_volume_db(0)
+		hub.audio_player.set_volume_db(0)
 	pass # replace with function body
 
 

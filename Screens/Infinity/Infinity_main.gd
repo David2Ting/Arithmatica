@@ -26,7 +26,8 @@ func start():
 	hub = get_node('../')
 	operator_select_holder = current_level.get_node('Operator_select_holder')
 	setup_dimensions()
-
+	hub.hint_box.transparent(true)
+	hub.reset_box.transparent(true)
 	current_level.start()
 func _input(INPUT):
 	if INPUT.is_action_released('left_click'):
@@ -54,6 +55,7 @@ func setup_level(operators):
 	change_selecting_menu(false)
 	current_level.move('forwards')
 	hub.reset_box.transparent(false)
+	hub.hint_box.transparent(false)
 	var operator_group = []
 	
 	var total_sum_value = 0
@@ -82,20 +84,25 @@ func setup_level(operators):
 	for i in range(5):
 		sum += round(rand_range(0,total_sum_value*2+10))
 	sum = int(sum / 5)
-
+	level_select.back_sign(true)
 	current_level.create_level(operator_group,sum)
 
 func next_level():
 	print('next')
 	change_selecting_menu(true)
 	current_level.move('to_select')
+	level_select.back_sign(false)
 	completed = true
-	hub.reset_box.transparent(true)
+
 	if goal_label:
 		goal_label.leave(false)
 		goal_label = null
 
-
+func hint():
+	if !current_level.resetting:
+		var hint_pos = hint[0]
+		var hint_type = hint[1]
+		node_positions[hint_pos.y][hint_pos.x].hint(hint_type)
 	
 
 
@@ -125,7 +132,9 @@ func _on_Tween_tween_completed(object, key):
 func change_selecting_menu(boo):
 	current_operator = null
 	selecting_menu = boo
-
+	if boo:
+		hub.hint_box.transparent(true)
+		hub.reset_box.transparent(true)
 func add_score(score):
 	print(level_select.value)
 	print(score)

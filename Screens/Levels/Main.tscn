@@ -4,7 +4,7 @@
 [ext_resource path="res://Screens/Levels/Main.gd" type="Script" id=2]
 [ext_resource path="res://Screens/Level.tscn" type="PackedScene" id=3]
 
-[node name="World" instance=ExtResource( 1 )]
+[node name="World" index="0" instance=ExtResource( 1 )]
 
 script = ExtResource( 2 )
 
@@ -13,33 +13,14 @@ script = ExtResource( 2 )
 visible = true
 rect_min_size = Vector2( 540, 0 )
 
-[node name="Levels" parent="BaseContainer/VerticalContainer/Top/Modes" index="0"]
-
-rect_pivot_offset = Vector2( 1.99939, 23.9999 )
-
-[node name="Sprite" parent="BaseContainer/VerticalContainer/Top/Modes/Levels" index="2"]
-
-modulate = Color( 0.48674, 0.495763, 0.847656, 1 )
-self_modulate = Color( 1, 1, 1, 1 )
-position = Vector2( 166.193, 29.4451 )
-
-[node name="High" parent="BaseContainer/VerticalContainer" index="1"]
-
-margin_top = 98.0
-margin_bottom = 198.0
-
-[node name="Calculator" parent="BaseContainer/VerticalContainer/High/CalculatorContainer" index="0"]
-
-position = Vector2( 26.2876, 38.8074 )
-
-[node name="Mid" parent="BaseContainer/VerticalContainer" index="3"]
+[node name="Mid" parent="BaseContainer/VerticalContainer" index="1"]
 
 margin_top = -113.0
 margin_bottom = 287.0
 
 [node name="Level" parent="BaseContainer/VerticalContainer/Mid/Container" index="0" instance=ExtResource( 3 )]
 
-[node name="Bottom" parent="BaseContainer/VerticalContainer" index="4"]
+[node name="Bottom" parent="BaseContainer/VerticalContainer" index="2"]
 
 margin_top = -183.0
 margin_bottom = -3.0

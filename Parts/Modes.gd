@@ -13,7 +13,7 @@ var images = {'Levels':"res://Images/Top bar/Modes/Levels.png",'Stacks':"res://I
 var pressed_images = {'Levels':"res://Images/Top bar/Modes/Levels_pressed.png",'Stacks':"res://Images/Top bar/Modes/StackUp_pressed.png",'Infinity':"res://Images/Top bar/Modes/Infinity_pressed.png"}
 var colours = {'Levels':'7577c5','Stacks':'77c777','Infinity':'bb64c3'}
 export var value = 'Levels' setget change_value
-
+var mode_change_sound = preload("res://Sounds/Effects/new_mode.wav")
 func _ready():
 #	label.set_text(value)
 #	label.set('custom_colors/font_color',colours[value])
@@ -67,6 +67,8 @@ func _on_Levels_pressed():
 		modes.get_children()[0].value = value
 		hub.toggle_menu(false)
 		hub.change_mode(value)
+		hub.audio_player.stream = mode_change_sound
+		hub.audio_player.play()
 #		main.get_parent().change_mode(value)
 	pass # replace with function body
 

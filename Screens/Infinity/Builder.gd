@@ -17,10 +17,10 @@ func build(chain_group):
 	for group in chain_group:
 		var starting_area_original = locations[starting_area.y][starting_area.x]
 		if first:
-
 			first = false
 			group[1] = 0
 			map[starting_area_original.y][starting_area_original.x] = group[0][group[1]]
+			get_parent().hint[0] = Vector2(starting_area_original.x,starting_area_original.y)
 		if group[1] == group[0].size()-1:
 			locations[starting_area.y][starting_area.x] = '/'
 		else:
@@ -93,6 +93,7 @@ func create_map():
 					minX = x
 				elif x > maxX:
 					maxX = x
+	get_parent().hint[0] = get_parent().hint[0] - Vector2(minX,minY)
 	for y in range(minY,maxY+1):
 		new_map.append([])
 		for x in range(minX,maxX+1):

@@ -49,12 +49,20 @@ tracks/2/keys = {
 [node name="Level_select" instance=ExtResource( 1 )]
 
 modulate = Color( 1, 1, 1, 1 )
+margin_left = -109.0
+margin_top = -52.0
+margin_right = 111.0
+margin_bottom = 52.0
+rect_pivot_offset = Vector2( 111.331, 53.3519 )
 script = ExtResource( 2 )
 
 [node name="Label" parent="." index="0"]
 
+margin_left = -256.055
+margin_top = -43.9104
+margin_right = 243.0
 rect_scale = Vector2( 1.2, 1.2 )
-rect_pivot_offset = Vector2( 44.8472, 40.8897 )
+rect_pivot_offset = Vector2( 250, 44 )
 text = ""
 
 [node name="Left" parent="." index="1"]
@@ -62,6 +70,10 @@ text = ""
 visible = false
 
 [node name="Right" parent="." index="2"]
+
+visible = false
+
+[node name="LineEdit" parent="." index="3"]
 
 visible = false
 

@@ -120,6 +120,16 @@ func left(amount):
 	var current_position = get_position()
 	tween.interpolate_property(self,'position',current_position,current_position-Vector2(amount,0),0.25,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
 	tween.start()
+	if container.operators.find(self) < 4:
+		in_zone(true)
+
+func in_zone(boo):
+	if boo:
+		set('modulate','adadad')
+		active = true
+	else:
+		set('modulate','58ffffff')
+		active = false
 
 func reset():
 	if str(value) != '0':

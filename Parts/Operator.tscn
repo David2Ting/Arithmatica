@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Parts/Operator.gd" type="Script" id=1]
 [ext_resource path="res://Images/Operator.png" type="Texture" id=2]
-[ext_resource path="res://Images/Fonts/BebasNeue-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 

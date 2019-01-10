@@ -6,7 +6,7 @@ var operator_select_holder
 var operator_group = [['+',3],['-',2],['+',3]]
 var sum = 10
 signal move_complete
-
+var hint = [null,null]
 func start():
 	.start()
 	operator_select_holder = get_node('Operator_select_holder')
@@ -44,14 +44,14 @@ func create_level(operator_group,sum):
 	for operator in operator_group:
 		operators.append(operator[0])
 	var state = 'freeze'
-
-
+	
 	var maths_groups = algebra.calculate(operator_group,sum)
 	var maths = maths_groups[0]
 	var map = builder.build(maths)
 	load_level(map,operators,maths_groups[1],true)
 	prev_node_holder.queue_free()
 	prev_node_holder = null
+	main.hint = hint
 func move(type):
 	main.settled = false
 	var normal_select_pos = Vector2(0,operator_select_holder.get_position().y)

@@ -18,11 +18,11 @@ var progress
 var high_score
 
 var level_1 = [1,2,3,4,5,6,7,8,9,10,12]
-var level_2 = [1,2,3,4,5,6,7,8,9,10,11,12,14,16,18,20,24]
-var level_3 = [-3,-2,-1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,24,25,27,28,30,32]
-var level_4 = [-10,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32]
-var level_5 = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,42,45,49,50]
-var level_6 = [-20,-16,-15,-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,42,45,49,50,64,75,80,100]
+var level_2 = [-1,1,2,3,4,5,6,7,8,9,10,11,12,14,16,18,20,24,25]
+var level_3 = [-3,-2,-1,11,13,14,15,16,17,18,19,20,21,22,24,25,27,28,30,32,35]
+var level_4 = [-10,-5,-4,-3,-2,-1,11,26,27,28,29,30,31,32]
+var level_5 = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,17,18,19,31,32,33,34,35,42,45,49,50]
+var level_6 = [-20,-16,-15,-10,-9,-8,-3,-2,-1,26,27,28,29,30,31,32,33,34,35,42,45,49,50,64,75,80,100]
 var levels = [level_1,level_2,level_3,level_4,level_5,level_6]
 var difficulty_goals
 #onready var current_health_label = get_node('Header/Health/Current')
@@ -105,8 +105,8 @@ func operate_chain():
 func success(last_node,index,dropping):
 	last_node.animation.play('Success')
 	calculator.value = 'WIN'
-	audio_player.stream = success_sound
-	audio_player.play()
+	hub.audio_player_2.stream = success_sound
+	hub.audio_player_2.play()
 #	drop_timer.start()
 	if dropping:
 		yield(current_level,'tween_completed')
@@ -151,8 +151,9 @@ func add_goal(side,first=false):
 						success(current_level.node_positions[i][x],index,dropping)
 						second_goal = true
 						break
-	difficulty_progress += 0.1
+	difficulty_progress += 0.2
 	if !second_goal and !first:
+		current_level.transition_timer.set_wait_time(0.4)
 		current_level.transition_timer.start()
 		yield(current_level.transition_timer,'timeout')
 		current_level.add_row()
@@ -255,6 +256,9 @@ func game_over():
 func reset():
 	hub.miscellaneous.stack_up_disappear()
 	hub.change_mode('Stacks')
+
+func hint():
+	hub.start_tip('stack_up_full')
 #	if current_health + amount > max_health:
 #		current_health = max_health
 #	else:

@@ -7,7 +7,6 @@ var is_last = false
 
 func _ready():
 	randomize()
-	calculate([['+',2],['/',2]],0)
 	pass
 
 
@@ -22,6 +21,7 @@ func calculate(operator_groups,sum):
 	goal = sum
 	var last_chain = []
 	is_last = false
+	get_parent().hint[1] = random_order[0][0]
 	for i in range(random_order.size()):
 		if i == random_order.size()-1:
 			is_last = true
@@ -143,12 +143,13 @@ func addition(sub_sum,times):
 			chain.push_front(result)
 		black_list_goals.append(result)
 	var index = chain.find(running_sum)
-	running_sum = sub_sum
 	if is_last:
 		while black_list_goals.find(sub_sum)>-1:
 			var rand = randi()%5
 			sub_sum += rand
 			chain.append(rand)
+	running_sum = sub_sum
+
 	return [chain,index]
 
 func subtraction(sub_sum,times):
@@ -177,7 +178,6 @@ func subtraction(sub_sum,times):
 			sub_sum -= result
 			chain.append(result)
 			black_list_goals.append(result)
-			running_sum = sub_sum
 	else:
 		for i in range(times-2):
 			var aimed_num = 5
@@ -198,13 +198,14 @@ func subtraction(sub_sum,times):
 #	if running_sum == goal:
 #		return [false]
 	var index = chain.find(running_sum)
-	running_sum = sub_sum
 	
 	if is_last:
 		while black_list_goals.find(sub_sum)>-1:
 			var rand = randi()%5+1
 			sub_sum -= rand
 			chain.append(rand)
+	running_sum = sub_sum
+
 #	chain = random(chain)
 #	chain.invert()
 	return [chain,index]
@@ -233,12 +234,14 @@ func multiplication(sub_sum,times):
 		if result > 100:
 			break
 	var index = chain.find(running_sum)
-	running_sum = sub_sum
+
 	if is_last:
 		while black_list_goals.find(sub_sum)>-1:
 			var rand = randi()%2+2
 			sub_sum *= rand
 			chain.append(rand)
+	running_sum = sub_sum
+
 	return [chain,index]
 
 func division(sub_sum,times):
@@ -293,10 +296,8 @@ func division(sub_sum,times):
 	
 #	if running_sum == goal:
 #		return [false]
-	var index = chain.find(running_sum)
-	running_sum = sub_sum
-	
 
+	var index = chain.find(running_sum)
 	if is_last:
 		var final_sum = 1
 		for i in range(chain.size()):
@@ -307,7 +308,8 @@ func division(sub_sum,times):
 				var rand = randi()%2+2
 				chain[0] *=rand
 				sub_sum = chain[0]/final_sum
-				
+	running_sum = sub_sum
+
 #	chain = random(chain)
 #	chain.invert()
 	return [chain,index]

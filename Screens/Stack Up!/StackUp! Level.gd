@@ -89,9 +89,12 @@ func reward(type,node,index):
 			elif i == main.streak-1:
 				chain.append(node_positions[pos.y][pos.x])
 				empty_row = true
-				
+			if chain.size()>0:
+				hub.audio_player.stream = main.pop_sound
+				hub.audio_player.play()
+			
 			chain.append(1)
-			main.add_points((chain.size()-1)*2)
+			main.add_points((chain.size()-1)*5)
 	#			if node_positions[pos.y][x]:
 	#				node_positions[pos.y][x].destroy()
 	#			if pos.y!=0:

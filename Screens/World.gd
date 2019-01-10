@@ -27,7 +27,7 @@ var operator_size = 0.3
 var packed_level = preload("res://Screens/Level.tscn")
 
 var pop_sound = preload("res://Sounds/Effects/Pop 1.0.wav")
-var success_sound = preload("res://Sounds/Effects/Success.wav")
+var success_sound = preload("res://Sounds/Effects/Success_icing.wav")
 var reset_sound = preload("res://Sounds/Effects/Blop-Mark_DiAngelo-79054334.wav")
 
 var current_operator = null setget change_current_operator
@@ -118,10 +118,11 @@ func add_node(obj):
 			return
 		elif current_operator=='/' and (obj.value == 0 or int(running_sum)%int(obj.value) != 0):
 			return
-		elif current_operator == '2' and (obj.value < 0 or float(sqrt(obj.value))!=int(sqrt(obj.value))):
+		elif str(current_operator)[0] == '2' and (obj.value < 0 or float(sqrt(obj.value))!=int(sqrt(obj.value))):
 			return
 	
 		else:
+			print(current_operator)
 			select_chain.append(obj)
 			obj.select(true)
 			calculate_sum()
@@ -203,8 +204,10 @@ func success(last_node):
 	last_node.animation.play('Success')
 	calculator.value = 'WIN'
 	current_level.pop_nodes(select_chain,true)
-	audio_player.stream = success_sound
-	audio_player.play()
+	hub.audio_player_2.stream = success_sound
+	hub.audio_player_2.play()
+#	hub.audio_player.stream = pop_sound
+#	hub.audio_player.play()
 
 
 func check_adjacency(first,second):

@@ -146,6 +146,8 @@ func add(obj):
 		else:
 			obj.pressed(true)
 			selected_operators.append(obj)
+	if selected_operators.size()>0:
+		calculate()
 func calculate():
 	if selected_operators and selected_operators.size():
 		for i in range(selected_operators.size()):

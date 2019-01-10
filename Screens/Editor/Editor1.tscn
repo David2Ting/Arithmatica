@@ -24,6 +24,14 @@ _sections_unfolded = [ "Font", "Settings" ]
 
 script = ExtResource( 2 )
 
+[node name="ModesScreen" parent="BaseContainer" index="0"]
+
+margin_bottom = 950.0
+
+[node name="VerticalContainer" parent="BaseContainer" index="1"]
+
+margin_bottom = 950.0
+
 [node name="Top" parent="BaseContainer/VerticalContainer/Upper" index="0"]
 
 editor/display_folded = false
@@ -31,7 +39,6 @@ _sections_unfolded = [ "Rect", "Visibility" ]
 
 [node name="Modes" parent="BaseContainer/VerticalContainer/Upper/Top" index="0"]
 
-editor/display_folded = true
 visible = false
 
 [node name="Level_select" parent="BaseContainer/VerticalContainer/Upper/Top" index="2" instance=ExtResource( 3 )]

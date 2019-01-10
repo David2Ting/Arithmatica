@@ -21,7 +21,7 @@ globals="*res://Parts/globals.gd"
 [display]
 
 window/size/width=540
-window/size/height=900
+window/size/height=950
 window/size/always_on_top=true
 window/size/test_width=540
 window/size/test_height=900
