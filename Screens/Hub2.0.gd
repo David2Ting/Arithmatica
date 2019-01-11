@@ -151,36 +151,48 @@ func start_tip(type):
 func tips_next():
 	if tips and tip_count >= tips.size():
 		if tip_place:
-			tip_place.set('z_index',tip_place_z)
-			operator_holder_sprite.set('z_index',-2)
+			for i in range(tip_place.size()):
+				tip_place[i].set('z_index',tip_place_z[i])
 		tips_screen.hide()
 		tips_box.hide()
 		tips = null
-		tip_place = null
-		tip_place_z = null
+		tip_place = []
+		tip_place_z = []
 		tip_count = 0
 	else:
 		tips_label.text = tips[tip_count][0]
 		var placing = tips[tip_count][1]
 		if tip_place:
-			tip_place.set('z_index',tip_place_z)
-			operator_holder_sprite.set('z_index',-2)
+			for i in range(tip_place.size()):
+				tip_place[i].set('z_index',tip_place_z[i])
+#			operator_holder_sprite.set('z_index',-2)
 		if placing == 'goal':
-			tip_place = goal_container
+			tip_place = [goal_container]
 		elif placing == 'node_holder':
-			tip_place = new_level.node_holder
+			tip_place = [new_level.node_holder]
 		elif placing == 'operator_holder':
-			tip_place = new_operator_holder
-			operator_holder_sprite.set('z_index',2)
+			tip_place = [new_operator_holder,operator_holder_sprite]
+#			operator_holder_sprite.set('z_index',2)
 		elif placing == 'reset_button':
-			tip_place = reset
+			tip_place = [reset]
+		elif placing == 'current_goal':
+			tip_place = new_main.current_goal_position
+		elif placing == 'next_goal':
+			tip_place = new_main.next_goal_position
+		elif placing == 'next_level':
+			tip_place = [new_label]
 		elif int(placing) > 0:
-			tip_place = new_operator_holder.operators[int(placing)]
+			tip_place = [new_operator_holder.operators[int(placing)]]
 		else:
 			tip_count+=1
 			return
-		tip_place_z = tip_place.get('z_index')
-		tip_place.set('z_index',2)
+		tip_place_z = []
+		if tip_place:
+			for i in range(tip_place.size()):
+				tip_place_z.append(tip_place[i].get('z_index'))
+				tip_place[i].set('z_index',2-i)
+#		tip_place_z = tip_place.get('z_index')
+
 		tip_count+=1
 	#	tips_box.set_global_position(tip_place.get_global_position())
 

@@ -20,6 +20,8 @@ func start():
 	.start()
 	randomize()
 	score = globals.user_data['infinity_score']
+	if score == 0:
+		hub.start_tip('infinity_starter')
 	print('score:'+str(score))
 	level_select.value = score
 	tween = get_node('Tween')
@@ -104,7 +106,30 @@ func hint():
 		var hint_type = hint[1]
 		node_positions[hint_pos.y][hint_pos.x].hint(hint_type)
 	
-
+func operate_chain():
+	if int(current_operator) > 0:
+		operate_specials()
+	else:
+		var empty = true
+		for y in range(node_positions.size()):
+			for x in range(node_positions[0].size()):
+				if node_positions[y][x] and !node_positions[y][x].is_block and select_chain.find(node_positions[y][x])==-1:
+					empty = false
+					break
+		
+		var last_node = select_chain[0]
+		last_node = select_chain[-1]
+		last_node.value = sum
+		if last_node.value == goal and empty:
+			success(last_node)
+		else:
+			current_level.pop_nodes(select_chain,false)
+			audio_player.stream = pop_sound
+			audio_player.play()
+			calculator.value = 0
+		last_node.select(false)
+		operators_holder.off_operator()
+		select_chain = []
 
 func _on_Infinity_pressed():
 	selected_operators.clear()

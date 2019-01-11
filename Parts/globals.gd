@@ -8,7 +8,13 @@ var actual_level_size = Vector2()
 var tips = {'1':[['Your goal the game is to make this number','goal'],['To do so you combine these numbers','node_holder'],['By selecting an operator','operator_holder'],['Then selecting the numbers to operate','node_holder']],
 '40':[['Purple operators are special operators','1'],['Instead of combining numbers, they apply to all selected numbers','1'],['For example this operator would square each number you selected','1']],
 'stack_up_starter':[['Welcome to stack up, an infinite gamemode','default'],['The goal of this gamemode is to score as many points as possible','goal'],['Each time you use an operator, a row is added','default'],['Clear rows by making one of the two goals','goal'],['If the board fills up, its game over','default'],['Click the help icon for a complete explanation of the rules','hints']],
-'stack_up_full':[['Stack up is a game is about thinking ahead to the next goal','default'],['Each move you make will add another row until you get to the top','default'],['As you progress the difficulty the goals will become harder','goal'],['Scoring multiple goals in a row will add to a streak','goal'],['The larger the streak, the more rows are destroyed from achieving the goal','default'],['If you prepare the next goal, once you score the current goal the next goal will score immediately','goal'],['Points are scored based on how many nodes are destroyed from scoring goals','node_holder']]
+'stack_up_full':[['Stack up is a game is about thinking ahead to the next goal','default'],['Each move you make will add another row until you get to the top','default'],['As you progress the difficulty the goals will become harder','current_goal'],
+['Scoring multiple goals in a row will add to a streak','current_goal'],['The larger the streak, the more rows are destroyed from achieving the goal','default'],['If you prepare the next goal, once you score the current goal the next goal will score immediately','next_goal'],
+['Points are scored based on how many nodes are destroyed from scoring goals','score']],
+
+'infinity_starter':[['Welcome to infinity mode, an infinite gamemode','default'],['In this gamemode you select up to 4 operators','default'],['And a random level using them will be generated','default'],
+['However in this mode you need to use all the numbers on the map to make the goal','default'],['The harder and the more operators you use, the more points you will score on level completion','score']]
+
 }
 
 #var dir = directory.new()

@@ -213,7 +213,6 @@ _sections_unfolded = [ "Margin", "Rect", "Textures" ]
 
 [node name="VerticalContainer" type="VBoxContainer" parent="BaseContainer" index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -720,7 +719,6 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="Mid" type="Container" parent="BaseContainer/VerticalContainer" index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -863,7 +861,6 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 [node name="TipsScreen" type="Container" parent="." index="4"]
 
-editor/display_folded = true
 visible = false
 anchor_left = 0.0
 anchor_top = 0.0
@@ -879,7 +876,7 @@ _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Material", "Mouse"
 
 [node name="Sprite" type="TextureRect" parent="TipsScreen" index="0"]
 
-modulate = Color( 1, 1, 1, 0.718235 )
+modulate = Color( 1, 1, 1, 0.839804 )
 self_modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.0
 anchor_top = 0.0
@@ -944,11 +941,11 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -255.0
-margin_top = -180.0
-margin_right = 201.0
-margin_bottom = -107.0
-rect_pivot_offset = Vector2( 213.848, 38.4222 )
+margin_left = -228.0
+margin_top = -192.0
+margin_right = 178.0
+margin_bottom = 14.0
+rect_pivot_offset = Vector2( 223.212, 79.7641 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0
@@ -956,7 +953,6 @@ size_flags_horizontal = 1
 size_flags_vertical = 4
 custom_fonts/font = SubResource( 7 )
 custom_colors/font_color = Color( 0.316406, 0.316406, 0.316406, 1 )
-text = " "
 align = 1
 autowrap = true
 percent_visible = 1.0
