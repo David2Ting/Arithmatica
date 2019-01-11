@@ -128,7 +128,7 @@ func in_zone(boo):
 		set('modulate','adadad')
 		active = true
 	else:
-		set('modulate','58ffffff')
+		set('modulate','7dffffff')
 		active = false
 
 func reset():

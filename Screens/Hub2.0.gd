@@ -36,6 +36,9 @@ onready var hint_label = get_node('BaseContainer/VerticalContainer/Upper/High/Ri
 
 onready var song = preload("res://Sounds/Arithmatica icing.wav")
 onready var song_start = preload("res://Sounds/Arithmatica icing start.wav")
+
+onready var transition_timer = get_node('TransitionTimer')
+
 var tips
 var tip_count = 0
 var tip_place

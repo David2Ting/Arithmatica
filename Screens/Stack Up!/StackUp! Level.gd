@@ -120,10 +120,7 @@ func reward(type,node,index):
 #				else:
 #					empty = 1
 
-			for y in range(node_positions.size()):
-				for x in range(node_positions[0].size()):
-					if node_positions[y][x]:
-						completely_empty = false
+
 #						if node_positions[y][x].drop_amount>0:
 #							empty = false
 #			if !not_empty:
@@ -137,16 +134,25 @@ func reward(type,node,index):
 #				pop_nodes([node_positions[pos.y][pos.x],1],false)
 #				break
 #			if is_falling:
-			if falling_nodes:
+#			if falling_nodes:
+#				yield(self,'tween_completed')
+
+#			if empty_row:
+#				break
+			var falling = false
+			for y in range(node_positions.size()):
+				for x in range(node_positions[0].size()):
+					if node_positions[y][x]:
+						if node_positions[y][x].is_moving or node_positions[y][x].drop_amount>0:
+							falling = true
+						completely_empty = false
+			if falling:
 				yield(self,'tween_completed')
 			if completely_empty:
 				break
 			if empty_row:
 				break
-#			if empty_row:
-#				break
-#		if falling_nodes:
-#			yield(self,'tween_completed')
+
 		if popping_nodes:
 			yield(self,'pop_finish')
 		main.current_goal_position[index].death()

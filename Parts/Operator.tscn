@@ -50,11 +50,12 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Operator" type="Area2D" groups=[
+[node name="Operator" type="Area2D" index="0" groups=[
 "operators",
 ]]
 
 modulate = Color( 0.898438, 0.898438, 0.898438, 1 )
+z_index = -1
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -63,7 +64,7 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 

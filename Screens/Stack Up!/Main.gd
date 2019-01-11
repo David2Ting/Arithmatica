@@ -39,8 +39,10 @@ func start():
 	add_goal(0,true)
 #	add_goal(0,true)  #Left
 	add_goal(1,true)
-	yield(next_goal_position[0].get_node('Tween'),'tween_completed')
-		
+#	hub.transition_timer.start()
+#	yield(hub.transition_timer,'timeout')
+#	yield(next_goal_position[0].get_node('Tween'),'tween_completed')
+	
 	add_goal(0,true)   #Right
 	add_goal(1,true)   #Right
 	
@@ -153,7 +155,7 @@ func add_goal(side,first=false):
 						break
 	difficulty_progress += 0.2
 	if !second_goal and !first:
-		current_level.transition_timer.set_wait_time(0.4)
+		print('second_row')
 		current_level.transition_timer.start()
 		yield(current_level.transition_timer,'timeout')
 		current_level.add_row()
@@ -250,7 +252,7 @@ func change_health(amount):
 
 func game_over():
 	print('game')
-	hub.tips_screen.get_node('AnimationPlayer').play('Tips')
+#	hub.tips_screen.get_node('AnimationPlayer').play('Tips')
 	hub.miscellaneous.change_final_score(total_points)
 	hub.miscellaneous.stack_up_appear()
 func reset():

@@ -49,7 +49,7 @@ func rise(node_size):
 	if is_moving:
 		yield(drop_tween,'tween_completed')
 	var current_position = get_position()
-	drop_tween.interpolate_property(self,'position',current_position,current_position-Vector2(0,node_size),0.25,drop_tween.TRANS_LINEAR,drop_tween.EASE_IN_OUT)
+	drop_tween.interpolate_property(self,'position',current_position,current_position-Vector2(0,node_size),0.35,drop_tween.TRANS_LINEAR,drop_tween.EASE_IN_OUT)
 	drop_tween.start()
 
 func drop():

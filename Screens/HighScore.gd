@@ -16,7 +16,7 @@ func _ready():
 #	pass
 func change_value(new_value):
 	value = new_value
-	set_text('HighScore: \n' + str(new_value))
+	set_text('HighScore \n' + str(new_value))
 
 func disappear():
 	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),0.2,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
