@@ -58,15 +58,15 @@ func next_level():
 		change_level_number(level_number+1)
 
 func _input(event):
-	if event.is_action_pressed('left_click'):
-		if tips_mode:
-			if dialogue_number+1 >=dialogue.size():
-				tips_mode = false
-				current_level.tip_box.hide()
-				get_parent().shadow.hide()
-			else:
-				current_level.tip_box_label.set_text(dialogue[dialogue_number+1])
-				dialogue_number+=1
+#	if event.is_action_pressed('left_click'):
+#		if tips_mode:
+#			if dialogue_number+1 >=dialogue.size():
+#				tips_mode = false
+#				current_level.tip_box.hide()
+#				get_parent().shadow.hide()
+#			else:
+#				current_level.tip_box_label.set_text(dialogue[dialogue_number+1])
+#				dialogue_number+=1
 
 	._input(event)
 func change_level_number(new_level_number):

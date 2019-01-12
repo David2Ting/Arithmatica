@@ -27,10 +27,13 @@ onready var miscellaneous = get_node('Miscellaneous')
 onready var tips_box = get_node('TipsContainer')
 onready var tips_label = tips_box.get_node('Container/TipsNode/Tips')
 onready var tips_screen = get_node('TipsScreen')
+onready var node_holder_block = get_node('BaseContainer/VerticalContainer/Mid/Container/Block')
 
+onready var audio_option = get_node('BaseContainer/VerticalContainer/Upper/High/LeftOption/Sound')
 onready var audio_player = get_node('Audio_Player')
 onready var audio_player_2 = get_node('Audio_Player_2')
 onready var music_player = get_node('Music_Player')
+onready var music_player_2 = get_node('Music_Player_2')
 onready var hint_box = get_node('BaseContainer/VerticalContainer/Upper/High/RightOption/Hint')
 onready var hint_label = get_node('BaseContainer/VerticalContainer/Upper/High/RightOption/Label')
 
@@ -49,10 +52,11 @@ var new_level
 var new_operator_holder
 var new_label
 func _ready():
-	change_mode('Stacks')
 	globals.load_data()
+	change_mode(globals.user_data['mode'])
 	music_player.stream = song_start
 	music_player.play()
+	audio_option.value = globals.user_data['audio']
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	pass
@@ -98,6 +102,8 @@ func change_mode(new_mode):
 	modes.get_children()[1].value = mode_labels[new_mode][0]
 	modes.get_children()[2].value = mode_labels[new_mode][1]
 	on_block(false)
+	globals.user_data["mode"] = new_mode
+	globals.save_data()
 	emit_signal('mode_changed')
 func cull_previous():
 	if new_main:
@@ -204,6 +210,12 @@ func on_block(boo):
 	else:
 		block.hide()
 
+func on_node_block(boo):
+	if boo:
+		node_holder_block.show()
+	else:
+		node_holder_block.hide()
+
 func _on_ModesScreen_pressed():
 	toggle_menu(false)
 	pass # replace with function body
@@ -241,6 +253,12 @@ func _on_Hint_pressed():
 
 
 func _on_Music_Player_finished():
+	music_player_2.stream = song
+	music_player_2.play()
+	pass # replace with function body
+
+
+func _on_Music_Player_2_finished():
 	music_player.stream = song
 	music_player.play()
 	pass # replace with function body

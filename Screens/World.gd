@@ -195,10 +195,17 @@ func operate_specials():
 			elif operator == '/':
 				node.value = node.value/int(num)
 			node.select(false)
+		if node.value == goal:
+			special_success(node)
 	operators_holder.off_operator()
 	select_chain = []
 	calculator.value = 0
 	
+func special_success(node):
+	node.animation.play('Success')
+	calculator.value = 'WIN'
+	hub.audio_player_2.stream = success_sound
+	hub.audio_player_2.play()
 
 func success(last_node):
 	last_node.animation.play('Success')

@@ -202,7 +202,16 @@ autoplay = false
 mix_target = 0
 bus = "Master"
 
-[node name="BaseContainer" type="Container" parent="." index="3"]
+[node name="Music_Player_2" type="AudioStreamPlayer" parent="." index="3"]
+
+stream = null
+volume_db = 0.0
+pitch_scale = 1.0
+autoplay = false
+mix_target = 0
+bus = "Master"
+
+[node name="BaseContainer" type="Container" parent="." index="4"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -276,7 +285,6 @@ _sections_unfolded = [ "Grow Direction", "Mouse", "Rect", "Size Flags" ]
 
 [node name="High" type="Container" parent="BaseContainer/VerticalContainer/Upper" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -491,7 +499,6 @@ _sections_unfolded = [ "Mouse", "Rect" ]
 
 [node name="Modes" type="Container" parent="BaseContainer/VerticalContainer/Upper/Top" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.5
 anchor_right = 0.0
@@ -511,6 +518,7 @@ _sections_unfolded = [ "Margin", "Mouse", "Rect", "Size Flags", "Transform", "Vi
 [node name="Levels" parent="BaseContainer/VerticalContainer/Upper/Top/Modes" index="0" instance=ExtResource( 12 )]
 
 editor/display_folded = true
+visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -568,7 +576,6 @@ autostart = false
 
 [node name="ResetContainer" type="Container" parent="BaseContainer/VerticalContainer/Upper/Top" index="1"]
 
-editor/display_folded = true
 anchor_left = 1.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -826,6 +833,27 @@ z_index = -2
 texture = ExtResource( 19 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
+[node name="Block" type="TextureRect" parent="BaseContainer/VerticalContainer/Mid/Container" index="6"]
+
+visible = false
+anchor_left = 0.0
+anchor_top = 0.0
+anchor_right = 0.0
+anchor_bottom = 0.0
+margin_left = -238.0
+margin_top = -210.0
+margin_right = 240.0
+margin_bottom = 215.0
+rect_pivot_offset = Vector2( 0, 0 )
+rect_clip_content = false
+mouse_filter = 1
+mouse_default_cursor_shape = 0
+size_flags_horizontal = 1
+size_flags_vertical = 1
+texture = ExtResource( 3 )
+expand = true
+stretch_mode = 0
+
 [node name="Bottom" type="Container" parent="BaseContainer/VerticalContainer" index="2"]
 
 anchor_left = 0.0
@@ -888,7 +916,7 @@ z_index = -1
 texture = ExtResource( 21 )
 _sections_unfolded = [ "Transform", "Z Index" ]
 
-[node name="TipsScreen" type="Container" parent="." index="4"]
+[node name="TipsScreen" type="Container" parent="." index="5"]
 
 visible = false
 anchor_left = 0.0
@@ -933,7 +961,7 @@ anims/Tips = SubResource( 6 )
 anims/Tips_end = SubResource( 7 )
 blend_times = [  ]
 
-[node name="TipsContainer" type="Container" parent="." index="5"]
+[node name="TipsContainer" type="Container" parent="." index="6"]
 
 modulate = Color( 1, 1, 1, 0 )
 anchor_left = 0.0
@@ -992,7 +1020,7 @@ lines_skipped = 0
 max_lines_visible = -1
 _sections_unfolded = [ "Anchor", "Grow Direction", "Rect", "Visibility", "custom_colors", "custom_fonts" ]
 
-[node name="Miscellaneous" type="Container" parent="." index="6"]
+[node name="Miscellaneous" type="Container" parent="." index="7"]
 
 visible = false
 anchor_left = 0.0
@@ -1136,7 +1164,7 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
-[node name="Block" type="TextureRect" parent="." index="7"]
+[node name="Block" type="TextureRect" parent="." index="8"]
 
 anchor_left = 0.0
 anchor_top = 0.0
@@ -1157,7 +1185,7 @@ expand = true
 stretch_mode = 0
 _sections_unfolded = [ "Size Flags" ]
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="8"]
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="9"]
 
 root_node = NodePath("..")
 autoplay = ""
@@ -1166,7 +1194,7 @@ playback_default_blend_time = 0.0
 playback_speed = 1.0
 blend_times = [  ]
 
-[node name="Tween" type="Tween" parent="." index="9"]
+[node name="Tween" type="Tween" parent="." index="10"]
 
 repeat = false
 playback_process_mode = 1
@@ -1175,14 +1203,14 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
-[node name="HintTimer" type="Timer" parent="." index="10"]
+[node name="HintTimer" type="Timer" parent="." index="11"]
 
 process_mode = 1
 wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="TransitionTimer" type="Timer" parent="." index="11"]
+[node name="TransitionTimer" type="Timer" parent="." index="12"]
 
 process_mode = 1
 wait_time = 0.2
@@ -1190,6 +1218,8 @@ one_shot = false
 autostart = false
 
 [connection signal="finished" from="Music_Player" to="." method="_on_Music_Player_finished"]
+
+[connection signal="finished" from="Music_Player_2" to="." method="_on_Music_Player_2_finished"]
 
 [connection signal="pressed" from="BaseContainer/ModesScreen" to="." method="_on_ModesScreen_pressed"]
 

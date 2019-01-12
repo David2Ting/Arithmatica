@@ -64,6 +64,7 @@ func load_progress():
 	high_score = globals.user_data['stack_up_score']
 
 func operate_chain():
+	hub.on_node_block(true)
 	if int(current_operator) > 0:
 		operate_specials()
 	else:
@@ -103,7 +104,7 @@ func operate_chain():
 			select_chain = []
 			current_level.add_row()
 			streak = 0
-
+#			hub.on_block(false)
 
 func success(last_node,index,dropping):
 	last_node.animation.play('Success')
@@ -133,9 +134,7 @@ func add_goal(side,first=false):
 		index = 0
 	goal_instance.set_position(Vector2(2.8*distance,0))
 	goal_instance.appear(distance)
-	print('before_random')
 	goal_instance.value = random_goal()
-	print('after')
 	if next_goal_position[index]:
 		current_goal[index] = next_goal[index]
 		current_goal_position[index] = next_goal_position[index]
@@ -154,7 +153,7 @@ func add_goal(side,first=false):
 						success(current_level.node_positions[i][x],index,dropping)
 						second_goal = true
 						break
-	difficulty_progress += 0.2
+	difficulty_progress += 0.15
 	if !second_goal and !first:
 		print('second_row')
 		current_level.transition_timer.start()
@@ -162,7 +161,7 @@ func add_goal(side,first=false):
 		current_level.add_row()
 
 func random_goal():
-	var current_difficulty = int(difficulty_progress) 
+	var current_difficulty = int(difficulty_progress)
 	current_difficulty = clamp(current_difficulty,1,levels.size())
 	var black_list_nodes = []
 	var potential_goals = []

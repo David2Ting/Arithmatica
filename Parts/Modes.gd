@@ -19,7 +19,7 @@ func _ready():
 #	label.set('custom_colors/font_color',colours[value])
 #	if !current_mode:
 #		get_node('Label').set('rect_scale',Vector2(size,size))
-	change_value(value)
+#	change_value(value)
 #	else:
 #		get_node('Sprite').set('modulate',colour)
 	# Called when the node is added to the scene for the first time.
@@ -47,6 +47,7 @@ func change_value(new_value):
 			label.set('rect_scale',Vector2(0.9,0.9))
 		else:
 			label.set('rect_scale',Vector2(1,1))
+	show()
 func appear():
 	show()
 	animation.play('Appear')

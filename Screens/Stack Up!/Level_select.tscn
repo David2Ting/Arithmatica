@@ -48,7 +48,6 @@ tracks/2/keys = {
 
 [node name="Level_select" instance=ExtResource( 1 )]
 
-modulate = Color( 1, 1, 1, 1 )
 margin_left = -162.0
 margin_top = -52.0
 margin_right = 162.0

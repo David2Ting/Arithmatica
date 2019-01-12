@@ -92,9 +92,7 @@ func reward(type,node,index):
 			elif i == main.streak-1:
 				chain.append(node_positions[pos.y][pos.x])
 				empty_row = true
-			if chain.size()>0:
-				hub.audio_player.stream = main.pop_sound
-				hub.audio_player.play()
+
 			
 			chain.append(1)
 			main.add_points((chain.size()-1)*5)
@@ -108,7 +106,11 @@ func reward(type,node,index):
 	#			node_positions[pos.y][x] = null
 			timer.start()
 			yield(timer,'timeout')
+			if chain.size()>1:
+				hub.audio_player.stream = main.pop_sound
+				hub.audio_player.play()
 			pop_nodes(chain,false)
+
 #			var empty = gravity()
 #			if empty:
 #				print('break')
@@ -229,6 +231,7 @@ func add_row():
 	elevate()
 	if node_positions.size()>=6:
 		overflow()
+	hub.on_node_block(false)
 
 func elevate():
 	for y in range(node_positions.size()):

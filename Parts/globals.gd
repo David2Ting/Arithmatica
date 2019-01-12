@@ -23,13 +23,16 @@ var user_dir = 'user://User_info.json'
 var levels
 var user_data
 
-var default_user = {"level":1,"stack_up_score":0,"infinity_operators":[["-","-","+"],["*","/","/"],["*","+","-"],["/","-","+"],["/","*","/"],["-","-","+"],["+","+","-"]],"infinity_score":0,"100_methods":[]}
+var default_user = {"level":1,"stack_up_score":0,"infinity_operators":[["-","-","+"],["*","/","/"],["*","+","-"],["/","-","+"],["/","*","/"],["-","-","+"],["+","+","-"]],"infinity_score":0,"100_methods":[],"mode":"Levels","audio":1}
 
 func load_data():
 	var load_file = File.new()
 	if load_file.open(user_dir, File.READ) == 0:
 		user_data = parse_json(load_file.get_as_text())
 		load_file.close()
+		for key in default_user:
+			if !user_data.has(key):
+				user_data[key]=default_user[key]
 		if user_data['level'] == 100:
 			user_data['level'] = 1
 	else:

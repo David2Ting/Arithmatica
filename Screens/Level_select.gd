@@ -18,12 +18,19 @@ func disappear():
 	tween.start()
 
 func change_value(new_value):
+	var old_value = value
 	value = new_value
+	
 	label.set_text(str(value))
 	if new_value == 1:
 		left.hide()
 	else:
 		left.show()
+	
+	if new_value == 100:
+		label.get('custom_fonts/font').set('size',45)
+	elif new_value != 100 and old_value == 100:
+		label.get('custom_fonts/font').set('size',55)
 #	if new_value >= main.progress_level:
 #		right.hide()
 #	else:
@@ -77,3 +84,26 @@ func _on_Left_pressed():
 func _on_Right_pressed():
 	main.level_number += 1
 	pass # replace with function body
+
+
+func _on_Left_button_down():
+	left.set('modulate','8cffffff')
+	pass # replace with function body
+
+
+func _on_Left_button_up():
+	left.set('modulate','ffffff')
+	pass # replace with function body
+
+
+func _on_Right_button_down():
+	right.set('modulate','8cffffff')
+	pass # replace with function body
+
+
+func _on_Right_button_up():
+	right.set('modulate','ffffff')
+	pass # replace with function body
+
+
+
