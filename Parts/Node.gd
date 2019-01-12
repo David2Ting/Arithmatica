@@ -140,7 +140,10 @@ func hint(operator):
 
 func hint_colour(boo):
 	if boo:
-		sprite.set('self_modulate',colours[hint_operator])
+		if int(hint_operator)>0:
+			sprite.set('self_modulate',colours['1'])
+		else:
+			sprite.set('self_modulate',colours[hint_operator])
 	else:
 		if !selected:
 			sprite.set('self_modulate','ffffff')

@@ -56,8 +56,9 @@ func start():
 	pass
 
 func _input(event):
-	if event.is_action_pressed('right_click'):
-		current_level.add_row()
+	return
+#	if event.is_action_pressed('right_click'):
+#		current_level.add_row()
 
 func load_progress():
 	high_score = globals.user_data['stack_up_score']

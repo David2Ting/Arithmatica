@@ -153,6 +153,7 @@ func tips_next():
 		if tip_place:
 			for i in range(tip_place.size()):
 				tip_place[i].set('z_index',tip_place_z[i])
+		tips_screen.get_node('AnimationPlayer').play('Tips_end')
 		tips_screen.hide()
 		tips_box.hide()
 		tips = null

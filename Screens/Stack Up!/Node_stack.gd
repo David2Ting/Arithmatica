@@ -12,6 +12,10 @@ func _ready():
 #	# Called every frame. Delta is time since last frame.
 #	# Update game logic here.
 #	pass
+func _on_Node_input_event(viewport, event, shape_idx):
+	._on_Node_input_event(viewport, event, shape_idx)
+	if event.is_action_pressed('right_click'):
+		level.reward('row',self,1)
 
 func change_value(new_value):
 	var level = get_node('../../')

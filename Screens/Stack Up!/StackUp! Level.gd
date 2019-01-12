@@ -14,7 +14,7 @@ signal drop_completed
 signal tween_completed
 signal pop_finish
 var is_falling = false
-
+var prepare_time = 1
 
 func _ready():
 	pass
@@ -47,6 +47,7 @@ func disappear():
 
 func reward(type,node,index):
 	main.streak+=1
+	var falling
 	if type == 'row':
 		var pos = node.pos
 		var pos_x = pos.x
@@ -55,6 +56,7 @@ func reward(type,node,index):
 			var chain = []
 			var check_pos_right = pos_x
 			var check_pos_left = pos_x
+			print([node_positions[0].size()-1-pos_x,pos_x])
 			for x in range(max(node_positions[0].size()-1-pos_x,pos_x)):
 				check_pos_right+=1
 				var all_prepared = true
@@ -73,12 +75,13 @@ func reward(type,node,index):
 					node_positions[pos.y][check_pos_left].destroy_prepare()
 					chain.append(node_positions[pos.y][check_pos_left])
 					all_prepared = false
-
-				timer.set_wait_time(0.18)
+				print('1')
+				if all_prepared:
+					print('all_prepared')
+					break
 				timer.start()
 				yield(timer,'timeout')
-				if all_prepared:
-					break
+
 #			timer.set_wait_time(0.2)
 #			timer.start()
 #			yield(timer,'timeout')
@@ -103,6 +106,8 @@ func reward(type,node,index):
 	#					if check_node != null:
 	#						check_node.drop_amount+=1
 	#			node_positions[pos.y][x] = null
+			timer.start()
+			yield(timer,'timeout')
 			pop_nodes(chain,false)
 #			var empty = gravity()
 #			if empty:
@@ -139,7 +144,7 @@ func reward(type,node,index):
 
 #			if empty_row:
 #				break
-			var falling = false
+			falling = false
 			for y in range(node_positions.size()):
 				for x in range(node_positions[0].size()):
 					if node_positions[y][x]:
@@ -148,15 +153,21 @@ func reward(type,node,index):
 						completely_empty = false
 			if falling:
 				yield(self,'tween_completed')
-			if completely_empty:
-				break
+			else:
+				timer.start()
+				yield(timer,'timeout')
+#			if completely_empty:
+#				break
 			if empty_row:
 				break
 
-		if popping_nodes:
-			yield(self,'pop_finish')
+#		if popping_nodes:
+#			print('poppin')
+#			yield(self,'pop_finish')
+#		if !falling:
+#			timer.start()
+#			yield(timer,'timeout')
 		main.current_goal_position[index].death()
-		print('add')
 		main.add_goal(index)
 
 func pop_nodes(select_chain,is_success):
