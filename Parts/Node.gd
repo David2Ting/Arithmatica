@@ -42,6 +42,8 @@ func _on_Node_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed('left_click') and !is_block and main.current_operator:
 		if str(main.current_operator)[0] == '2' and (value < 0 or sqrt(value)*sqrt(value)!=value):
 			return
+		if str(main.current_operator)[0] == '5' and str(main.current_operator)[1] == '/' and value%int(str(main.current_operator)[2]) != 0:
+			return
 		main.pressed = true
 		main.select_chain = [self]
 		main.calculate_sum()

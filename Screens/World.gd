@@ -120,7 +120,8 @@ func add_node(obj):
 			return
 		elif str(current_operator)[0] == '2' and (obj.value < 0 or float(sqrt(obj.value))!=int(sqrt(obj.value))):
 			return
-	
+		elif str(current_operator)[0] == '5' and str(current_operator)[1] == '/' and obj.value%int(str(current_operator)[2]) != 0:
+			return
 		else:
 			print(current_operator)
 			select_chain.append(obj)

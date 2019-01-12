@@ -170,7 +170,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="Hub" type="Node" index="0"]
+[node name="Hub" type="Node"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Mouse", "Size Flags" ]
