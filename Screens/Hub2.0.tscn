@@ -304,7 +304,6 @@ _sections_unfolded = [ "Margin", "Mouse", "Rect" ]
 
 [node name="CalculatorContainer" type="Container" parent="BaseContainer/VerticalContainer/Upper/High" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -694,7 +693,6 @@ playback/speed = 1.0
 
 [node name="GoalContainer" type="Container" parent="BaseContainer/VerticalContainer/Upper" index="2"]
 
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 1.0
 anchor_right = 0.5

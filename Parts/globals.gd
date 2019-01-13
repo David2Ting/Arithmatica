@@ -23,7 +23,7 @@ var user_dir = 'user://User_info.json'
 var levels
 var user_data
 
-var default_user = {"level":1,"stack_up_score":0,"infinity_operators":[["-","-","+"],["*","/","/"],["*","+","-"],["/","-","+"],["/","*","/"],["-","-","+"],["+","+","-"]],"infinity_score":0,"100_methods":[],"mode":"Levels","audio":1}
+var default_user = {"level":1,"stack_up_score":0,"infinity_operators":[["-","-","+"],["*","/","/"],["*","+","-"],["/","-","+"],["/","*","/"],["-","-","+"],["+","+","-"]],"infinity_score":0,"100_methods":[],"mode":"Levels","audio":0}
 
 func load_data():
 	var load_file = File.new()

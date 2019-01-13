@@ -59,10 +59,11 @@ func disappear():
 
 func _on_Levels_pressed():
 	if value == hub.mode:
-		hub.toggle_menu(true)
 		var tween = get_node('Tween')
 		tween.interpolate_property(get_node('Sprite'),'rotation_degrees',0,-90,0.15,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
 		tween.start()
+		hub.toggle_menu(true)
+
 #		get_node('Sprite').set_rotation_degrees(-90)
 	else:
 		modes.get_children()[0].value = value

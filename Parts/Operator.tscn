@@ -50,7 +50,7 @@ tracks/1/keys = {
 } ]
 }
 
-[node name="Operator" type="Area2D" index="0" groups=[
+[node name="Operator" type="Area2D" groups=[
 "operators",
 ]]
 
@@ -87,11 +87,11 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -195.0
+margin_left = -269.0
 margin_top = -239.0
-margin_right = 200.0
+margin_right = 275.0
 margin_bottom = 241.0
-rect_pivot_offset = Vector2( 0, 0 )
+rect_pivot_offset = Vector2( 269.815, 239.041 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0

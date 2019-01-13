@@ -76,6 +76,7 @@ func operate_chain():
 			var dropping = current_level.check_above_entire(select_chain)
 			current_level.pop_nodes(select_chain,false)
 			last_node.pressed(false)
+			print(last_node.drop_amount)
 			if last_node.drop_amount > 0:
 				yield(current_level,'tween_completed')
 			success(last_node,index,dropping)

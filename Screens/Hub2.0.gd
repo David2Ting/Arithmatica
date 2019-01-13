@@ -41,7 +41,7 @@ onready var song = preload("res://Sounds/Arithmatica icing.wav")
 onready var song_start = preload("res://Sounds/Arithmatica icing start.wav")
 
 onready var transition_timer = get_node('TransitionTimer')
-
+onready var solved_100 = get_node('BaseContainer/VerticalContainer/Upper/GoalContainer/Solved_100')
 var tips
 var tip_count = 0
 var tip_place
@@ -72,13 +72,14 @@ func change_mode(new_mode):
 	elif new_mode == 'Infinity':
 		reset_box.appear()
 		reset_box.transparent(true)
+		solved_100.hide()
 	else:
 		reset_box.disappear()
 	
 	if new_mode == 'Stacks':
 		high_score.appear()
 		hint_box.type = '?'
-		
+		solved_100.hide()
 	else:
 		high_score.disappear()
 		hint_box.type = 'Hint'

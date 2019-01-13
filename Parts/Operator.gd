@@ -27,6 +27,8 @@ func _process(delta):
 
 func change_value(new_value):
 #	hide()
+	if label.get('rect_scale') != Vector2(1,1):
+		label.set('rect_scale',Vector2(1,1))
 	value = new_value
 	if int(new_value)>0:
 		sprite.set('self_modulate','e500ff')
@@ -43,11 +45,15 @@ func change_value(new_value):
 			label.set_text(specials['3'][int(sub_type)-1])
 		elif type == '4':
 			label.set_text(specials['4']+str(int(sub_type)+1))
+			label.set('rect_scale',Vector2(0.85,0.85))
 		elif type == '5':
 			var num = ''
 			for i in range(2,str(new_value).length()):
 				num = num + str(new_value)[i]
-			label.set_text(sub_type+num)
+			if sub_type == '*':
+				label.set_text('x'+num)
+			else:
+				label.set_text(sub_type+num)
 		on(true)
 		return
 	else:

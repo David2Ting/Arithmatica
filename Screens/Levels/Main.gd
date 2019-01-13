@@ -76,6 +76,8 @@ func change_level_number(new_level_number):
 	.change_level_number(new_level_number)
 
 	if new_level_number == 100:
+		previous_methods_100 = globals.user_data['100_methods']
+		solved_100.set_text('Solved: '+str(previous_methods_100.size()))
 		solved_100.show()
 	else:
 		solved_100.hide()
@@ -85,7 +87,7 @@ func _on_Editor_pressed():
 	pass # replace with function body
 
 func hint():
-	if !current_level.resetting:
+	if !current_level.resetting and hint!=[null,null]:
 		var hint_pos = hint[0]
 		var hint_type = hint[1]
 		node_positions[hint_pos.y][hint_pos.x].hint(hint_type)
@@ -112,7 +114,11 @@ func operate_chain_100():
 		last_node = select_chain[-1]
 		last_node.value = sum
 		if last_node.value == goal:
-			success(last_node)
+			last_node.pressed(false)
+			current_level.pop_nodes(select_chain,false)
+			if last_node.drop_amount > 0:
+				yield(last_node,'tween_finish')
+			success_100(last_node)
 		else:
 			current_level.pop_nodes(select_chain,false)
 			audio_player.stream = pop_sound
@@ -122,11 +128,10 @@ func operate_chain_100():
 		operators_holder.off_operator()
 		select_chain = []
 
-func success(last_node):
+func success_100(last_node):
 	success_node = last_node
 	last_node.animation.play('Success')
 	calculator.value = 'WIN'
-	current_level.pop_nodes(select_chain,true)
 	audio_player.stream = success_sound
 	audio_player.play()
 	var new = true
@@ -140,6 +145,27 @@ func success(last_node):
 	if new:
 		previous_methods_100.append([]+method_100)
 		solved_100.set_text('Solved: '+str(previous_methods_100.size()))
+		globals.user_data['100_methods'] = previous_methods_100
+		globals.save_data()
+
+#func success(last_node):
+#	success_node = last_node
+#	last_node.animation.play('Success')
+#	calculator.value = 'WIN'
+#	current_level.pop_nodes(select_chain,true)
+#	audio_player.stream = success_sound
+#	audio_player.play()
+#	var new = true
+#	for method in previous_methods_100:
+#		print(method)
+#		if method_100 == method:
+#			new = false
+#			break
+#
+#	print(method_100)
+#	if new:
+#		previous_methods_100.append([]+method_100)
+#		solved_100.set_text('Solved: '+str(previous_methods_100.size()))
 
 func change_current_operator(new_operator):
 	.change_current_operator(new_operator)
