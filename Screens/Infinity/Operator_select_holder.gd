@@ -24,6 +24,7 @@ var is_popping = false
 var operator_values = {'+':1,'-':3,'*':4,'/':4,'1':4,'2':4,'3':5}
 signal pop_finish
 onready var operator_select_timer = get_node('../OperatorSelectTimer')
+onready var hub = get_node('/root/Hub')
 func _ready():
 	pass
 func start():
@@ -33,10 +34,7 @@ func start():
 	selected_operators = main.selected_operators
 	size_area = 170
 	finish_buffer = false
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+
 func load_operators():
 	var level_size = (level.screen_size)/1.1
 	size_area = min(level_size.x/3,level_size.y/4)
@@ -66,6 +64,8 @@ func pop(operators):
 	var last_operator = null
 	var new_operators = []+operators
 	for operator in new_operators:
+		main.audio_player.stream = main.pop_sound
+		main.audio_player.play()
 		print(new_operators)
 		var type = str(operator.value)[0]
 		var value = operator_values[type]
@@ -80,6 +80,7 @@ func pop(operators):
 	if is_popping:
 		yield(self,'pop_finish')
 	gravity()
+	hub.on_block(false)
 func gravity():
 	for y in range(0,operator_positions.size()):
 		for x in range(0,operator_positions[0].size()):
@@ -105,8 +106,6 @@ func gravity():
 				operator_instance.value = get_random()
 				operator_instance.pos = Vector2(x,y)
 				operator_instance.set_scale(Vector2(size_scale,size_scale))
-	
-	#Calculate number of specials
 	special_count = 0
 	for y in range(operator_positions.size()):
 		for x in range(operator_positions[0].size()):

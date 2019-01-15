@@ -150,6 +150,9 @@ func hint_colour(boo):
 		if !selected:
 			sprite.set('self_modulate','ffffff')
 
+func new_value():
+	animation.play('New_value')
+
 func pressed(boo):
 	if boo:
 		sprite.set_texture(pressed)

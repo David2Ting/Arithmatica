@@ -60,32 +60,29 @@ func setup_level(operators):
 	hub.hint_box.transparent(false)
 	var operator_group = []
 	
-	var total_sum_value = 0
+	var total_sum_value = 2
 	
 	for operator in operators:
-		if int(operator.value)>0:
-			total_sum_value += summation_values['1']
-		else:
-			total_sum_value += summation_values[operator.value]
-			operator_group.append([str(operator.value),2])
-	var non_special_size = operator_group.size()
+		var times = 2
+		var rand_num = randi()%operators.size()
+		if rand_num < total_sum_value:
+			times = 3
+		total_sum_value-=1
+		operator_group.append([str(operator.value),times])
 	
-	for operator in operators:
-		if int(operator.value)>0:
-			operator_group.append([str(operator.value),1])
 	#randomizing amount on each operator
-	var total_value = round(rand_range(0,1+operator_group.size()))
-	while total_value > 0:
-		var rand = randi()%non_special_size
-		operator_group[rand][1] += 1
-		total_value -= values[operator_group[rand][0]]
-	if total_sum_value < 0:
-		total_sum_value = 0
-	total_sum_value *= 5
-	var sum = 0
-	for i in range(5):
-		sum += round(rand_range(0,total_sum_value*2+10))
-	sum = int(sum / 5)
+#	var total_value = round(rand_range(0,1+operator_group.size()))
+#	while total_value > 0:
+#		var rand = randi()%non_special_size
+#		operator_group[rand][1] += 1
+#		total_value -= values[operator_group[rand][0]]
+#	if total_sum_value < 0:
+#		total_sum_value = 0
+#	total_sum_value *= 5
+#	var sum = 0
+#	for i in range(5):
+#		sum += round(rand_range(0,total_sum_value*2+10))
+#	sum = int(sum / 5)
 	level_select.back_sign(true)
 	current_level.create_level(operator_group,sum)
 
@@ -96,9 +93,7 @@ func next_level():
 	level_select.back_sign(false)
 	completed = true
 
-	if goal_label:
-		goal_label.leave(false)
-		goal_label = null
+
 
 func hint():
 	if !current_level.resetting:
@@ -148,16 +143,23 @@ func finish_movement():
 		selected_operators.clear()
 		operator_select_holder.calculate()
 		calculate_sum()
+	else:
+		hub.on_block(false)
 	completed = false
+
 func _on_Tween_tween_completed(object, key):
 	if !active:
 		queue_free()
 	pass # replace with function body
 
 func change_selecting_menu(boo):
+	hub.on_block(true)
 	current_operator = null
 	selecting_menu = boo
 	if boo:
+		if goal_label:
+			goal_label.leave(false)
+			goal_label = null
 		hub.hint_box.transparent(true)
 		hub.reset_box.transparent(true)
 func add_score(score):
@@ -166,7 +168,3 @@ func add_score(score):
 	level_select.value+=score
 	globals.user_data['infinity_score'] = level_select.value
 	globals.save_data()
-#	if boo:
-#		infinity_button_label.set_text('Levels')
-#	else:
-#		infinity_button_label.set_text('Back')

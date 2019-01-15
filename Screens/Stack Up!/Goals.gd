@@ -1,8 +1,6 @@
 extends Node2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+
 onready var label = get_node('Label')
 onready var reward_logo = get_node('Reward')
 var set_distance = null
@@ -11,8 +9,7 @@ var value = 5 setget change_value
 var reward = null setget change_reward
 var reward_images = {'row':"res://Images/Stackup/Row.png",'box':"res://Images/Stackup/Box.png",'screen':"res://Images/Stackup/Screen.png",'heart':"res://Images/Stackup/Heart.png"}
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
+
 	pass
 
 func appear(distance):
@@ -31,7 +28,6 @@ func change_value(new_value):
 	label.set_text(str(new_value))
 
 func upgrade(distance):
-#	set_scale(Vector2(1,1))
 	set('modulate','ffffff')
 	var tween = get_node('Tween')
 	var current_position = get_position()
@@ -64,7 +60,4 @@ func death():
 func change_reward(new_reward):
 	pass
 	reward_logo.set_texture(load(reward_images[new_reward]))
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+

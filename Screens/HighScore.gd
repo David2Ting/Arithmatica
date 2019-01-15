@@ -1,19 +1,12 @@
 extends Label
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+
 onready var tween = get_node('Tween')
 var value setget change_value
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
+
 	pass
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
 func change_value(new_value):
 	value = new_value
 	set_text('HighScore \n' + str(new_value))

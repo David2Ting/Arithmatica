@@ -72,14 +72,14 @@ func change_mode(new_mode):
 	elif new_mode == 'Infinity':
 		reset_box.appear()
 		reset_box.transparent(true)
-		solved_100.hide()
+		solved_100.disappear()
 	else:
 		reset_box.disappear()
 	
 	if new_mode == 'Stacks':
 		high_score.appear()
 		hint_box.type = '?'
-		solved_100.hide()
+		solved_100.disappear()
 	else:
 		high_score.disappear()
 		hint_box.type = 'Hint'
@@ -173,14 +173,12 @@ func tips_next():
 		if tip_place:
 			for i in range(tip_place.size()):
 				tip_place[i].set('z_index',tip_place_z[i])
-#			operator_holder_sprite.set('z_index',-2)
 		if placing == 'goal':
 			tip_place = [goal_container]
 		elif placing == 'node_holder':
 			tip_place = [new_level.node_holder]
 		elif placing == 'operator_holder':
 			tip_place = [new_operator_holder,operator_holder_sprite]
-#			operator_holder_sprite.set('z_index',2)
 		elif placing == 'reset_button':
 			tip_place = [reset]
 		elif placing == 'current_goal':
@@ -189,6 +187,8 @@ func tips_next():
 			tip_place = new_main.next_goal_position
 		elif placing == 'next_level':
 			tip_place = [new_label]
+		elif placing == 'hint':
+			tip_place = [hint_box.get_node('../')]
 		elif int(placing) > 0:
 			tip_place = [new_operator_holder.operators[int(placing)]]
 		else:
@@ -199,10 +199,9 @@ func tips_next():
 			for i in range(tip_place.size()):
 				tip_place_z.append(tip_place[i].get('z_index'))
 				tip_place[i].set('z_index',2-i)
-#		tip_place_z = tip_place.get('z_index')
+
 
 		tip_count+=1
-	#	tips_box.set_global_position(tip_place.get_global_position())
 
 
 func on_block(boo):

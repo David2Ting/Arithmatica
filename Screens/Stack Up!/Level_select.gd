@@ -1,8 +1,5 @@
 extends TextureButton  #Stackup
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 onready var label = get_node('Label')
 var value setget change_value
 onready var tween = get_node('Tween')
@@ -11,8 +8,6 @@ var back_sign = false
 var main
 var scales = [1,1,0.9,0.8,0.7,0.6]
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
 
 func disappear():

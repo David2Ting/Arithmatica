@@ -21,10 +21,6 @@ func start():
 	tween.interpolate_property(operator_select_holder,'position',Vector2(0,-y_size),Vector2(0,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()
 	operator_select_holder.show()
-#	var operator_groups = algebra.calculate(operator_group,sum)
-#	builder.gravity()
-#	var map = builder.build(operator_groups)
-#	load_level(map,['+','-'],sum,true)
 	pass
 
 func disappear():

@@ -8,6 +8,9 @@ func change_value(new_value):
 		value = new_value
 		hide()
 		timer.start()
-		set_text(str(new_value))
+		if str(new_value).length() > 8:
+			set_text('overflow')
+		else:
+			set_text(str(new_value))
 		yield(timer,'timeout')
 		show()

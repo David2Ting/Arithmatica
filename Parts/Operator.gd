@@ -54,6 +54,8 @@ func change_value(new_value):
 				label.set_text('x'+num)
 			else:
 				label.set_text(sub_type+num)
+			if num.length()>1:
+				label.set('rect_scale',Vector2(0.75,0.75))
 		on(true)
 		return
 	else:

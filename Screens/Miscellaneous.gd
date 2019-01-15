@@ -10,14 +10,7 @@ onready var animation = get_node('AnimationPlayer')
 onready var screen = get_node('Sprite')
 var final_score_value setget change_final_score
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
-
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
 
 func stack_up_appear():
 	show()

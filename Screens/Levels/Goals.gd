@@ -1,22 +1,16 @@
 extends Node2D
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+
 onready var label = get_node('Label')
 onready var tween = get_node('Tween')
 onready var globals = get_node('/root/globals')
 onready var timer = get_node('Timer')
 var value = 0 setget change_value
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
+
 	pass
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+
 
 func change_value(new_value):
 	print(new_value)
@@ -33,8 +27,6 @@ func disappear():
 	queue_free()
 
 func enter(side=true):
-#	timer.start()
-#	yield(timer,'timeout')
 	var distance
 	if side:
 		distance = globals.actual_level_size.x*0.5
@@ -45,8 +37,6 @@ func enter(side=true):
 	tween.interpolate_property(self,'position',Vector2(distance,0),Vector2(),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()
 func leave(side=true):
-#	timer.start()
-#	yield(timer,'timeout')
 	var distance
 	if side:
 		distance = globals.actual_level_size.x*0.5

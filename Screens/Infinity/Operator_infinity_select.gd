@@ -6,17 +6,9 @@ extends "res://Parts/Operator.gd"
 var pos = Vector2() setget change_pos
 var drop_amount = 0
 onready var holder = get_parent()
-#onready var animation = get_node('AnimationPlayer')
-#onready var tween = get_node('Tween')
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
 func _on_Operator_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed('left_click') and active:
 		main.pressed = true

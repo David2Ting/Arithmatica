@@ -1,8 +1,5 @@
 extends 'res://Screens/World.gd'
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
 var hint_timer
 var tween
 var mode = 'Levels'
@@ -39,17 +36,13 @@ func start():
 	level_number = progress_level
 	current_level.start()
 	change_level_number(progress_level)
-#	setup_level(next_level,true)
-#	hint_timer.start()
+
 	
 func setup_level(next_level,boo):
 	.setup_level(next_level,boo)
 	if level_number == progress_level and globals.tips.has(str(progress_level)):
 		hub.start_tip(str(progress_level))
-#	if level_number == progress_level:
-#		level_select.right.hide()
-#	else:
-#		level_select.right.show()
+
 
 func next_level():
 	if level_number == 100:
@@ -57,19 +50,9 @@ func next_level():
 	else:
 		change_level_number(level_number+1)
 
-func _input(event):
-#	if event.is_action_pressed('left_click'):
-#		if tips_mode:
-#			if dialogue_number+1 >=dialogue.size():
-#				tips_mode = false
-#				current_level.tip_box.hide()
-#				get_parent().shadow.hide()
-#			else:
-#				current_level.tip_box_label.set_text(dialogue[dialogue_number+1])
-#				dialogue_number+=1
 
-	._input(event)
 func change_level_number(new_level_number):
+	var old_level_number = level_number
 	hint_timer.start()
 	if new_level_number > progress_level:
 		update_progress(new_level_number)
@@ -78,9 +61,13 @@ func change_level_number(new_level_number):
 	if new_level_number == 100:
 		previous_methods_100 = globals.user_data['100_methods']
 		solved_100.set_text('Solved: '+str(previous_methods_100.size()))
-		solved_100.show()
+		hub.hint_box.transparent(true)
+#		hub.solved_100.appear()
+	elif old_level_number == 100 and new_level_number != 100:
+		hub.hint_box.transparent(false)
+		hub.solved_100.disappear()
 	else:
-		solved_100.hide()
+		hub.solved_100.disappear()
 
 func _on_Editor_pressed():
 	get_tree().change_scene("res://Screens/Editor/Editor.tscn")
@@ -148,43 +135,18 @@ func success_100(last_node):
 		globals.user_data['100_methods'] = previous_methods_100
 		globals.save_data()
 
-#func success(last_node):
-#	success_node = last_node
-#	last_node.animation.play('Success')
-#	calculator.value = 'WIN'
-#	current_level.pop_nodes(select_chain,true)
-#	audio_player.stream = success_sound
-#	audio_player.play()
-#	var new = true
-#	for method in previous_methods_100:
-#		print(method)
-#		if method_100 == method:
-#			new = false
-#			break
-#
-#	print(method_100)
-#	if new:
-#		previous_methods_100.append([]+method_100)
-#		solved_100.set_text('Solved: '+str(previous_methods_100.size()))
-
-func change_current_operator(new_operator):
-	.change_current_operator(new_operator)
-	current_level.change_operator(new_operator)
+#func change_current_operator(new_operator):
+#	.change_current_operator(new_operator)
+#	current_level.change_operator(new_operator)
 
 func load_progress():
-#	progress_file.open(PROGRESS_PATH,File.READ)
-#	progress = parse_json(progress_file.get_as_text())
-#	progress_file.close()
-#	progress_level = progress['level']
 	progress_level = globals.user_data['level']
 
 func update_progress(new_level):
 	progress_level = new_level
-#	progress_file.open(PROGRESS_PATH, File.WRITE)
 	globals.user_data['level']=new_level
 	globals.save_data()
-#		progress_file.store_line(to_json(progress))
-#		progress_file.close()
+
 
 func _on_Infinity_pressed():
 	get_node('../').to_infinity()

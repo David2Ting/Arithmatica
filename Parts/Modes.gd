@@ -15,21 +15,8 @@ var colours = {'Levels':'7577c5','Stacks':'77c777','Infinity':'bb64c3'}
 export var value = 'Levels' setget change_value
 var mode_change_sound = preload("res://Sounds/Effects/new_mode.wav")
 func _ready():
-#	label.set_text(value)
-#	label.set('custom_colors/font_color',colours[value])
-#	if !current_mode:
-#		get_node('Label').set('rect_scale',Vector2(size,size))
-#	change_value(value)
-#	else:
-#		get_node('Sprite').set('modulate',colour)
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
 
 func change_value(new_value):
 	value = new_value
@@ -38,8 +25,6 @@ func change_value(new_value):
 	if current_mode:
 		get_node('Sprite').set('modulate',colour)
 
-#	set_normal_texture(load(images[new_value]))
-#	set_pressed_texture(load(pressed_images[new_value]))
 	if label:
 		label.set_text(new_value)
 		label.set('custom_colors/font_color',colours[value])
@@ -63,15 +48,12 @@ func _on_Levels_pressed():
 		tween.interpolate_property(get_node('Sprite'),'rotation_degrees',0,-90,0.15,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
 		tween.start()
 		hub.toggle_menu(true)
-
-#		get_node('Sprite').set_rotation_degrees(-90)
 	else:
 		modes.get_children()[0].value = value
 		hub.toggle_menu(false)
 		hub.change_mode(value)
 		hub.audio_player.stream = mode_change_sound
 		hub.audio_player.play()
-#		main.get_parent().change_mode(value)
 	pass # replace with function body
 
 func rotate_back():

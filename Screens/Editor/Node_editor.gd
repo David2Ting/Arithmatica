@@ -7,16 +7,6 @@ func _ready():
 	mode_check()
 	pass
 
-#func change_value(new_value):
-#	if str(new_value) == null:
-#		print('null')
-#		set('modulate','74ffffff')
-#	else:
-#		set('modulate','ffffff')
-#	if str(new_value) == ' ':
-#		new_value = '/'
-#	.change_value(new_value)
-
 func _on_LineEdit_text_entered(new_text):
 	print(new_text)
 	change_value(new_text)

@@ -9,8 +9,6 @@ var operator_chances = {'+':5,'-':4,'*':2,'/':2}
 var starter_operators = ['+','+','+','-','-','*','/']
 func _ready():
 
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
 	
 func start():
@@ -84,6 +82,5 @@ func pressed(obj):
 
 func disappear():
 	var x_size = globals.x_size
-#	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.interpolate_property(self,'position',Vector2(0,0),Vector2(x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()

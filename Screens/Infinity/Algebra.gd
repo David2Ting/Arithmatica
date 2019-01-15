@@ -62,7 +62,7 @@ func calculate(operator_groups,sum):
 		last_chain = [chain,rand,i]
 		chain_group.append(chain)
 	print(chain_group)
-	print(running_sum)
+	print(black_list_goals)
 	return [chain_group,running_sum]
 
 func specials(operator,last_chain):
@@ -113,7 +113,7 @@ func random(operator_groups):   #Randomize order of operators
 
 func distribute(aimed_num,normality,limit):
 	var result = goal
-	while (result == goal):
+	while (result == goal or result == 0):
 		var distribute_sum = 0
 		var maximum = min(aimed_num*2,limit)
 		for i in range(normality):
@@ -205,7 +205,7 @@ func subtraction(sub_sum,times):
 			sub_sum -= rand
 			chain.append(rand)
 	running_sum = sub_sum
-
+	print('subtraction'+str(running_sum))
 #	chain = random(chain)
 #	chain.invert()
 	return [chain,index]
@@ -288,9 +288,10 @@ func division(sub_sum,times):
 				chain.push_front(result)
 			black_list_goals.append(result)
 			added_sum *= result
-	var result = randi()%4
+			print('division'+str(result))
+	var result = randi()%4+1
 	if chain.size() == 1:
-		result = randi()%20
+		result = randi()%20+1
 	chain.push_front(added_sum*result)
 	sub_sum = result
 	

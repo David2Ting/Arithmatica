@@ -25,7 +25,7 @@ var level_5 = [-10,-9,-8,-7,-6,-5,-4,-3,-2,-1,17,18,19,31,32,33,34,35,42,45,49,5
 var level_6 = [-20,-16,-15,-10,-9,-8,-3,-2,-1,26,27,28,29,30,31,32,33,34,35,42,45,49,50,64,75,80,100]
 var levels = [level_1,level_2,level_3,level_4,level_5,level_6]
 var difficulty_goals
-#onready var current_health_label = get_node('Header/Health/Current')
+
 var drop_timer
 func start():
 	.start()
@@ -33,16 +33,12 @@ func start():
 	current_level.start()
 	setup_dimensions()
 	load_progress()
-#	operators_holder.start()
+
 	hub.high_score.value = high_score
 	goals = preload("res://Screens/Stack Up!/Goals.tscn")
 	add_goal(0,true)
-#	add_goal(0,true)  #Left
 	add_goal(1,true)
-#	hub.transition_timer.start()
-#	yield(hub.transition_timer,'timeout')
-#	yield(next_goal_position[0].get_node('Tween'),'tween_completed')
-	
+
 	add_goal(0,true)   #Right
 	add_goal(1,true)   #Right
 	
@@ -51,14 +47,11 @@ func start():
 	if high_score == 0:
 		hub.start_tip('stack_up_starter')
 	level_select.value = 0
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
+
 	pass
 
 func _input(event):
 	return
-#	if event.is_action_pressed('right_click'):
-#		current_level.add_row()
 
 func load_progress():
 	high_score = globals.user_data['stack_up_score']
@@ -105,20 +98,20 @@ func operate_chain():
 			select_chain = []
 			current_level.add_row()
 			streak = 0
-#			hub.on_block(false)
+
 
 func success(last_node,index,dropping):
 	last_node.animation.play('Success')
 	calculator.value = 'WIN'
 	hub.audio_player_2.stream = success_sound
 	hub.audio_player_2.play()
-#	drop_timer.start()
+
 	if dropping:
 		yield(current_level,'tween_completed')
-#	else:
+
 	current_level.transition_timer.start()
 	yield(current_level.transition_timer,'timeout')
-#		yield(last_node,'success_finish')
+
 	current_level.reward('row',last_node,index)
 
 
@@ -253,7 +246,6 @@ func change_health(amount):
 
 func game_over():
 	print('game')
-#	hub.tips_screen.get_node('AnimationPlayer').play('Tips')
 	hub.miscellaneous.change_final_score(total_points)
 	hub.miscellaneous.stack_up_appear()
 func reset():
@@ -262,13 +254,4 @@ func reset():
 
 func hint():
 	hub.start_tip('stack_up_full')
-#	if current_health + amount > max_health:
-#		current_health = max_health
-#	else:
-#		current_health+=amount
-#	current_health_label.set_text(str(current_health))
-	
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+

@@ -26,9 +26,10 @@ var operator_size_area = 0
 var operator_size = 0.3
 var packed_level = preload("res://Screens/Level.tscn")
 
-var pop_sound = preload("res://Sounds/Effects/Pop 1.0.wav")
+#var pop_sound = preload("res://Sounds/Effects/Pop 1.0.wav")
+var pop_sound = preload("res://Sounds/Effects/Blop-Mark_DiAngelo-79054334.wav")
 var success_sound = preload("res://Sounds/Effects/Success_icing.wav")
-var reset_sound = preload("res://Sounds/Effects/Blop-Mark_DiAngelo-79054334.wav")
+var reset_sound = preload("res://Sounds/Effects/reset.wav")
 
 var current_operator = null setget change_current_operator
 var level_number = 1 setget change_level_number
@@ -123,15 +124,11 @@ func add_node(obj):
 		elif str(current_operator)[0] == '5' and str(current_operator)[1] == '/' and obj.value%int(str(current_operator)[2]) != 0:
 			return
 		else:
-			print(current_operator)
 			select_chain.append(obj)
 			obj.select(true)
 			calculate_sum()
 
 func _input(INPUT):
-#	if INPUT.is_action_pressed('left_click'):
-#		if mode_menu:
-#			toggle_menu(false)
 	if INPUT.is_action_released('left_click'):
 		if pressed and current_operator:
 			current_level.pop_buffer = false
@@ -149,6 +146,7 @@ func operate_chain():
 		var last_node = select_chain[0]
 		last_node = select_chain[-1]
 		last_node.value = sum
+		last_node.new_value()
 		if last_node.value == goal:
 			success(last_node)
 		else:
@@ -161,6 +159,8 @@ func operate_chain():
 		select_chain = []
 
 func operate_specials():
+	if hub.hint_box:
+		hub.hint_box.transparent(true)
 	var special = str(current_operator)[0]
 	var sub_type = 2
 	if str(current_operator).length()>1:
@@ -198,6 +198,9 @@ func operate_specials():
 			node.select(false)
 		if node.value == goal:
 			special_success(node)
+		node.new_value()
+		audio_player.stream = pop_sound
+		audio_player.play()
 	operators_holder.off_operator()
 	select_chain = []
 	calculator.value = 0

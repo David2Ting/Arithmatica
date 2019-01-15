@@ -286,8 +286,6 @@ func move(type):
 #		yield(tween,'tween_completed')
 #		queue_free()
 
-func change_operator(new_operator):
-	return
 #	if new_operator:
 #		level_label.set_text(str(new_operator))
 #	else:
@@ -309,6 +307,8 @@ func _on_Tween_tween_completed(object, key):
 	pop_buffer = false
 	main.settled = true
 	main.calculator.value = 0
+	if main.level_number==100:
+		hub.solved_100.appear()
 	pass # replace with function body
 
 

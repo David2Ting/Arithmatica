@@ -177,6 +177,13 @@ playback_default_blend_time = 0.0
 playback_speed = 1.0
 blend_times = [  ]
 
+[node name="Timer" type="Timer" parent="." index="6"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
 [connection signal="button_down" from="." to="." method="_on_Level_select_button_down"]
 
 [connection signal="button_up" from="." to="." method="_on_Level_select_button_up"]
@@ -187,11 +194,15 @@ blend_times = [  ]
 
 [connection signal="button_up" from="Left" to="." method="_on_Left_button_up"]
 
+[connection signal="gui_input" from="Left" to="." method="_on_Left_gui_input"]
+
 [connection signal="pressed" from="Left" to="." method="_on_Left_pressed"]
 
 [connection signal="button_down" from="Right" to="." method="_on_Right_button_down"]
 
 [connection signal="button_up" from="Right" to="." method="_on_Right_button_up"]
+
+[connection signal="gui_input" from="Right" to="." method="_on_Right_gui_input"]
 
 [connection signal="pressed" from="Right" to="." method="_on_Right_pressed"]
 
