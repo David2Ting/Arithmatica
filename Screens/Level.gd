@@ -253,7 +253,7 @@ func reset_level(reset_group_nodes,reset_group_operators):
 		yield(reset_timer,"timeout")
 		for node in reset_group_operators[0]:
 			pass
-	if hub.hint_box:
+	if hub.hint_box and main.level_number<100:
 		hub.hint_box.transparent(false)
 	resetting = false
 	emit_signal("reset_finished")

@@ -269,7 +269,6 @@ _sections_unfolded = [ "Anchor", "Grow Direction", "Margin", "Mouse", "Rect", "S
 
 [node name="Upper" type="Container" parent="BaseContainer/VerticalContainer" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -287,6 +286,7 @@ _sections_unfolded = [ "Grow Direction", "Mouse", "Rect", "Size Flags" ]
 
 [node name="High" type="Container" parent="BaseContainer/VerticalContainer/Upper" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -306,6 +306,7 @@ _sections_unfolded = [ "Margin", "Mouse", "Rect" ]
 
 [node name="CalculatorContainer" type="Container" parent="BaseContainer/VerticalContainer/Upper/High" index="0"]
 
+editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -485,7 +486,6 @@ _sections_unfolded = [ "custom_colors", "custom_fonts" ]
 
 [node name="Top" type="Container" parent="BaseContainer/VerticalContainer/Upper" index="1"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 1.0
@@ -519,22 +519,20 @@ _sections_unfolded = [ "Margin", "Mouse", "Rect", "Size Flags", "Transform", "Vi
 
 [node name="Levels" parent="BaseContainer/VerticalContainer/Upper/Top/Modes" index="0" instance=ExtResource( 12 )]
 
-editor/display_folded = true
-visible = false
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -80.0
+margin_left = -83.0
 margin_top = -23.0
-margin_right = 90.0
+margin_right = 87.0
 margin_bottom = 23.0
 current_mode = true
 
 [node name="Sprite" type="Sprite" parent="BaseContainer/VerticalContainer/Upper/Top/Modes/Levels" index="2"]
 
 modulate = Color( 0.458824, 0.466667, 0.768627, 1 )
-position = Vector2( 163.346, 29.9837 )
+position = Vector2( 153.813, 29.9837 )
 scale = Vector2( 0.2, 0.2 )
 texture = ExtResource( 13 )
 _sections_unfolded = [ "Transform", "Visibility" ]
@@ -786,7 +784,6 @@ _sections_unfolded = [ "Grow Direction", "Mouse", "Rect", "Size Flags" ]
 
 [node name="Container" type="Container" parent="BaseContainer/VerticalContainer/Mid" index="0"]
 
-editor/display_folded = true
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5

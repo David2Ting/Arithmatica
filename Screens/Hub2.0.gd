@@ -182,6 +182,7 @@ func tips_next():
 		elif placing == 'reset_button':
 			tip_place = [reset]
 		elif placing == 'current_goal':
+			print('current')
 			tip_place = new_main.current_goal_position
 		elif placing == 'next_goal':
 			tip_place = new_main.next_goal_position

@@ -29,7 +29,7 @@ func change_value(new_value):
 		label.set_text(new_value)
 		label.set('custom_colors/font_color',colours[value])
 		if new_value == 'Infinity':
-			label.set('rect_scale',Vector2(0.9,0.9))
+			label.set('rect_scale',Vector2(0.85,0.85))
 		else:
 			label.set('rect_scale',Vector2(1,1))
 	show()
