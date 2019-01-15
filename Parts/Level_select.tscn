@@ -7,7 +7,7 @@
 
 [sub_resource type="DynamicFont" id=1]
 
-size = 60
+size = 55
 use_mipmaps = false
 use_filter = false
 font_data = ExtResource( 3 )
@@ -47,9 +47,9 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -43.0
+margin_left = -166.0
 margin_top = -43.0
-margin_right = 43.0
+margin_right = 166.0
 margin_bottom = 44.0
 rect_pivot_offset = Vector2( 0, 0 )
 rect_clip_content = false
@@ -75,9 +75,9 @@ anchor_top = 0.5
 anchor_right = 0.0
 anchor_bottom = 0.5
 margin_left = 45.0
-margin_top = -20.0
-margin_right = 326.0
-margin_bottom = 223.0
+margin_top = -43.0
+margin_right = 709.0
+margin_bottom = 200.0
 rect_rotation = 90.0
 rect_scale = Vector2( 0.12, 0.12 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -91,8 +91,14 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 4 )
 _sections_unfolded = [ "Rect", "Textures", "Visibility" ]
+
+[node name="Sprite" type="Sprite" parent="Left" index="0"]
+
+modulate = Color( 0.476563, 0.476563, 0.476563, 1 )
+position = Vector2( 323.396, 150.417 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Transform", "Visibility" ]
 
 [node name="Right" type="TextureButton" parent="." index="2"]
 
@@ -102,9 +108,9 @@ anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
 margin_left = -40.0
-margin_top = 13.0
-margin_right = 241.0
-margin_bottom = 256.0
+margin_top = 39.0
+margin_right = 679.0
+margin_bottom = 282.0
 rect_rotation = -90.0
 rect_scale = Vector2( 0.12, 0.12 )
 rect_pivot_offset = Vector2( 0, 0 )
@@ -118,8 +124,14 @@ toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
 group = null
-texture_normal = ExtResource( 4 )
 _sections_unfolded = [ "Rect", "Textures", "Visibility" ]
+
+[node name="Sprite" type="Sprite" parent="Right" index="0"]
+
+modulate = Color( 0.47451, 0.47451, 0.47451, 1 )
+position = Vector2( 338.437, 135.375 )
+texture = ExtResource( 4 )
+_sections_unfolded = [ "Visibility" ]
 
 [node name="LineEdit" type="LineEdit" parent="." index="3"]
 
@@ -156,13 +168,41 @@ playback/active = false
 playback/repeat = false
 playback/speed = 1.0
 
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." index="5"]
+
+root_node = NodePath("..")
+autoplay = ""
+playback_process_mode = 1
+playback_default_blend_time = 0.0
+playback_speed = 1.0
+blend_times = [  ]
+
+[node name="Timer" type="Timer" parent="." index="6"]
+
+process_mode = 1
+wait_time = 1.0
+one_shot = false
+autostart = false
+
 [connection signal="button_down" from="." to="." method="_on_Level_select_button_down"]
 
 [connection signal="button_up" from="." to="." method="_on_Level_select_button_up"]
 
 [connection signal="pressed" from="." to="." method="_on_Level_select_pressed"]
 
+[connection signal="button_down" from="Left" to="." method="_on_Left_button_down"]
+
+[connection signal="button_up" from="Left" to="." method="_on_Left_button_up"]
+
+[connection signal="gui_input" from="Left" to="." method="_on_Left_gui_input"]
+
 [connection signal="pressed" from="Left" to="." method="_on_Left_pressed"]
+
+[connection signal="button_down" from="Right" to="." method="_on_Right_button_down"]
+
+[connection signal="button_up" from="Right" to="." method="_on_Right_button_up"]
+
+[connection signal="gui_input" from="Right" to="." method="_on_Right_gui_input"]
 
 [connection signal="pressed" from="Right" to="." method="_on_Right_pressed"]
 

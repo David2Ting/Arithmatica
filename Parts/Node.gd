@@ -10,6 +10,7 @@ onready var animation = get_node('AnimationPlayer')
 onready var drop_tween = get_node('DropTween')
 onready var colours = globals.colours
 
+signal success_finish
 signal tween_finish
 signal pop_finish 
 
@@ -39,7 +40,9 @@ func _on_Node_mouse_entered():
 
 func _on_Node_input_event(viewport, event, shape_idx):
 	if event.is_action_pressed('left_click') and !is_block and main.current_operator:
-		if main.current_operator == '2' and (value < 0 or sqrt(value)*sqrt(value)!=value):
+		if str(main.current_operator)[0] == '2' and (value < 0 or sqrt(value)*sqrt(value)!=value):
+			return
+		if str(main.current_operator)[0] == '5' and str(main.current_operator)[1] == '/' and value%int(str(main.current_operator)[2]) != 0:
 			return
 		main.pressed = true
 		main.select_chain = [self]
@@ -104,6 +107,8 @@ func _on_AnimationPlayer_animation_finished(anim_name):
 	if anim_name == 'Pop':
 		emit_signal('pop_finish')
 		main.current_level.finish_pop()
+	elif anim_name == 'Success':
+		emit_signal('success_finish')
 
 func drop():
 	var current_position = get_position()
@@ -137,10 +142,16 @@ func hint(operator):
 
 func hint_colour(boo):
 	if boo:
-		sprite.set('self_modulate',colours[hint_operator])
+		if int(hint_operator)>0:
+			sprite.set('self_modulate',colours['1'])
+		else:
+			sprite.set('self_modulate',colours[hint_operator])
 	else:
 		if !selected:
 			sprite.set('self_modulate','ffffff')
+
+func new_value():
+	animation.play('New_value')
 
 func pressed(boo):
 	if boo:

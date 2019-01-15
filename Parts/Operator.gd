@@ -27,6 +27,8 @@ func _process(delta):
 
 func change_value(new_value):
 #	hide()
+	if label.get('rect_scale') != Vector2(1,1):
+		label.set('rect_scale',Vector2(1,1))
 	value = new_value
 	if int(new_value)>0:
 		sprite.set('self_modulate','e500ff')
@@ -43,11 +45,17 @@ func change_value(new_value):
 			label.set_text(specials['3'][int(sub_type)-1])
 		elif type == '4':
 			label.set_text(specials['4']+str(int(sub_type)+1))
+			label.set('rect_scale',Vector2(0.85,0.85))
 		elif type == '5':
 			var num = ''
 			for i in range(2,str(new_value).length()):
 				num = num + str(new_value)[i]
-			label.set_text(sub_type+num)
+			if sub_type == '*':
+				label.set_text('x'+num)
+			else:
+				label.set_text(sub_type+num)
+			if num.length()>1:
+				label.set('rect_scale',Vector2(0.75,0.75))
 		on(true)
 		return
 	else:
@@ -120,6 +128,16 @@ func left(amount):
 	var current_position = get_position()
 	tween.interpolate_property(self,'position',current_position,current_position-Vector2(amount,0),0.25,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
 	tween.start()
+	if container.operators.find(self) < 4:
+		in_zone(true)
+
+func in_zone(boo):
+	if boo:
+		set('modulate','adadad')
+		active = true
+	else:
+		set('modulate','7dffffff')
+		active = false
 
 func reset():
 	if str(value) != '0':

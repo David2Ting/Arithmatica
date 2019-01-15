@@ -9,8 +9,6 @@ var operator_chances = {'+':5,'-':4,'*':2,'/':2}
 var starter_operators = ['+','+','+','-','-','*','/']
 func _ready():
 
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
 	
 func start():
@@ -22,7 +20,10 @@ func start():
 		if child.is_in_group('operators'):
 			operators.append(child)
 			child.value = generate_operator()
+			if operators.size()>4:
+				child.in_zone(false)
 
+			
 	var tween = get_node('Tween')
 	var x_size = globals.x_size
 	set_position(Vector2(x_size,0))
@@ -63,11 +64,23 @@ func add_operator():
 	operator_instance.set_position(Vector2(operator_area_size*3.5,0))
 	operator_instance.pressed(false)
 	operator_instance.value = generate_operator()
+	operator_instance.in_zone(false)
 	for i in range(operator_index,operators.size()):
 		operators[i].left(operator_area_size)
 
+func pressed(obj):
+	for i in range(4):
+		var operator = operators[i]
+		if operator==obj:
+			main.current_operator=operator.value
+			current_operator_id = operator
+			operator.pressed(true)
+		else:
+			if operator:
+				operator.pressed(false)
+
+
 func disappear():
 	var x_size = globals.x_size
-#	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.interpolate_property(self,'position',Vector2(0,0),Vector2(x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()

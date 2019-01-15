@@ -1,17 +1,11 @@
 extends "res://Parts/Operator.gd"
 onready var line_edit = get_node('LineEdit')
-onready var editor = get_node('/root/World/Main')
+onready var editor = get_node('/root/Hub/Main')
 onready var editor_level = get_parent()
 var operator_types = ['+','-','*','/']
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
 
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
 func editor_select(boo):
 	return
 	if boo:
@@ -37,6 +31,5 @@ func _on_LineEdit_text_entered(new_text):
 		change_value(new_text)
 	else:
 		change_value('0')
-#	editor.currently_editing = null
 	pass # replace with function body
 

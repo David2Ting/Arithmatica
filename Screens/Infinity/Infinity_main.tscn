@@ -8,6 +8,14 @@
 
 script = ExtResource( 2 )
 
+[node name="ModesScreen" parent="BaseContainer" index="0"]
+
+margin_bottom = 950.0
+
+[node name="VerticalContainer" parent="BaseContainer" index="1"]
+
+margin_bottom = 950.0
+
 [node name="Container" parent="BaseContainer/VerticalContainer/Mid" index="0"]
 
 margin_top = 189.0

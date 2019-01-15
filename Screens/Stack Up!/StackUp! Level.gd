@@ -1,8 +1,6 @@
 extends "res://Screens/Level.gd"
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+onready var transition_timer = get_node('TransitionTimer')
 var first_row = ['1','2','3','4','5']
 var first_fall_completed = false
 var number_counts = {}
@@ -13,29 +11,30 @@ signal drop_completed
 signal tween_completed
 signal pop_finish
 var is_falling = false
-
+var prepare_time = 1
 
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
 
 func start():
 	.start()
 	node = preload("res://Screens/Stack Up!/Node_stack.tscn")
 	timer = get_node('Timer')
-	add_row()
+
 		
 func tween_completed():  #when falling has ended
 	pop_buffer = false
-	is_falling = false
+	if falling_nodes:
+		if first_fall_completed:
+			first_fall_completed = false
+		is_falling = false
+	falling_nodes = false
 	emit_signal('tween_completed')
-	if first_fall_completed:
-		first_fall_completed = false
+
 
 
 func disappear():
-#	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+
 	var level_size_x = globals.x_size
 	var current_position = node_holder.get_position()
 	tween.interpolate_property(node_holder,'position',current_position,current_position+Vector2(level_size_x,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
@@ -45,6 +44,7 @@ func disappear():
 
 func reward(type,node,index):
 	main.streak+=1
+	var falling
 	if type == 'row':
 		var pos = node.pos
 		var pos_x = pos.x
@@ -53,6 +53,7 @@ func reward(type,node,index):
 			var chain = []
 			var check_pos_right = pos_x
 			var check_pos_left = pos_x
+			print([node_positions[0].size()-1-pos_x,pos_x])
 			for x in range(max(node_positions[0].size()-1-pos_x,pos_x)):
 				check_pos_right+=1
 				var all_prepared = true
@@ -71,79 +72,55 @@ func reward(type,node,index):
 					node_positions[pos.y][check_pos_left].destroy_prepare()
 					chain.append(node_positions[pos.y][check_pos_left])
 					all_prepared = false
-
-				timer.set_wait_time(0.2)
+				print('1')
+				if all_prepared:
+					print('all_prepared')
+					break
 				timer.start()
 				yield(timer,'timeout')
-				if all_prepared:
-					break
+
+#			timer.set_wait_time(0.2)
+#			timer.start()
+#			yield(timer,'timeout')
+
 			if chain.size()==0 or !check_above(chain):
 				chain.append(node_positions[pos.y][pos.x])
 				empty_row = true
 			elif i == main.streak-1:
 				chain.append(node_positions[pos.y][pos.x])
 				empty_row = true
-				
-			chain.append(1)
-			main.add_points((chain.size()-1)*2)
-	#			if node_positions[pos.y][x]:
-	#				node_positions[pos.y][x].destroy()
-	#			if pos.y!=0:
-	#				for y in range(0,pos.y):
-	#					var check_node = node_positions[y][x]
-	#					if check_node != null:
-	#						check_node.drop_amount+=1
-	#			node_positions[pos.y][x] = null
-			var not_empty = pop_nodes(chain,false)
-#			var empty = gravity()
-#			if empty:
-#				print('break')
-#				break
-#			yield(self,'drop_completed')
-			var completely_empty = true
-#
-#			if i == main.streak-1:
-#				if !pop_nodes([node_positions[pos.y][pos.x],1],false):
-#					if !empty:
-#						empty = 0
-#					else:
-#						empty = 1
-#				else:
-#					empty = 1
 
+			
+			chain.append(1)
+			main.add_points((chain.size()-1)*5)
+			timer.start()
+			yield(timer,'timeout')
+			if chain.size()>1:
+				hub.audio_player.stream = main.pop_sound
+				hub.audio_player.play()
+			pop_nodes(chain,false)
+
+
+			var completely_empty = true
+
+			falling = false
 			for y in range(node_positions.size()):
 				for x in range(node_positions[0].size()):
 					if node_positions[y][x]:
+						if node_positions[y][x].is_moving or node_positions[y][x].drop_amount>0:
+							falling = true
 						completely_empty = false
-#						if node_positions[y][x].drop_amount>0:
-#							empty = false
-			if completely_empty:
-				break
-			if !not_empty:
-#				if node_positions[pos.y][pos.x]:
-#					pop_nodes([node_positions[pos.y][pos.x],1],false)
-#					empty_row = true
-#				else:
-					break
-#			if empty:
-#				print('empty')
-#				pop_nodes([node_positions[pos.y][pos.x],1],false)
-#				break
-#			if is_falling:
-			yield(self,'tween_completed')
+			if falling:
+				yield(self,'tween_completed')
+			else:
+				timer.start()
+				yield(timer,'timeout')
+
 			if empty_row:
 				break
-#			if empty_row:
-#				break
+
 		main.current_goal_position[index].death()
 		main.add_goal(index)
-
-	elif type == 'box':
-		pass
-	elif type == 'screen':
-		pass
-	elif type == 'heart':
-		pass
 
 func pop_nodes(select_chain,is_success):
 	var node
@@ -158,13 +135,16 @@ func pop_nodes(select_chain,is_success):
 				if check_node != null:
 					empty = false
 					check_node.drop_amount+=1
+					falling_nodes = true
 		node.pop()
 	gravity()
 	if empty:
 		emit_signal('pop_finish')
 		return false
+	popping_nodes = true
 	yield(node,'pop_finish')
 	emit_signal('pop_finish')
+	popping_nodes = false
 	for node in node_holder.get_children():
 		if node.is_in_group('nodes'):
 			node.drop()
@@ -181,9 +161,6 @@ func finish_pop():
 	pass
 
 func add_row():
-	timer.set_wait_time(0.25)
-	timer.start()
-	yield(timer,'timeout')
 	var row = random_row()
 	node_size_area = 328
 	node_scale = Vector2(0.8,0.8)
@@ -195,13 +172,14 @@ func add_row():
 		node_holder.add_child(node_instance)
 		node_instance.set_position(pos)
 		node_instance.value = value
-		node_instance.original_value = value
 		node_instance.scale = node_scale
 		node_positions[node_positions.size()-1].append(node_instance)
 		node_instance.pos = Vector2(i,node_positions.size()-1)
 	elevate()
 	if node_positions.size()>=6:
 		overflow()
+	hub.on_node_block(false)
+
 func elevate():
 	for y in range(node_positions.size()):
 		for x in range(node_positions[0].size()):
@@ -223,7 +201,7 @@ func random_row():
 		row.append(rand)
 		if number_counts.has(str(rand)):
 			number_counts[str(rand)]+=1
-			if number_counts[str(rand)] > 1:
+			if number_counts[str(rand)] > 3:
 				black_list_numbers_counts.append(rand)
 				black_list_numbers.append(rand)
 		else:
@@ -234,31 +212,10 @@ func overflow():
 	var damaged = false
 	for i in range(node_positions[0].size()):
 		if node_positions[0][i]:
-#			node_positions[0][i].pop()
 			damaged = true
 	node_positions.pop_front()
 	if damaged:
 		main.game_over()
-#		timer.set_wait_time(0.25)
-#		timer.start()
-#		yield(timer,'timeout')
-#		for i in range(node_positions[0].size()):
-#			if node_positions[0][i]:
-#				node_positions[0][i].pop()
-#		timer.set_wait_time(0.25)
-#		timer.start()
-#		yield(timer,'timeout')
-#		for i in range(node_positions[0].size()):
-#			if node_positions[1][i]:
-#				node_positions[1][i].pop()
-#		node_positions.pop_front()
-#
-#		node_positions.pop_front()
-#		main.change_health(-1)
-#		for y in range(node_positions.size()):
-#			for x in range(node_positions[0].size()):
-#				if node_positions[y][x]:
-#					node_positions[y][x].pos = node_positions[y][x].pos - Vector2(0,3)
 	else:
 		for y in range(node_positions.size()):
 			for x in range(node_positions[0].size()):
@@ -266,7 +223,7 @@ func overflow():
 					node_positions[y][x].pos = node_positions[y][x].pos - Vector2(0,1)
 	
 	return
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+
+func reset():
+	main.reset()
+

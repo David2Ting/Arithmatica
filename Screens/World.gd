@@ -26,9 +26,10 @@ var operator_size_area = 0
 var operator_size = 0.3
 var packed_level = preload("res://Screens/Level.tscn")
 
-var pop_sound = preload("res://Sounds/Effects/Pop 1.0.wav")
-var success_sound = preload("res://Sounds/Effects/Success.wav")
-var reset_sound = preload("res://Sounds/Effects/Blop-Mark_DiAngelo-79054334.wav")
+#var pop_sound = preload("res://Sounds/Effects/Pop 1.0.wav")
+var pop_sound = preload("res://Sounds/Effects/Blop-Mark_DiAngelo-79054334.wav")
+var success_sound = preload("res://Sounds/Effects/Success_icing.wav")
+var reset_sound = preload("res://Sounds/Effects/reset.wav")
 
 var current_operator = null setget change_current_operator
 var level_number = 1 setget change_level_number
@@ -38,7 +39,7 @@ var DATABASE_PATH = "res://Screens/Levels/Levels.json"
 var database = {}
 var neutral_level = [0,['+','+'],[['/','/','/','/'],['/','/','/','/'],['/','/','/','/'],['/','/','/','/'],['/','/','/','/']]]
 var goal = 0 setget change_goal
-onready var current_level = get_node('BaseContainer/VerticalContainer/Mid/Container/Level')
+var current_level
 var settled = true
 var running_sum = 0
 var hint = [null,null]
@@ -51,7 +52,7 @@ var progress_file = File.new()
 var PROGRESS_PATH = "res://Screens/Progress.json"
 
 func start():
-
+	current_level = get_node('BaseContainer/VerticalContainer/Mid/Container/Level')
 	audio_player = get_node('../Audio_Player')
 	operators_holder = get_node('../BaseContainer/VerticalContainer/Bottom/Container/Operators_holder')
 
@@ -118,18 +119,16 @@ func add_node(obj):
 			return
 		elif current_operator=='/' and (obj.value == 0 or int(running_sum)%int(obj.value) != 0):
 			return
-		elif current_operator == '2' and (obj.value < 0 or float(sqrt(obj.value))!=int(sqrt(obj.value))):
+		elif str(current_operator)[0] == '2' and (obj.value < 0 or float(sqrt(obj.value))!=int(sqrt(obj.value))):
 			return
-	
+		elif str(current_operator)[0] == '5' and str(current_operator)[1] == '/' and obj.value%int(str(current_operator)[2]) != 0:
+			return
 		else:
 			select_chain.append(obj)
 			obj.select(true)
 			calculate_sum()
 
 func _input(INPUT):
-#	if INPUT.is_action_pressed('left_click'):
-#		if mode_menu:
-#			toggle_menu(false)
 	if INPUT.is_action_released('left_click'):
 		if pressed and current_operator:
 			current_level.pop_buffer = false
@@ -147,6 +146,7 @@ func operate_chain():
 		var last_node = select_chain[0]
 		last_node = select_chain[-1]
 		last_node.value = sum
+		last_node.new_value()
 		if last_node.value == goal:
 			success(last_node)
 		else:
@@ -159,6 +159,8 @@ func operate_chain():
 		select_chain = []
 
 func operate_specials():
+	if hub.hint_box:
+		hub.hint_box.transparent(true)
 	var special = str(current_operator)[0]
 	var sub_type = 2
 	if str(current_operator).length()>1:
@@ -194,17 +196,29 @@ func operate_specials():
 			elif operator == '/':
 				node.value = node.value/int(num)
 			node.select(false)
+		if node.value == goal:
+			special_success(node)
+		node.new_value()
+		audio_player.stream = pop_sound
+		audio_player.play()
 	operators_holder.off_operator()
 	select_chain = []
 	calculator.value = 0
 	
+func special_success(node):
+	node.animation.play('Success')
+	calculator.value = 'WIN'
+	hub.audio_player_2.stream = success_sound
+	hub.audio_player_2.play()
 
 func success(last_node):
 	last_node.animation.play('Success')
 	calculator.value = 'WIN'
 	current_level.pop_nodes(select_chain,true)
-	audio_player.stream = success_sound
-	audio_player.play()
+	hub.audio_player_2.stream = success_sound
+	hub.audio_player_2.play()
+#	hub.audio_player.stream = pop_sound
+#	hub.audio_player.play()
 
 
 func check_adjacency(first,second):
@@ -297,7 +311,6 @@ func change_level_number(new_level_number):
 	setup_level(new_level,forwards)
 
 func change_goal(new_goal,forwards = true):
-	print('goal')
 	goal = new_goal
 	goals = load("res://Screens/Levels/Goals.tscn")
 	var goal_instance = goals.instance()

@@ -6,8 +6,6 @@ extends TextureButton
 onready var tween = get_node('Tween')
 onready var label = get_node('Label')
 func _ready():
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
 	pass
 func disappear():
 	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),0.2,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
@@ -29,7 +27,4 @@ func transparent(boo):
 	else:
 		label.set('self_modulate',Color(1,1,1,1))
 		set('mouse_filter',0)
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+

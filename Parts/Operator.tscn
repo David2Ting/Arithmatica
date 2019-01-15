@@ -2,7 +2,7 @@
 
 [ext_resource path="res://Parts/Operator.gd" type="Script" id=1]
 [ext_resource path="res://Images/Operator.png" type="Texture" id=2]
-[ext_resource path="res://Images/Fonts/BebasNeue-Regular.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 
@@ -55,6 +55,7 @@ tracks/1/keys = {
 ]]
 
 modulate = Color( 0.898438, 0.898438, 0.898438, 1 )
+z_index = -1
 input_pickable = true
 gravity_vec = Vector2( 0, 1 )
 gravity = 98.0
@@ -63,7 +64,7 @@ angular_damp = 1.0
 audio_bus_override = false
 audio_bus_name = "Master"
 script = ExtResource( 1 )
-_sections_unfolded = [ "Transform", "Visibility" ]
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." index="0"]
 
@@ -86,11 +87,11 @@ anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
 anchor_bottom = 0.0
-margin_left = -195.0
+margin_left = -269.0
 margin_top = -239.0
-margin_right = 200.0
+margin_right = 275.0
 margin_bottom = 241.0
-rect_pivot_offset = Vector2( 0, 0 )
+rect_pivot_offset = Vector2( 269.815, 239.041 )
 rect_clip_content = false
 mouse_filter = 2
 mouse_default_cursor_shape = 0

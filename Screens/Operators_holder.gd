@@ -25,12 +25,9 @@ func start():
 	show()
 func disappear():
 	var x_size = globals.x_size
-#	tween.interpolate_property(self,'modulate',Color(1,1,1,1),Color(1,1,1,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.interpolate_property(self,'position',Vector2(0,0),Vector2(-x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()
-#	for operator in operators:
-#		operator.pressed(true)
-#		operator.on(false)
+
 
 
 func add_operator(type='+'):

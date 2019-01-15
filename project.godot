@@ -12,7 +12,7 @@ config_version=3
 
 config/name="Infinity 2.0 GitHub"
 run/main_scene="res://Screens/Hub2.0.tscn"
-config/icon="res://icon.png"
+config/icon="res://Images/Icon.png"
 
 [autoload]
 
@@ -21,7 +21,7 @@ globals="*res://Parts/globals.gd"
 [display]
 
 window/size/width=540
-window/size/height=900
+window/size/height=950
 window/size/always_on_top=true
 window/size/test_width=540
 window/size/test_height=900
@@ -41,4 +41,3 @@ right_click=[ Object(InputEventMouseButton,"resource_local_to_scene":false,"reso
 
 environment/default_clear_color=Color( 1, 1, 1, 1 )
 environment/default_environment="res://default_env.tres"
-quality/dynamic_fonts/use_oversampling=true

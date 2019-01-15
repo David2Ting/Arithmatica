@@ -21,7 +21,6 @@ texture = ExtResource( 2 )
 [node name="Operator" parent="." index="1" instance=ExtResource( 3 )]
 
 position = Vector2( -630, 0 )
-_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="Operator2" parent="." index="2" instance=ExtResource( 3 )]
 

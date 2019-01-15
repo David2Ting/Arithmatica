@@ -1,8 +1,6 @@
 extends "res://Screens/World.gd"
 
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+
 var tween
 var operator_select_holder 
 var selected_operators = []
@@ -22,12 +20,16 @@ func start():
 	.start()
 	randomize()
 	score = globals.user_data['infinity_score']
+	if score == 0:
+		hub.start_tip('infinity_starter')
+	print('score:'+str(score))
 	level_select.value = score
 	tween = get_node('Tween')
 	hub = get_node('../')
 	operator_select_holder = current_level.get_node('Operator_select_holder')
 	setup_dimensions()
-
+	hub.hint_box.transparent(true)
+	hub.reset_box.transparent(true)
 	current_level.start()
 func _input(INPUT):
 	if INPUT.is_action_released('left_click'):
@@ -55,59 +57,74 @@ func setup_level(operators):
 	change_selecting_menu(false)
 	current_level.move('forwards')
 	hub.reset_box.transparent(false)
+	hub.hint_box.transparent(false)
 	var operator_group = []
 	
-	var total_sum_value = 0
+	var total_sum_value = 2
 	
 	for operator in operators:
-		if int(operator.value)>0:
-			total_sum_value += summation_values['1']
-		else:
-			total_sum_value += summation_values[operator.value]
-			operator_group.append([str(operator.value),2])
-	var non_special_size = operator_group.size()
+		var times = 2
+		var rand_num = randi()%operators.size()
+		if rand_num < total_sum_value:
+			times = 3
+		total_sum_value-=1
+		operator_group.append([str(operator.value),times])
 	
-	for operator in operators:
-		if int(operator.value)>0:
-			operator_group.append([str(operator.value),1])
 	#randomizing amount on each operator
-	var total_value = round(rand_range(0,1+operator_group.size()))
-	while total_value > 0:
-		var rand = randi()%non_special_size
-		operator_group[rand][1] += 1
-		total_value -= values[operator_group[rand][0]]
-	if total_sum_value < 0:
-		total_sum_value = 0
-	total_sum_value *= 5
-	var sum = 0
-	for i in range(5):
-		sum += round(rand_range(0,total_sum_value*2+10))
-	sum = int(sum / 5)
-
-	#randomizing sum
-
+#	var total_value = round(rand_range(0,1+operator_group.size()))
+#	while total_value > 0:
+#		var rand = randi()%non_special_size
+#		operator_group[rand][1] += 1
+#		total_value -= values[operator_group[rand][0]]
+#	if total_sum_value < 0:
+#		total_sum_value = 0
+#	total_sum_value *= 5
+#	var sum = 0
+#	for i in range(5):
+#		sum += round(rand_range(0,total_sum_value*2+10))
+#	sum = int(sum / 5)
+	level_select.back_sign(true)
 	current_level.create_level(operator_group,sum)
-	
-#func _process(delta):
-#	# Called every frame. Delta is time since last frame.
-#	# Update game logic here.
-#	pass
+
 func next_level():
+	print('next')
 	change_selecting_menu(true)
 	current_level.move('to_select')
+	level_select.back_sign(false)
 	completed = true
-	hub.reset_box.transparent(true)
-#	yield(current_level,'move_complete')
 
+
+
+func hint():
+	if !current_level.resetting:
+		var hint_pos = hint[0]
+		var hint_type = hint[1]
+		node_positions[hint_pos.y][hint_pos.x].hint(hint_type)
 	
-#func move(type):
-#	var x_size = get_node('/root/globals').x_size*1.5
-#	if type == 'out':
-#		tween.interpolate_property(self,'position',Vector2(0,0),Vector2(x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-#		tween.start()
-#	if type == 'in':
-#		tween.interpolate_property(self,'position',Vector2(x_size,0),Vector2(0,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-#		tween.start()
+func operate_chain():
+	if int(current_operator) > 0:
+		operate_specials()
+	else:
+		var empty = true
+		for y in range(node_positions.size()):
+			for x in range(node_positions[0].size()):
+				if node_positions[y][x] and !node_positions[y][x].is_block and select_chain.find(node_positions[y][x])==-1:
+					empty = false
+					break
+		
+		var last_node = select_chain[0]
+		last_node = select_chain[-1]
+		last_node.value = sum
+		if last_node.value == goal and empty:
+			success(last_node)
+		else:
+			current_level.pop_nodes(select_chain,false)
+			audio_player.stream = pop_sound
+			audio_player.play()
+			calculator.value = 0
+		last_node.select(false)
+		operators_holder.off_operator()
+		select_chain = []
 
 func _on_Infinity_pressed():
 	selected_operators.clear()
@@ -124,22 +141,30 @@ func finish_movement():
 	if selecting_menu and completed:
 		operator_select_holder.pop(selected_operators)
 		selected_operators.clear()
+		operator_select_holder.calculate()
 		calculate_sum()
+	else:
+		hub.on_block(false)
 	completed = false
+
 func _on_Tween_tween_completed(object, key):
 	if !active:
 		queue_free()
 	pass # replace with function body
 
 func change_selecting_menu(boo):
+	hub.on_block(true)
 	current_operator = null
 	selecting_menu = boo
-
+	if boo:
+		if goal_label:
+			goal_label.leave(false)
+			goal_label = null
+		hub.hint_box.transparent(true)
+		hub.reset_box.transparent(true)
 func add_score(score):
+	print(level_select.value)
+	print(score)
 	level_select.value+=score
-	globals.user_data['infinity_score'] = score
+	globals.user_data['infinity_score'] = level_select.value
 	globals.save_data()
-#	if boo:
-#		infinity_button_label.set_text('Levels')
-#	else:
-#		infinity_button_label.set_text('Back')

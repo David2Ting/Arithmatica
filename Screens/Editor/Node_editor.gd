@@ -1,21 +1,11 @@
 extends "res://Parts/Node.gd"
 onready var node = get_parent()
 onready var line_edit = get_node('LineEdit')
-onready var editor = get_node('/root/World/Main')
+onready var editor = get_node('/root/Hub/Main')
 onready var editor_level = editor.current_level
 func _ready():
 	mode_check()
 	pass
-
-#func change_value(new_value):
-#	if str(new_value) == null:
-#		print('null')
-#		set('modulate','74ffffff')
-#	else:
-#		set('modulate','ffffff')
-#	if str(new_value) == ' ':
-#		new_value = '/'
-#	.change_value(new_value)
 
 func _on_LineEdit_text_entered(new_text):
 	print(new_text)
