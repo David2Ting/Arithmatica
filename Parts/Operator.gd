@@ -146,8 +146,15 @@ func reset():
 	else:
 		on(false)
 		pressed(true)
-	
 
+func hint():
+	animation.play('Hint')
+
+func light(boo):
+	if boo:
+		set('modulate','ffffff')
+	elif !pressed:
+		set('modulate','adadad')
 func _on_AnimationPlayer_animation_finished(anim_name):
 	container.emit_signal('pop_finish')
 	pass # replace with function body

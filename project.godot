@@ -12,7 +12,6 @@ config_version=3
 
 config/name="Arithmatica"
 run/main_scene="res://Screens/Hub2.0.tscn"
-boot_splash/image="res://icon.png"
 config/icon="res://Images/Icon.png"
 
 [autoload]

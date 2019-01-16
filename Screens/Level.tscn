@@ -1,18 +1,17 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://Screens/Levels/Main_level.gd" type="Script" id=1]
 [ext_resource path="res://Images/Level/Background.png" type="Texture" id=2]
 [ext_resource path="res://Parts/Node_holder.tscn" type="PackedScene" id=3]
 [ext_resource path="res://Images/Stackup/Screen.png" type="Texture" id=4]
-[ext_resource path="res://Images/Calculator 1.png" type="Texture" id=5]
-[ext_resource path="res://Images/Fonts/BebasNeue-Regular.ttf" type="DynamicFontData" id=6]
+[ext_resource path="res://Images/Fonts/BebasNeue-Regular.ttf" type="DynamicFontData" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 
 size = 100
 use_mipmaps = false
 use_filter = false
-font_data = ExtResource( 6 )
+font_data = ExtResource( 5 )
 _sections_unfolded = [ "Font", "Settings" ]
 
 [node name="Level" type="Node2D"]
@@ -104,7 +103,6 @@ _sections_unfolded = [ "Transform", "Z Index" ]
 
 position = Vector2( -7.92345, -135.547 )
 scale = Vector2( 1.93322, 1.40041 )
-texture = ExtResource( 5 )
 
 [node name="Label" type="Label" parent="TipBox" index="1"]
 

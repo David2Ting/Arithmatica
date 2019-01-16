@@ -1,8 +1,7 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://Screens/Stack Up!/Goals.gd" type="Script" id=1]
 [ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=2]
-[ext_resource path="res://Images/Stackup/Row.png" type="Texture" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 
@@ -57,7 +56,6 @@ playback/speed = 1.0
 visible = false
 position = Vector2( -0.00154877, 46.4904 )
 scale = Vector2( 0.2, 0.2 )
-texture = ExtResource( 3 )
 _sections_unfolded = [ "Transform" ]
 
 

@@ -8,7 +8,7 @@ var mode = 'Infinity'
 var values = {'+':2,'-':2,'*':3,'/':3,'1':2}
 var summation_values = {'+':1,'-':-1,'*':3,'/':-1,'1':2}
 var score = 0
-
+var infinity_next_sound = preload("res://Sounds/Effects/Infinity_next.wav")
 
 var completed = false
 var selecting_menu = true setget change_selecting_menu
@@ -46,6 +46,8 @@ func _input(INPUT):
 			if selected_operators.size()>1:
 				for operator in selected_operators:
 					operator.pressed(false)
+				audio_player.stream = infinity_next_sound
+				audio_player.play()
 				setup_level(selected_operators)
 			elif selected_operators.size()==1:
 				selected_operators[0].pressed(false)
@@ -100,7 +102,10 @@ func hint():
 		var hint_pos = hint[0]
 		var hint_type = hint[1]
 		node_positions[hint_pos.y][hint_pos.x].hint(hint_type)
-	
+		for operator in operators_holder.operators:
+			if operator.value == hint_type:
+				operator.hint()
+				break
 func operate_chain():
 	if int(current_operator) > 0:
 		operate_specials()
@@ -143,8 +148,13 @@ func finish_movement():
 		selected_operators.clear()
 		operator_select_holder.calculate()
 		calculate_sum()
+	elif selecting_menu:
+		hub.on_block(false)
+		selected_operators.clear()
+		operator_select_holder.calculate()
 	else:
 		hub.on_block(false)
+
 	completed = false
 
 func _on_Tween_tween_completed(object, key):

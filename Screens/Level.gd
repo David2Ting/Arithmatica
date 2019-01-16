@@ -183,6 +183,7 @@ func gravity():
 	return empty
 
 func reset():
+	hub.on_block(true)
 	resetting = true
 	var reset_group_nodes = [[],[],[],[]]
 	var reset_group_operators = [[],[],[],[]]
@@ -255,6 +256,7 @@ func reset_level(reset_group_nodes,reset_group_operators):
 			pass
 	if hub.hint_box and main.level_number<100:
 		hub.hint_box.transparent(false)
+	hub.on_block(false)
 	resetting = false
 	emit_signal("reset_finished")
 
@@ -307,8 +309,9 @@ func _on_Tween_tween_completed(object, key):
 	pop_buffer = false
 	main.settled = true
 	main.calculator.value = 0
-	if main.level_number==100:
+	if main.level_number==100 and hub.mode == 'Levels':
 		hub.solved_100.appear()
+		print('appear')
 	pass # replace with function body
 
 

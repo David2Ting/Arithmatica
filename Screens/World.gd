@@ -196,9 +196,10 @@ func operate_specials():
 			elif operator == '/':
 				node.value = node.value/int(num)
 			node.select(false)
+		node.new_value()
 		if node.value == goal:
 			special_success(node)
-		node.new_value()
+
 		audio_player.stream = pop_sound
 		audio_player.play()
 	operators_holder.off_operator()

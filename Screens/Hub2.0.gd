@@ -51,6 +51,7 @@ var new_main
 var new_level
 var new_operator_holder
 var new_label
+var hint_sound = preload("res://Sounds/Effects/Hint.wav")
 func _ready():
 	globals.load_data()
 	change_mode(globals.user_data['mode'])
@@ -100,6 +101,7 @@ func change_mode(new_mode):
 	new_operator_holder.start()
 	new_label.start()
 	modes.get_children()[0].value = new_mode
+	modes.get_children()[0].slow_appear()
 	modes.get_children()[1].value = mode_labels[new_mode][0]
 	modes.get_children()[2].value = mode_labels[new_mode][1]
 	on_block(false)
@@ -247,6 +249,8 @@ func _on_TipsScreen_gui_input(ev):
 
 
 func _on_Hint_pressed():
+	audio_player.stream = hint_sound
+	audio_player.play()
 	new_main.hint()
 	pass # replace with function body
 

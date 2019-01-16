@@ -6,8 +6,7 @@ onready var reward_logo = get_node('Reward')
 var set_distance = null
 var upgrade_position = Vector2()
 var value = 5 setget change_value
-var reward = null setget change_reward
-var reward_images = {'row':"res://Images/Stackup/Row.png",'box':"res://Images/Stackup/Box.png",'screen':"res://Images/Stackup/Screen.png",'heart':"res://Images/Stackup/Heart.png"}
+
 func _ready():
 
 	pass
@@ -57,7 +56,4 @@ func death():
 	yield(tween,'tween_completed')
 	queue_free()
 
-func change_reward(new_reward):
-	pass
-	reward_logo.set_texture(load(reward_images[new_reward]))
 

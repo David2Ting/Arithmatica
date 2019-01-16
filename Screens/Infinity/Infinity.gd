@@ -54,8 +54,8 @@ func move(type):
 	var normal_pos = Vector2(0,-40)
 	var x = Vector2(level_size.x,0)*1.5
 	if type == 'forwards':
-		tween.interpolate_property(node_holder,'position',normal_pos+x,normal_pos,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
-		tween.interpolate_property(operator_select_holder,'position',normal_select_pos,normal_select_pos-x,1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.interpolate_property(node_holder,'position',normal_pos+x,normal_pos,2,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.interpolate_property(operator_select_holder,'position',normal_select_pos,normal_select_pos-x,2,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 		tween.start()
 		yield(get_tree().create_timer(.1), "timeout")
 		node_holder.show()

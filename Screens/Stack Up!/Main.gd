@@ -187,17 +187,7 @@ func random_goal():
 			rand = randi()%30
 	return rand
 
-func random_reward(goal):
-	var difficulty = find_difficulty(goal)
-	difficulty = round(rand_range(max(0,difficulty-5),difficulty+5))
-	if difficulty > 30:
-		return 'screen'
-	elif difficulty > 20:
-		return 'heart'
-	elif difficulty > 15:
-		return 'box'
-	else:
-		return 'row'
+
 func find_difficulty(goal):
 	var difficulty
 	difficulty = abs(goal)

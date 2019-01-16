@@ -41,7 +41,11 @@ func start():
 func setup_level(next_level,boo):
 	.setup_level(next_level,boo)
 	if level_number == progress_level and globals.tips.has(str(progress_level)):
-		hub.start_tip(str(progress_level))
+		if progress_level == 100:
+			if globals.user_data['100_methods'].size()<1:
+				hub.start_tip(str(progress_level))
+		else:
+			hub.start_tip(str(progress_level))
 
 
 func next_level():
@@ -78,7 +82,10 @@ func hint():
 		var hint_pos = hint[0]
 		var hint_type = hint[1]
 		node_positions[hint_pos.y][hint_pos.x].hint(hint_type)
-
+		for operator in operators_holder.operators:
+			if operator.value == hint_type:
+				operator.hint()
+				break
 func operate_chain():
 	if level_number == 100:
 		operate_chain_100()
