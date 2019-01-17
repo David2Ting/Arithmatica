@@ -3,6 +3,7 @@ extends Control
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
+var mode = null
 var hint_box = false
 func _ready():
 	var array1 = [[1,2,3],[1,2,3]]

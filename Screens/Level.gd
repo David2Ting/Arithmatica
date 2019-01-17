@@ -103,12 +103,18 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 				var behind_instance = behind_cell.instance()
 				var pos = Vector2(((node_number_x-1)*-0.5+x),((node_number_y-1)*-0.5+y))*node_size_area+node_centre
 				behind_instance.set('scale',Vector2(node_scale,node_scale))
+				print('testing')
+				if hub.mode == 'Infinity':
+					print('infinity')
+					behind_instance.set('modulate','b27fbd')
 				behind_instance.set_position(pos)
 				node_holder.add_child(behind_instance)
 				continue
 			var node_instance = node.instance()
 			node_holder.add_child(node_instance)
 			var behind_instance = behind_cell.instance()
+			if hub.mode == 'Infinity':
+				behind_instance.set('modulate','b27fbd')
 			node_holder.add_child(behind_instance)
 			node_positions[y].append(node_instance)
 			node_instance.set('scale',Vector2(node_scale,node_scale))

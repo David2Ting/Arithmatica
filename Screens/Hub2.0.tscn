@@ -17,7 +17,7 @@
 [ext_resource path="res://Images/Fonts/Calibri Family/calibrib.ttf" type="DynamicFontData" id=15]
 [ext_resource path="res://Screens/HighScore.gd" type="Script" id=16]
 [ext_resource path="res://Screens/Solved_100.gd" type="Script" id=17]
-[ext_resource path="res://Images/Stackup/Screen.png" type="Texture" id=18]
+[ext_resource path="res://Images/Stackup/Screen_white.png" type="Texture" id=18]
 [ext_resource path="res://Images/Stackup/Screen_front.png" type="Texture" id=19]
 [ext_resource path="res://Images/Level/Background.png" type="Texture" id=20]
 [ext_resource path="res://Images/Level/Operator_holder.png" type="Texture" id=21]
@@ -171,7 +171,7 @@ tracks/1/keys = {
 "values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ) ]
 }
 
-[node name="Hub" type="Node" index="0"]
+[node name="Hub" type="Node"]
 
 script = ExtResource( 1 )
 _sections_unfolded = [ "Mouse", "Size Flags" ]
@@ -804,10 +804,11 @@ _sections_unfolded = [ "Mouse", "Rect" ]
 
 [node name="Screen" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="0"]
 
+modulate = Color( 0.832902, 0.960938, 0.822052, 1 )
 scale = Vector2( 0.24, 0.24 )
 z_index = -5
 texture = ExtResource( 18 )
-_sections_unfolded = [ "Transform", "Z Index" ]
+_sections_unfolded = [ "Transform", "Visibility", "Z Index" ]
 
 [node name="ScreenFront" type="Sprite" parent="BaseContainer/VerticalContainer/Mid/Container" index="1"]
 
@@ -870,7 +871,6 @@ stretch_mode = 0
 
 [node name="Bottom" type="Container" parent="BaseContainer/VerticalContainer" index="2"]
 
-editor/display_folded = true
 anchor_left = 0.0
 anchor_top = 0.0
 anchor_right = 0.0
@@ -903,7 +903,7 @@ _sections_unfolded = [ "Mouse" ]
 
 [node name="Left" type="Sprite" parent="BaseContainer/VerticalContainer/Bottom/Container" index="0"]
 
-position = Vector2( -495.554, 0.410095 )
+position = Vector2( -493.884, 0.410095 )
 scale = Vector2( 1.32304, 0.38062 )
 texture = ExtResource( 20 )
 _sections_unfolded = [ "Transform", "Z Index" ]
