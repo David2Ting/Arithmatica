@@ -91,7 +91,6 @@ func operate_chain():
 		operate_chain_100()
 		return
 	else:
-		print('operate')
 		.operate_chain()
 func operate_chain_100():
 	var numbers = []
@@ -130,12 +129,10 @@ func success_100(last_node):
 	audio_player.play()
 	var new = true
 	for method in previous_methods_100:
-		print(method)
 		if method_100 == method:
 			new = false
 			break
 
-	print(method_100)
 	if new:
 		previous_methods_100.append([]+method_100)
 		solved_100.set_text('Solved: '+str(previous_methods_100.size()))
@@ -172,7 +169,6 @@ func tips(type):
 	dialogue_number = 0
 	current_level.tip_box.show()
 	current_level.tip_box_label.set_text(dialogue[0])
-	print(dialogue)
 	pass
 	
 

@@ -73,8 +73,10 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 	var node_number_x = map_new[0].size()
 	var node_number_y = map_new.size()
 #	operators_holder.set_position(Vector2(0,globals.y_size/1.15-(globals.y_size/2)))
-	var level_size = (screen_size)/1.1
+	var level_size = (screen_size)/0.9
 	node_size_area = min(level_size.x/node_number_x,level_size.y/node_number_y)
+	node_size_area = clamp(node_size_area,0,900)
+	print(node_size_area)
 	var node_scale_area = node_size_area/400
 	node_scale = node_scale_area/1.05
 	node_positions = []
@@ -103,9 +105,7 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 				var behind_instance = behind_cell.instance()
 				var pos = Vector2(((node_number_x-1)*-0.5+x),((node_number_y-1)*-0.5+y))*node_size_area+node_centre
 				behind_instance.set('scale',Vector2(node_scale,node_scale))
-				print('testing')
 				if hub.mode == 'Infinity':
-					print('infinity')
 					behind_instance.set('modulate','b27fbd')
 				behind_instance.set_position(pos)
 				node_holder.add_child(behind_instance)
@@ -317,7 +317,6 @@ func _on_Tween_tween_completed(object, key):
 	main.calculator.value = 0
 	if main.level_number==100 and hub.mode == 'Levels':
 		hub.solved_100.appear()
-		print('appear')
 	pass # replace with function body
 
 

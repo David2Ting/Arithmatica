@@ -22,7 +22,6 @@ func start():
 	score = globals.user_data['infinity_score']
 	if score == 0:
 		hub.start_tip('infinity_starter')
-	print('score:'+str(score))
 	level_select.value = score
 	tween = get_node('Tween')
 	hub = get_node('../')
@@ -89,7 +88,6 @@ func setup_level(operators):
 	current_level.create_level(operator_group,sum)
 
 func next_level():
-	print('next')
 	change_selecting_menu(true)
 	current_level.move('to_select')
 	level_select.back_sign(false)
@@ -173,8 +171,6 @@ func change_selecting_menu(boo):
 		hub.hint_box.transparent(true)
 		hub.reset_box.transparent(true)
 func add_score(score):
-	print(level_select.value)
-	print(score)
 	level_select.value+=score
 	globals.user_data['infinity_score'] = level_select.value
 	globals.save_data()

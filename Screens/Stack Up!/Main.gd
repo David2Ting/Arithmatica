@@ -17,6 +17,9 @@ var difficulty_progress = 1
 var progress
 var high_score
 
+var game_over_sound = preload("res://Sounds/Effects/Infinity_next.wav")
+var reset_game_sound = preload("res://Sounds/Effects/new_mode.wav")
+
 var level_1 = [1,2,3,4,5,6,7,8,9,10,12]
 var level_2 = [-1,1,2,3,4,5,6,7,8,9,10,11,12,14,16,18,20,24,25]
 var level_3 = [-3,-2,-1,11,13,14,15,16,17,18,19,20,21,22,24,25,27,28,30,32,35]
@@ -69,7 +72,6 @@ func operate_chain():
 			var dropping = current_level.check_above_entire(select_chain)
 			current_level.pop_nodes(select_chain,false)
 			last_node.pressed(false)
-			print(last_node.drop_amount)
 			if last_node.drop_amount > 0:
 				yield(current_level,'tween_completed')
 			success(last_node,index,dropping)
@@ -91,7 +93,6 @@ func operate_chain():
 			if dropping:
 				yield(current_level,'tween_completed')
 			elif current_level.popping_nodes:
-				print('popping')
 				yield(current_level,'pop_finish')
 			current_level.transition_timer.start()
 			yield(current_level.transition_timer,'timeout')
@@ -149,10 +150,10 @@ func add_goal(side,first=false):
 						break
 	difficulty_progress += 0.15
 	if !second_goal and !first:
-		print('second_row')
 		current_level.transition_timer.start()
 		yield(current_level.transition_timer,'timeout')
 		current_level.add_row()
+		calculator.value = 0
 
 func random_goal():
 	var current_difficulty = int(difficulty_progress)
@@ -181,7 +182,6 @@ func random_goal():
 		var rand_index = randi()%potential_goals.size()
 		rand = potential_goals[rand_index]
 		safety+=1
-	print(next_goal)
 	if safety == 20:
 		while !rand or black_list_numbers.find(rand)>-1 or (rand<0 and has_negative):
 			rand = randi()%30
@@ -235,10 +235,13 @@ func change_health(amount):
 	return
 
 func game_over():
-	print('game')
+	hub.audio_player_2.stream=game_over_sound
+	hub.audio_player_2.play()
 	hub.miscellaneous.change_final_score(total_points)
 	hub.miscellaneous.stack_up_appear()
 func reset():
+	hub.audio_player.stream = reset_game_sound
+	hub.audio_player.play()
 	hub.miscellaneous.stack_up_disappear()
 	hub.change_mode('Stacks')
 

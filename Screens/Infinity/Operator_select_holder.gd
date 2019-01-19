@@ -66,7 +66,6 @@ func pop(operators):
 	for operator in new_operators:
 		main.audio_player.stream = main.pop_sound
 		main.audio_player.play()
-		print(new_operators)
 		var type = str(operator.value)[0]
 		var value = operator_values[type]
 		operator_positions[operator.pos.y][operator.pos.x] = null

@@ -6,8 +6,9 @@ var y_size = 960
 var colours = {'+':'f16067','-':'aad66c','*':'fbd650','/':'4aa0b5','0':'c2c2c2','1':'da44eb'}  #e500ff
 var actual_level_size = Vector2()
 var tips = {'1':[['Welcome to Arithmatica!','default'],['This is your goal','goal'],['You make it by using these\nnumbers','node_holder'],['By selecting an operator','operator_holder'],['Then selecting the numbers\nto operate','node_holder']],
-'10':[['If you ever get stuck\npress the hint button','hint'],['It will tell you the first\nnumber and operator to use','hint'],['Check out the other two\nmodes by pressing the button\nin the top left corner','modes']],
+'10':[['If you ever get stuck\npress the hint button','hint'],['It will tell you the\n first number and operator\n to use','hint'],['Check out the other two\nmodes by pressing the\n button in the\ntop left corner','modes']],
 '40':[['Purple operators are\nspecial operators','1'],['Instead of combining\nnumbers they apply to\nall selected numbers','1'],['This operator squares\neach number you\nselected','1']],
+'80':[['This operator is\nthe modulus operator','1'],['It divides a number\nand returns the remainder','1']],
 '100':[['Welcome to the\nfinal level','default'],['The challenge in this\nlevel is to find as\nmany ways as possible\nto get 100','default'],['The game will record\nhow many ways you\nsolved it','default'],['Goodluck and thankyou\n for playing xD','default']],
 'stack_up_starter':[['Welcome to Stacks!','default'],['The goal of this\ngamemode is to\nscore as many\npoints as possible','default'],['Each time you use\nan operator\na row is added','default'],['Clear rows by\nmaking one of\nthe two goals','current_goal'],['When the board is \n full, its game over','default'],['Click the help icon\nfor a complete\nexplanation of\nthe rules','hints']],
 'stack_up_full':[['In Stacks you\nchoose random operators\nto make the goal','current_goal'],['You can only operate\non up to 4 numbers','default'],['Each move you make\nwill add another row\nuntil it is full','default'],['As you progress\nthe difficulty of the\ngoals will become harder','current_goal'],
@@ -35,9 +36,9 @@ func load_data():
 		for key in default_user:
 			if !user_data.has(key):
 				user_data[key]=default_user[key]
-		if user_data['level'] == 100:
-			user_data['level'] = 1
-		elif user_data['level'] > 100:
+#		if user_data['level'] == 100:
+#			user_data['level'] = 1
+		if user_data['level'] > 100:
 			user_data['level'] = 100
 
 	else:

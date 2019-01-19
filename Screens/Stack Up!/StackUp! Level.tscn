@@ -26,7 +26,7 @@ visible = false
 [node name="Node_holder" parent="." index="4"]
 
 position = Vector2( 0.0415783, 212.975 )
-z_index = -3
+z_index = -4
 
 [node name="Timer" type="Timer" parent="." index="9"]
 

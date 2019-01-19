@@ -102,8 +102,6 @@ func setup_level(new_level,forwards):
 		hint = [Vector2(new_level[3][0][0],new_level[3][0][1]),new_level[3][1]]
 	else:
 		hint = [null,null]
-	print(hint)
-#	change_goal(new_level[0])
 
 	node_positions = current_level.node_positions
 	current_level.show()

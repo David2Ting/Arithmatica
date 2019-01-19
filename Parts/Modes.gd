@@ -3,7 +3,8 @@ extends TextureButton
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar""res://Images/Top bar/Modes/Infinity.png"
-onready var label = get_node('Label')
+onready var label = get_node('LabelNode/Label')
+onready var label_node = get_node('LabelNode')
 onready var animation = get_node('AnimationPlayer')
 onready var hub = get_node('../../../../../../')
 onready var modes = get_node('../')

@@ -19,6 +19,7 @@ var pressed = false
 var active = true
 func _ready():
 	change_value(value)
+	pressed(false)
 	pass
 
 func _process(delta):

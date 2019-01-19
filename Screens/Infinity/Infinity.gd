@@ -10,7 +10,7 @@ var hint = [null,null]
 func start():
 	.start()
 	operator_select_holder = get_node('Operator_select_holder')
-	level_size = screen_size/1.2
+	level_size = screen_size/1.05
 	operator_select_holder.hide()
 	operator_select_holder.start()
 	operator_select_holder.load_operators()
@@ -29,13 +29,12 @@ func disappear():
 		tween.interpolate_property(operator_select_holder,'position',Vector2(0,0),Vector2(0,-y_size),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	else:
 		var x_size = globals.x_size
-		tween.interpolate_property(node_holder,'position',Vector2(0,0),Vector2(x_size,0),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
+		tween.interpolate_property(node_holder,'position',Vector2(0,-40),Vector2(x_size,-40),1.5,tween.TRANS_QUAD,tween.EASE_IN_OUT)
 	tween.start()
 	yield(tween,'tween_completed')
 	hub.emit_signal('queue_free')
 
 func create_level(operator_group,sum):
-	print(operator_group)
 	var operators = []
 	for operator in operator_group:
 		operators.append(operator[0])
