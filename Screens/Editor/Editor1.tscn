@@ -43,7 +43,12 @@ visible = false
 
 [node name="Level_select" parent="BaseContainer/VerticalContainer/Upper/Top" index="2" instance=ExtResource( 3 )]
 
+modulate = Color( 1, 1, 1, 1 )
 script = ExtResource( 4 )
+
+[node name="LineEdit" parent="BaseContainer/VerticalContainer/Upper/Top/Level_select" index="3"]
+
+visible = true
 
 [node name="Editor_button" parent="BaseContainer/VerticalContainer/Upper/Top" index="3" instance=ExtResource( 5 )]
 
@@ -209,3 +214,4 @@ script = ExtResource( 11 )
 [connection signal="pressed" from="BaseContainer/VerticalContainer/Bottom/Remove" to="Main" method="_on_Remove_pressed"]
 
 
+[editable path="BaseContainer/VerticalContainer/Upper/Top/Level_select"]
