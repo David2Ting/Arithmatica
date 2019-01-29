@@ -13,7 +13,6 @@ func _ready():
 
 
 func change_value(new_value):
-	print(new_value)
 	value = new_value
 	label.set_text(str(new_value))
 

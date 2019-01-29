@@ -57,12 +57,9 @@ func calculate(operator_groups,sum):
 			rand = non_zero_indexes[rand]
 		else:
 			rand = randi()%chain.size()
-#		if i+1<random_order.size() and str(random_order[i+1][0]) == '*':
-#			rand = factor_strat(chain)
 		last_chain = [chain,rand,i]
 		chain_group.append(chain)
-	print(chain_group)
-	print(black_list_goals)
+#	print(chain_group)
 	return [chain_group,running_sum]
 
 func specials(operator,last_chain):
@@ -145,7 +142,7 @@ func addition(sub_sum,times):
 	var index = chain.find(running_sum)
 	if is_last:
 		while black_list_goals.find(sub_sum)>-1:
-			var rand = randi()%5
+			var rand = randi()%5+1
 			sub_sum += rand
 			chain.append(rand)
 	running_sum = sub_sum
@@ -193,6 +190,7 @@ func subtraction(sub_sum,times):
 			added_sum += result
 		var result = randi()%10+5
 		chain.push_front(added_sum+result)
+		black_list_goals.append(added_sum+result)
 		sub_sum = result
 	
 #	if running_sum == goal:
@@ -205,7 +203,6 @@ func subtraction(sub_sum,times):
 			sub_sum -= rand
 			chain.append(rand)
 	running_sum = sub_sum
-	print('subtraction'+str(running_sum))
 #	chain = random(chain)
 #	chain.invert()
 	return [chain,index]
@@ -223,7 +220,7 @@ func multiplication(sub_sum,times):
 	for i in range(times-1):
 		var aimed_num = 3
 		var result = null
-		result = distribute(aimed_num,5,12)
+		result = distribute(aimed_num,5,10)
 		sub_sum *= result
 		var order = randi()%2
 		if order>0:
@@ -245,6 +242,7 @@ func multiplication(sub_sum,times):
 	return [chain,index]
 
 func division(sub_sum,times):
+	times = 2
 	var chain
 	var is_front = false
 	if !sub_sum:
@@ -275,12 +273,13 @@ func division(sub_sum,times):
 			var rand = randi()%5
 			sub_sum = rand
 			chain.push_front(sub_sum*rand)
+			black_list_goals.append(sub_sum*rand)
 	else:
 		for i in range(times-2):
-			var aimed_num = 5
+			var aimed_num = 2
 			var result = null
 	#		while !result or result == goal:
-			result = distribute(aimed_num,5,sub_sum)
+			result = distribute(aimed_num,5,5)
 			var order = randi()%2
 			if order>0:
 				chain.append(result)
@@ -288,12 +287,12 @@ func division(sub_sum,times):
 				chain.push_front(result)
 			black_list_goals.append(result)
 			added_sum *= result
-			print('division'+str(result))
-	var result = randi()%4+1
-	if chain.size() == 1:
-		result = randi()%20+1
-	chain.push_front(added_sum*result)
-	sub_sum = result
+		var result = randi()%4+1
+#		if chain.size() == 1:
+#			result = randi()%5+1
+		chain.push_front(added_sum*result)
+		black_list_goals.append(added_sum*result)
+		sub_sum = result
 	
 #	if running_sum == goal:
 #		return [false]

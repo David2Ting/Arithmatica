@@ -56,7 +56,6 @@ func back_sign(boo):
 
 
 func _on_Level_select_pressed():
-	print('test')
 	if back_sign:
 		back_sign(false)
 		main.change_selecting_menu(true)

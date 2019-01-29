@@ -26,15 +26,11 @@ func build(chain_group):
 		else:
 			locations[starting_area.y][starting_area.x] = null
 		check_spot = starting_area
-#		print('forward')
 		for i in range(group[1]-1,-1,-1):
 			check_spot = place_locations(check_spot,group,i)
-#			print(group[0][i])
 		check_spot = starting_area
-#		print('backward')
 		for i in range(group[1]+1,group[0].size()):
 			check_spot = place_locations(check_spot,group,i)
-#			print(group[0][i])
 		gravity()
 	return create_map()
 
@@ -98,6 +94,12 @@ func create_map():
 		new_map.append([])
 		for x in range(minX,maxX+1):
 			new_map[y-minY].append(map[y][x])
+	
+	for x in range(new_map[0].size()):
+		var check_y = 0
+		while str(new_map[check_y][x]) == '/' and check_y < new_map.size():
+			new_map[check_y][x] = '.'
+			check_y+=1
 	return new_map
 
 func gravity():

@@ -13,7 +13,6 @@ func change_value(new_value):
 	var old_value = value
 	.change_value(new_value)
 	if level and old_value:
-		print('test')
 		if level.number_counts.has(str(new_value)):
 			level.number_counts[str(new_value)]+=1
 			if level.number_counts[str(new_value)] > 3:

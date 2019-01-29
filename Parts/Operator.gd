@@ -19,6 +19,7 @@ var pressed = false
 var active = true
 func _ready():
 	change_value(value)
+	pressed(false)
 	pass
 
 func _process(delta):
@@ -146,8 +147,15 @@ func reset():
 	else:
 		on(false)
 		pressed(true)
-	
 
+func hint():
+	animation.play('Hint')
+
+func light(boo):
+	if boo:
+		set('modulate','ffffff')
+	elif !pressed:
+		set('modulate','adadad')
 func _on_AnimationPlayer_animation_finished(anim_name):
 	container.emit_signal('pop_finish')
 	pass # replace with function body

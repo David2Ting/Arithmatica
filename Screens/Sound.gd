@@ -19,7 +19,6 @@ func change_value(new_value):
 	var texture = load(textures[new_value])
 	set_normal_texture(texture)
 	globals.user_data['audio'] = new_value
-	print(new_value)
 	globals.save_data()
 	if new_value == 1:
 		hub.music_player.set_volume_db(-100)

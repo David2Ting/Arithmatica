@@ -103,8 +103,6 @@ func setup_level(new_level,forwards):
 	else:
 		hint = [null,null]
 	print(hint)
-#	change_goal(new_level[0])
-
 	node_positions = current_level.node_positions
 	current_level.show()
 	current_level.load_level(map,level_operators,new_level[0],forwards,hint)
@@ -196,9 +194,10 @@ func operate_specials():
 			elif operator == '/':
 				node.value = node.value/int(num)
 			node.select(false)
+		node.new_value()
 		if node.value == goal:
 			special_success(node)
-		node.new_value()
+
 		audio_player.stream = pop_sound
 		audio_player.play()
 	operators_holder.off_operator()

@@ -53,7 +53,6 @@ func reward(type,node,index):
 			var chain = []
 			var check_pos_right = pos_x
 			var check_pos_left = pos_x
-			print([node_positions[0].size()-1-pos_x,pos_x])
 			for x in range(max(node_positions[0].size()-1-pos_x,pos_x)):
 				check_pos_right+=1
 				var all_prepared = true
@@ -72,9 +71,7 @@ func reward(type,node,index):
 					node_positions[pos.y][check_pos_left].destroy_prepare()
 					chain.append(node_positions[pos.y][check_pos_left])
 					all_prepared = false
-				print('1')
 				if all_prepared:
-					print('all_prepared')
 					break
 				timer.start()
 				yield(timer,'timeout')
@@ -93,8 +90,10 @@ func reward(type,node,index):
 			
 			chain.append(1)
 			main.add_points((chain.size()-1)*5)
+			timer.set_wait_time(0.1)
 			timer.start()
 			yield(timer,'timeout')
+			timer.set_wait_time(0.2)
 			if chain.size()>1:
 				hub.audio_player.stream = main.pop_sound
 				hub.audio_player.play()
@@ -121,6 +120,7 @@ func reward(type,node,index):
 
 		main.current_goal_position[index].death()
 		main.add_goal(index)
+
 
 func pop_nodes(select_chain,is_success):
 	var node

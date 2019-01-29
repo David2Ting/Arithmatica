@@ -10,7 +10,7 @@ config_version=3
 
 [application]
 
-config/name="Infinity 2.0 GitHub"
+config/name="Arithmatica"
 run/main_scene="res://Screens/Hub2.0.tscn"
 config/icon="res://Images/Icon.png"
 
@@ -41,3 +41,4 @@ right_click=[ Object(InputEventMouseButton,"resource_local_to_scene":false,"reso
 
 environment/default_clear_color=Color( 1, 1, 1, 1 )
 environment/default_environment="res://default_env.tres"
+quality/dynamic_fonts/use_oversampling=true

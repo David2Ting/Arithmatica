@@ -3,20 +3,23 @@ extends Node
 signal queue_free
 signal finish_cull
 signal mode_changed
+signal start_change
 var mains = {'Levels':"res://Screens/Levels/Main_isolated.tscn",'Stacks':"res://Screens/Stack Up!/Main_isolated.tscn",'Infinity':"res://Screens/Infinity/Main_isolated.tscn"}
 var levels = {'Levels':"res://Screens/Level.tscn",'Stacks':"res://Screens/Stack Up!/StackUp! Level.tscn",'Infinity':"res://Screens/Infinity/Infinity.tscn"}
 var operator_holders = {'Levels':"res://Parts/Operators_holder.tscn",'Stacks':"res://Screens/Stack Up!/Operators_holder.tscn",'Infinity':"res://Parts/Operators_holder.tscn"}
 var labels = {'Levels':"res://Parts/Level_select.tscn",'Stacks':"res://Screens/Stack Up!/Level_select.tscn",'Infinity':"res://Screens/Stack Up!/Level_select.tscn"}
 var mode_labels = {'Levels':['Stacks','Infinity'],'Stacks':['Levels','Infinity'],'Infinity':['Levels','Stacks']}
-
+var mode_colours = {'Levels':Color(0.8196,0.9608,0.9882,1),'Stacks':Color(0.8314,0.9608,0.8220,1),'Infinity':Color(0.8963,0.8449,0.9570,1)}
 var mode_menu = false
 var mode = 'Levels'
 onready var modes = get_node('BaseContainer/VerticalContainer/Upper/Top/Modes')
 onready var modes_timer = modes.get_node('ModesTimer')
 onready var modes_screen = get_node('BaseContainer/ModesScreen')
 onready var level_area = get_node('BaseContainer/VerticalContainer/Mid/Container')
+onready var screen = level_area.get_node('Screen')
 onready var operator_holders_area = get_node('BaseContainer/VerticalContainer/Bottom/Container')
 onready var operator_holder_sprite = operator_holders_area.get_node('Sprite')
+onready var operator_holder_sprite_2 = operator_holders_area.get_node('Sprite2')
 onready var label_area = get_node('BaseContainer/VerticalContainer/Upper/Top')
 onready var goal_container = get_node('BaseContainer/VerticalContainer/Upper/GoalContainer/Container/GoalContainer')
 onready var block = get_node('Block')
@@ -39,9 +42,10 @@ onready var hint_label = get_node('BaseContainer/VerticalContainer/Upper/High/Ri
 
 onready var song = preload("res://Sounds/Arithmatica icing.wav")
 onready var song_start = preload("res://Sounds/Arithmatica icing start.wav")
-
+onready var tween = get_node('Tween')
 onready var transition_timer = get_node('TransitionTimer')
 onready var solved_100 = get_node('BaseContainer/VerticalContainer/Upper/GoalContainer/Solved_100')
+onready var loading = get_node('Loading_screen').get_node('AnimationPlayer')
 var tips
 var tip_count = 0
 var tip_place
@@ -51,19 +55,27 @@ var new_main
 var new_level
 var new_operator_holder
 var new_label
+var hint_sound = preload("res://Sounds/Effects/Hint.wav")
 func _ready():
 	globals.load_data()
 	change_mode(globals.user_data['mode'])
 	music_player.stream = song_start
 	music_player.play()
 	audio_option.value = globals.user_data['audio']
+	yield(self,'start_change')
+	modes.get_children()[0].slow_appear()
 	# Called when the node is added to the scene for the first time.
 	# Initialization here
 	pass
 
 func change_mode(new_mode):
+	var loading_screen = false
+	if new_main:
+		loading.play('Appear')
+		loading_screen = true
 	on_block(true)
-
+	tween.interpolate_property(screen,'modulate',screen.get('modulate'),mode_colours[new_mode],1.5,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
+	tween.start()
 	mode = new_mode
 	
 	if new_mode == 'Levels':
@@ -73,12 +85,14 @@ func change_mode(new_mode):
 		reset_box.appear()
 		reset_box.transparent(true)
 		solved_100.disappear()
+		hint_box.transparent(true)
 	else:
 		reset_box.disappear()
 	
 	if new_mode == 'Stacks':
 		high_score.appear()
 		hint_box.type = '?'
+#		hint_box.transparent(false)
 		solved_100.disappear()
 	else:
 		high_score.disappear()
@@ -86,8 +100,19 @@ func change_mode(new_mode):
 	if new_main:
 		cull_previous()
 		yield(self,'finish_cull')
-	
+#	print(screen.get('modulate')*255)
 	yield(get_tree().create_timer(0.5),'timeout')
+	emit_signal('start_change')
+
+	if new_mode == 'Levels':
+		hint_box.transparent(false)
+	elif new_mode == 'Infinity':
+		pass
+	else:
+		hint_box.transparent(false)
+	if loading_screen:
+		loading.play('Disappear')
+
 	new_main = load(mains[new_mode]).instance()
 	new_level = load(levels[new_mode]).instance()
 	new_operator_holder = load(operator_holders[new_mode]).instance()
@@ -178,10 +203,11 @@ func tips_next():
 		elif placing == 'node_holder':
 			tip_place = [new_level.node_holder]
 		elif placing == 'operator_holder':
-			tip_place = [new_operator_holder,operator_holder_sprite]
+			tip_place = [new_operator_holder,operator_holder_sprite,operator_holder_sprite_2]
 		elif placing == 'reset_button':
 			tip_place = [reset]
 		elif placing == 'current_goal':
+			print('current')
 			tip_place = new_main.current_goal_position
 		elif placing == 'next_goal':
 			tip_place = new_main.next_goal_position
@@ -189,6 +215,8 @@ func tips_next():
 			tip_place = [new_label]
 		elif placing == 'hint':
 			tip_place = [hint_box.get_node('../')]
+		elif placing == 'modes':
+			tip_place = [modes.get_children()[0].label_node]
 		elif int(placing) > 0:
 			tip_place = [new_operator_holder.operators[int(placing)]]
 		else:
@@ -198,7 +226,7 @@ func tips_next():
 		if tip_place:
 			for i in range(tip_place.size()):
 				tip_place_z.append(tip_place[i].get('z_index'))
-				tip_place[i].set('z_index',2-i)
+				tip_place[i].set('z_index',3-i)
 
 
 		tip_count+=1
@@ -246,6 +274,8 @@ func _on_TipsScreen_gui_input(ev):
 
 
 func _on_Hint_pressed():
+	audio_player.stream = hint_sound
+	audio_player.play()
 	new_main.hint()
 	pass # replace with function body
 

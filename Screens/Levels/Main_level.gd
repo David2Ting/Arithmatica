@@ -22,7 +22,6 @@ func disappear():
 func reset():
 	.reset()
 	if main.level_number == 100 and main.success_node:
-		print(main.success_node.get_node('Image_holder/Sprite'))
 		main.success_node.get_node('Image_holder/Sprite').set('modulate','ffffff')
 
 	main.method_100 = [[],[],[],[]]

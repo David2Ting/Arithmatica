@@ -23,7 +23,6 @@ func transparent(boo):
 	if boo:
 		label.set('self_modulate',Color(1,1,1,0.3))
 		set('mouse_filter',2)
-		print('disappear')
 	else:
 		label.set('self_modulate',Color(1,1,1,1))
 		set('mouse_filter',0)

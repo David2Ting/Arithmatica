@@ -3,10 +3,12 @@ extends TextureButton
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar""res://Images/Top bar/Modes/Infinity.png"
-onready var label = get_node('Label')
+onready var label = get_node('LabelNode/Label')
+onready var label_node = get_node('LabelNode')
 onready var animation = get_node('AnimationPlayer')
 onready var hub = get_node('../../../../../../')
 onready var modes = get_node('../')
+onready var tween = get_node('Tween')
 export var size = 1
 export var current_mode = false
 var images = {'Levels':"res://Images/Top bar/Modes/Levels.png",'Stacks':"res://Images/Top bar/Modes/StackUp.png",'Infinity':"res://Images/Top bar/Modes/Infinity.png"}
@@ -29,13 +31,18 @@ func change_value(new_value):
 		label.set_text(new_value)
 		label.set('custom_colors/font_color',colours[value])
 		if new_value == 'Infinity':
-			label.set('rect_scale',Vector2(0.9,0.9))
+			label.set('rect_scale',Vector2(0.85,0.85))
 		else:
 			label.set('rect_scale',Vector2(1,1))
-	show()
+#	show()
 func appear():
 	show()
 	animation.play('Appear')
+
+func slow_appear():
+	show()
+	tween.interpolate_property(self,'modulate',Color(1,1,1,0),Color(1,1,1,1),1,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
+	tween.start()
 
 func disappear():
 	animation.play('Disappear')

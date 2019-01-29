@@ -5,16 +5,18 @@ var y_size = 960
 
 var colours = {'+':'f16067','-':'aad66c','*':'fbd650','/':'4aa0b5','0':'c2c2c2','1':'da44eb'}  #e500ff
 var actual_level_size = Vector2()
-var tips = {'1':[['Welcome to Arithmatica!','default'],['Your goal the game is to make this number','goal'],['To do so you combine these numbers','node_holder'],['By selecting an operator','operator_holder'],['Then selecting the numbers to operate','node_holder']],
-'10':[['If you ever get stuck, press the hint button','hint'],['It will tell you the first number and operator to use','hint'],['Check out the other two modes by pressing the button in the top left corner','modes']],
-'40':[['Purple operators are special operators','1'],['Instead of combining numbers, they apply to all selected numbers','1'],['For example this operator would square each number you selected','1']],
-'stack_up_starter':[['Welcome to stacks!','default'],['The goal of this gamemode is to score as many points as possible','goal'],['Each time you use an operator, a row is added','default'],['Clear rows by making one of the two goals','goal'],['If the board fills up, its game over','default'],['Click the help icon for a complete explanation of the rules','hints']],
-'stack_up_full':[['Stack up is a game is about thinking ahead to the next goal','default'],['Each move you make will add another row until you get to the top','default'],['As you progress the difficulty the goals will become harder','current_goal'],
-['Scoring multiple goals in a row will add to a streak','current_goal'],['The larger the streak, the more rows are destroyed from achieving the goal','default'],['If you prepare the next goal, once you score the current goal the next goal will score immediately','next_goal'],
-['Points are scored based on how many numbers are destroyed from scoring goals','score']],
+var tips = {'1':[['Welcome to Arithmatica!','default'],['This is your goal','goal'],['You make it by using these\nnumbers','node_holder'],['By selecting an operator','operator_holder'],['Then selecting the numbers\nto operate','node_holder']],
+'10':[['If you ever get stuck\npress the hint button','hint'],['It will tell you the\n first number and operator\n to use','hint'],['Check out the other two\nmodes by pressing the\n button in the\ntop left corner','modes']],
+'40':[['Purple operators are\nspecial operators','1'],['Instead of combining\nnumbers they apply to\nall selected numbers','1'],['This operator squares\neach number you\nselected','1']],
+'80':[['This operator is\nthe modulus operator','1'],['It divides a number\nand returns the remainder','1']],
+'100':[['Welcome to the\nfinal level','default'],['The challenge in this\nlevel is to find as\nmany ways as possible\nto get 100','default'],['The game will record\nhow many ways you\nsolved it','default'],['Goodluck and thankyou\n for playing xD','default']],
+'stack_up_starter':[['Welcome to Stacks!','default'],['The goal of this\ngamemode is to\nscore as many\npoints as possible','default'],['Each time you use\nan operator\na row is added','default'],['Clear rows by\nmaking one of\nthe two goals','current_goal'],['When the board is \n full, its game over','default'],['Click the help icon\nfor a complete\nexplanation of\nthe rules','hints']],
+'stack_up_full':[['In Stacks you\nchoose random operators\nto make the goal','current_goal'],['You can only operate\non up to 4 numbers','default'],['Each move you make\nwill add another row\nuntil it is full','default'],['As you progress\nthe difficulty of the\ngoals will become harder','current_goal'],
+['Scoring multiple\ngoals in a row\nwill add to a streak','current_goal'],['A row will be\ndestroyed depending\non the size of\nthe streak','default'],['If you make one of\nthe next goals\nonce you get the current\n goal it will score\n immediately','next_goal'],
+['Points are scored\nbased on how\nmany numbers are\ndestroyed from goals','score']],
 
-'infinity_starter':[['Welcome to infinity!','default'],['In this gamemode you select up to 4 operators','default'],['And a random level using them will be generated','default'],
-['However in this mode you need to use all the numbers on the map to make the goal','default'],['The harder and the more operators you use, the more points you will score on level completion','score']]
+'infinity_starter':[['Welcome to infinity!','default'],['In this gamemode you\nselect up to 4 operators','default'],['And a random level\nusing them will\nbe generated','default'],
+['However in this\nmode you need to\nuse all the numbers\non the level\nto make the goal','default'],['The harder and the\nmore operators you use\nthe more points you\nwill score on level\ncompletion','score']]
 
 }
 
@@ -34,9 +36,9 @@ func load_data():
 		for key in default_user:
 			if !user_data.has(key):
 				user_data[key]=default_user[key]
-		if user_data['level'] == 100:
-			user_data['level'] = 1
-		elif user_data['level'] > 100:
+#		if user_data['level'] == 100:
+#			user_data['level'] = 1
+		if user_data['level'] > 100:
 			user_data['level'] = 100
 
 	else:

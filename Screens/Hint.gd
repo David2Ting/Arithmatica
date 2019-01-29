@@ -10,10 +10,10 @@ func _ready():
 
 func transparent(boo):
 	if boo:
-		set('modulate','f7f7f7')
+		label.set('self_modulate','f6f6f6')
 		set('mouse_filter',2)
 	else:
-		set('modulate','d9d9d9')
+		label.set('self_modulate','bdbdbd')
 		set('mouse_filter',0)
 
 func change_type(new_type):
@@ -25,18 +25,18 @@ func change_type(new_type):
 		tween.interpolate_property(label,'modulate',Color(1,1,1,0),Color(1,1,1,1),1,Tween.TRANS_LINEAR,Tween.EASE_IN_OUT)
 		tween.start()
 		if new_type == '?':
-			label.get('custom_fonts/font').set('size',60)
+			label.get('custom_fonts/font').set('size',70)
 		else:
-			label.get('custom_fonts/font').set('size',40)
+			label.get('custom_fonts/font').set('size',50)
 	type = new_type
 
 
 
 func _on_Hint_button_down():
-	set('modulate','e9e9e9')
+	label.set('self_modulate','f6f6f6')
 	pass # replace with function body
 
 
 func _on_Hint_button_up():
-	set('modulate','d9d9d9')
+	label.set('self_modulate','bdbdbd')
 	pass # replace with function body

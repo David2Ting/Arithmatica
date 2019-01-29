@@ -73,8 +73,10 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 	var node_number_x = map_new[0].size()
 	var node_number_y = map_new.size()
 #	operators_holder.set_position(Vector2(0,globals.y_size/1.15-(globals.y_size/2)))
-	var level_size = (screen_size)/1.1
+	var level_size = (screen_size)/0.9
 	node_size_area = min(level_size.x/node_number_x,level_size.y/node_number_y)
+	node_size_area = clamp(node_size_area,0,900)
+	print(node_size_area)
 	var node_scale_area = node_size_area/400
 	node_scale = node_scale_area/1.05
 	node_positions = []
@@ -103,12 +105,16 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 				var behind_instance = behind_cell.instance()
 				var pos = Vector2(((node_number_x-1)*-0.5+x),((node_number_y-1)*-0.5+y))*node_size_area+node_centre
 				behind_instance.set('scale',Vector2(node_scale,node_scale))
+				if hub.mode == 'Infinity':
+					behind_instance.set('modulate','b27fbd')
 				behind_instance.set_position(pos)
 				node_holder.add_child(behind_instance)
 				continue
 			var node_instance = node.instance()
 			node_holder.add_child(node_instance)
 			var behind_instance = behind_cell.instance()
+			if hub.mode == 'Infinity':
+				behind_instance.set('modulate','b27fbd')
 			node_holder.add_child(behind_instance)
 			node_positions[y].append(node_instance)
 			node_instance.set('scale',Vector2(node_scale,node_scale))
@@ -183,6 +189,7 @@ func gravity():
 	return empty
 
 func reset():
+	hub.on_block(true)
 	resetting = true
 	var reset_group_nodes = [[],[],[],[]]
 	var reset_group_operators = [[],[],[],[]]
@@ -253,8 +260,9 @@ func reset_level(reset_group_nodes,reset_group_operators):
 		yield(reset_timer,"timeout")
 		for node in reset_group_operators[0]:
 			pass
-	if hub.hint_box:
+	if hub.hint_box and main.level_number<100:
 		hub.hint_box.transparent(false)
+	hub.on_block(false)
 	resetting = false
 	emit_signal("reset_finished")
 
@@ -307,7 +315,7 @@ func _on_Tween_tween_completed(object, key):
 	pop_buffer = false
 	main.settled = true
 	main.calculator.value = 0
-	if main.level_number==100:
+	if main.level_number==100 and hub.mode == 'Levels':
 		hub.solved_100.appear()
 	pass # replace with function body
 
