@@ -29,6 +29,7 @@ func start():
 	setup_dimensions()
 	hub.hint_box.transparent(true)
 	hub.reset_box.transparent(true)
+	operators_holder.start()
 	current_level.start()
 func _input(INPUT):
 	if INPUT.is_action_released('left_click'):
@@ -103,6 +104,7 @@ func hint():
 		for operator in operators_holder.operators:
 			if operator.value == hint_type:
 				operator.hint()
+				operators_holder.pressed(operator)
 				break
 func operate_chain():
 	if int(current_operator) > 0:

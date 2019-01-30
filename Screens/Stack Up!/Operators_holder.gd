@@ -22,6 +22,7 @@ func start():
 			child.value = generate_operator()
 			if operators.size()>4:
 				child.in_zone(false)
+	pressed(operators[0])
 
 			
 	var tween = get_node('Tween')
@@ -38,7 +39,7 @@ func off_operator():
 		current_operator_id.animation.play('Pop')
 		current_operator_id = null
 		main.current_operator = null
-
+		pressed(operators[operator_index])
 func generate_operator():
 	var sum = 0
 	for operator in operator_chances:

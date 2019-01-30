@@ -94,24 +94,25 @@ func pressed(boo):
 	if active:
 		if boo:
 			pressed = true
-			sprite.set_texture(pressed_operator)
-			symbol.set_position(Vector2(0,21))
+			sprite.set_texture(small_operator)
+			symbol.set_position(Vector2(0,0))
 			set('modulate','ffffff')
 		else:
 			pressed = false
 			set('modulate','adadad')
-			sprite.set_texture(small_operator)
-			symbol.set_position(Vector2(0,0))
+			sprite.set_texture(pressed_operator)
+			symbol.set_position(Vector2(0,21))
 
 func _on_Operator_input_event(viewport, event, shape_idx):
 	if active:
 		if event.is_action_pressed('left_click'):
-			if pressed:
-				main.current_operator=null
-				container.current_operator_id = null
-				pressed(false)
-			else:
-				container.pressed(self)
+#			if pressed:
+#				main.current_operator=null
+#				container.current_operator_id = null
+#				pressed(false)
+#			else:
+#				container.pressed(self)
+			container.pressed(self)
 	pass # replace with function body
 
 func on(boo):
@@ -122,6 +123,7 @@ func on(boo):
 		else:
 			sprite.set('self_modulate',colours[value])
 	else:
+		pressed(false)
 		active = false
 		sprite.set('self_modulate','5d5d5d') #b9c9c9c9
 
@@ -129,7 +131,7 @@ func left(amount):
 	var current_position = get_position()
 	tween.interpolate_property(self,'position',current_position,current_position-Vector2(amount,0),0.25,tween.TRANS_LINEAR,tween.EASE_IN_OUT)
 	tween.start()
-	if container.operators.find(self) < 4:
+	if container.operators.find(self) < 4 and !active:
 		in_zone(true)
 
 func in_zone(boo):
@@ -141,12 +143,13 @@ func in_zone(boo):
 		active = false
 
 func reset():
-	if str(value) != '0':
-		on(true)
-		pressed(false)
-	else:
-		on(false)
-		pressed(true)
+	if !pressed:
+		if str(value) != '0':
+			on(true)
+			pressed(false)
+		else:
+			on(false)
+			pressed(true)
 
 func hint():
 	animation.play('Hint')

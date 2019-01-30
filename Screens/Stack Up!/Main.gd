@@ -33,6 +33,7 @@ var drop_timer
 func start():
 	.start()
 	drop_timer = get_node('DropTimer')
+	operators_holder.start()
 	current_level.start()
 	setup_dimensions()
 	load_progress()

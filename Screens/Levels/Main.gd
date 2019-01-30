@@ -34,6 +34,7 @@ func start():
 		next_level = neutral_level
 	level_select.value = progress_level
 	level_number = progress_level
+	operators_holder.start()
 	current_level.start()
 	change_level_number(progress_level)
 
@@ -85,6 +86,7 @@ func hint():
 		for operator in operators_holder.operators:
 			if operator.value == hint_type:
 				operator.hint()
+				operators_holder.pressed(operator)
 				break
 func operate_chain():
 	if level_number == 100:

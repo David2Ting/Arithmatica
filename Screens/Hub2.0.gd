@@ -122,7 +122,7 @@ func change_mode(new_mode):
 	operator_holders_area.add_child(new_operator_holder)
 	label_area.add_child(new_label)
 	new_main.start()
-	new_operator_holder.start()
+#	new_operator_holder.start()
 	new_label.start()
 	modes.get_children()[0].value = new_mode
 	modes.get_children()[1].value = mode_labels[new_mode][0]

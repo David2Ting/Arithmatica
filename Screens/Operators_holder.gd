@@ -56,12 +56,17 @@ func off_operator():
 	if current_operator_id:
 		current_operator_id.on(false)
 		current_operator_id = null
+		for i in range(operators.size()):
+			if operators[i].active:
+				pressed(operators[i])
+				return
 		main.current_operator = null
 
 func change_current_operator(new_current_operator):
 	current_operator = new_current_operator
 
 func pressed(obj):
+	print(obj)
 	for operator in operators:
 		if operator==obj:
 			main.current_operator=operator.value

@@ -149,6 +149,7 @@ func load_level(map_new,level_operators,goal_num,forwards,hint=[null,null]):
 	if hub.hint_box:
 		hub.hint_box.transparent(false)
 	#Hints
+	operators_holder.pressed(operators_holder.get_children()[1])
 func pop_nodes(select_chain,is_success):
 	if hub.hint_box:
 		hub.hint_box.transparent(true)
@@ -214,10 +215,11 @@ func reset():
 			rand = randi()%reset_group_nodes.size()
 		reset_group_operators[rand].append(operator)
 	reset_level(reset_group_nodes,reset_group_operators)
-	main.current_operator = null
+#	main.current_operator = null
 
 	
 func reset_level(reset_group_nodes,reset_group_operators):
+	print(reset_group_operators)
 	for i in range(reset_group_nodes.size()):
 		if reset_group_nodes[i].size()>0:
 			main.audio_player.stream = main.reset_sound
@@ -255,6 +257,9 @@ func reset_level(reset_group_nodes,reset_group_operators):
 					continue
 		for operator_info in reset_group_operators[i]:
 			operator_info.reset()
+			if operator_info == operators_holder.operators[0] and !main.current_operator:
+				print('nope')
+				operators_holder.pressed(operators_holder.operators[0])
 		reset_timer.set_wait_time(0.4-i*0.1)
 		reset_timer.start()
 		yield(reset_timer,"timeout")
