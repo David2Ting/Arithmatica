@@ -56,7 +56,15 @@ var new_level
 var new_operator_holder
 var new_label
 var hint_sound = preload("res://Sounds/Effects/Hint.wav")
+
+var NOTCHED = {
+		"iOS": {
+			Vector2(1125,2436): 50 #iPhone X
+		}
+	}
+	
 func _ready():
+	_set_margins()
 	globals.load_data()
 	change_mode(globals.user_data['mode'])
 	music_player.stream = song_start
@@ -64,9 +72,15 @@ func _ready():
 	audio_option.value = globals.user_data['audio']
 	yield(self,'start_change')
 	modes.get_children()[0].slow_appear()
-	# Called when the node is added to the scene for the first time.
-	# Initialization here
-	pass
+
+func _set_margins():
+	var os = OS.get_name()
+	var res = OS.get_screen_size()
+	var notched = false
+	if NOTCHED.has(os) and NOTCHED[os].has(res):
+		notched = NOTCHED[os][res]
+	if notched:
+		$BaseContainer.margin_top = notched
 
 func change_mode(new_mode):
 	var loading_screen = false
@@ -131,6 +145,7 @@ func change_mode(new_mode):
 	globals.user_data["mode"] = new_mode
 	globals.save_data()
 	emit_signal('mode_changed')
+	
 func cull_previous():
 	if new_main:
 		new_main.disappear()
