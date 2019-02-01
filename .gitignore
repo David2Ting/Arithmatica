@@ -2,7 +2,8 @@
 *.apk
 *.pck
 *.exe
-build/
+/build/
+/ios*/
 
 # Godot-specific ignores
 .import/
