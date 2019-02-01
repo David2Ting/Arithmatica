@@ -59,8 +59,10 @@ var hint_sound = preload("res://Sounds/Effects/Hint.wav")
 
 var NOTCHED = {
 		"iOS": {
-			Vector2(1125,2436): 50 #iPhone X
-		}
+			Vector2(1125,2436): 30, #iPhone X/Xs
+			Vector2(1242,2688): 30, #iPhone Xs Max
+			Vector2(750,1624): 30 #iPhone XR
+		},
 	}
 	
 func _ready():
