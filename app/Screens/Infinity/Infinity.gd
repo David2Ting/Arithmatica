@@ -66,5 +66,6 @@ func move(type):
 
 
 func _on_Tween_tween_completed(object, key):
+	print(key)
 	main.finish_movement()
 	pass # replace with function body

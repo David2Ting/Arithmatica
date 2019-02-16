@@ -148,14 +148,18 @@ func finish_movement():
 		selected_operators.clear()
 		operator_select_holder.calculate()
 		calculate_sum()
+		print('completed')
 	elif selecting_menu:
 		hub.on_block(false)
+		print('selecting')
 		selected_operators.clear()
 		operator_select_holder.calculate()
+		completed = false
 	else:
 		hub.on_block(false)
+		print('else')
+		completed = false
 
-	completed = false
 
 func _on_Tween_tween_completed(object, key):
 	if !active:

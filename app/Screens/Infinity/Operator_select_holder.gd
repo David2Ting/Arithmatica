@@ -79,6 +79,7 @@ func pop(operators):
 	if is_popping:
 		yield(self,'pop_finish')
 	gravity()
+	main.completed = false
 	hub.on_block(false)
 func gravity():
 	for y in range(0,operator_positions.size()):
