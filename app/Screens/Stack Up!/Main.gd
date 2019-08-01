@@ -102,7 +102,7 @@ func operate_chain():
 			streak = 0
 
 
-func success(last_node,index,dropping):
+func success(last_node,index=null,dropping=null):
 	last_node.animation.play('Success')
 	calculator.value = 'WIN'
 	hub.audio_player_2.stream = success_sound

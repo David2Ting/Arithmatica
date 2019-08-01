@@ -210,7 +210,7 @@ func special_success(node):
 	hub.audio_player_2.stream = success_sound
 	hub.audio_player_2.play()
 
-func success(last_node):
+func success(last_node, index=null, dropping=null):
 	last_node.animation.play('Success')
 	calculator.value = 'WIN'
 	current_level.pop_nodes(select_chain,true)

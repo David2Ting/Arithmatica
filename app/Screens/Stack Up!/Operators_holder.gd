@@ -57,7 +57,7 @@ func generate_operator():
 	operator_chances[value]-=1
 	return value
 
-func add_operator():
+func add_operator(operator = null):
 	var operator_instance = operator.instance()
 	operator_instance.set_scale(Vector2(1,1))
 	add_child(operator_instance)
